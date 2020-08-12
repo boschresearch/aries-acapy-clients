@@ -6,6 +6,7 @@
 package org.hyperledger.aries.api.credential;
 
 import com.google.gson.JsonObject;
+import com.google.gson.annotations.SerializedName;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ public class CredentialExchange {
     private String credentialExchangeId;
     private Boolean trace;
     private Boolean autoOffer;
-    private String credentialId;
+    private String credentialId; // TODO probably not part of the model any more
     private String state;
     private JsonObject credentialOffer;
     private String connectionId;
@@ -32,6 +33,7 @@ public class CredentialExchange {
     private JsonObject credentialOfferDict;
     private JsonObject credentialRequest;
     private JsonObject credentialProposalDict;
+    @SerializedName(value = "cred_def_id", alternate = "credential_definition_id")
     private String credentialDefinitionId;
     private String schemaId;
     private String createdAt;

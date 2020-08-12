@@ -6,7 +6,7 @@
 package org.hyperledger.aries.webhook;
 
 import org.hyperledger.aries.api.connection.ConnectionRecord;
-import org.hyperledger.aries.api.credential.IssueCredentialEvent;
+import org.hyperledger.aries.api.credential.CredentialExchange;
 import org.hyperledger.aries.api.message.BasicMessage;
 import org.hyperledger.aries.api.message.PingEvent;
 import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
@@ -32,7 +32,7 @@ public abstract class EventHandler {
                     handleProof(proof);
                 });
             } else if ("issue_credential".equals(eventType)) {
-                parser.parseValueSave(json, IssueCredentialEvent.class).ifPresent(credential -> {
+                parser.parseValueSave(json, CredentialExchange.class).ifPresent(credential -> {
                     handleCredential(credential);
                 });
             } else if ("basicmessages".equals(eventType)) {
@@ -57,7 +57,7 @@ public abstract class EventHandler {
         log.debug("Present Proof Event: {}", proof);
     }
 
-    public void handleCredential(IssueCredentialEvent credential) {
+    public void handleCredential(CredentialExchange credential) {
         log.debug("Issue Credential Event: {}", credential);
     }
 

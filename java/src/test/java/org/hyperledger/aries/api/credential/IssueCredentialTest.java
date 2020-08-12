@@ -5,7 +5,11 @@
  */
 package org.hyperledger.aries.api.credential;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.UUID;
 
 import org.hyperledger.aries.IntegrationTestBase;
 import org.hyperledger.aries.api.exception.AriesException;
@@ -19,6 +23,17 @@ class IssueCredentialTest extends IntegrationTestBase {
         assertThrows(AriesException.class, () -> {
             ac.issueCredentialSend(ic);
         });
+    }
+
+    @Test
+    void testIssueCredentialStore() throws Exception {
+        String uuid = UUID.randomUUID().toString();
+        try {
+            ac.issueCredentialRecordsStore(uuid);
+            fail("Expected AriesException to be thrown");
+        } catch (AriesException e) {
+            assertEquals("Record not found: " + uuid + ".", e.getMessage());
+        }
     }
 
 }

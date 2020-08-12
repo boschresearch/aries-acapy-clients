@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Optional;
 
 import org.hyperledger.aries.api.connection.ConnectionRecord;
-import org.hyperledger.aries.api.credential.IssueCredentialEvent;
+import org.hyperledger.aries.api.credential.CredentialExchange;
 import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
 import org.hyperledger.aries.pojo.AttributeName;
 import org.hyperledger.aries.util.FileLoader;
@@ -37,9 +37,9 @@ public class EventParserTest {
     @Test
     void testParseIssuedCredential() {
         String json = loader.load("events/issue-credential.json");
-        Optional<IssueCredentialEvent> con = parser.parseValueSave(json, IssueCredentialEvent.class);
+        Optional<CredentialExchange> con = parser.parseValueSave(json, CredentialExchange.class);
         assertTrue(con.isPresent());
-        IssueCredentialEvent cred = con.get();
+        CredentialExchange cred = con.get();
         assertEquals("holder", cred.getRole());
         assertNotNull(cred.getCredentialDefinitionId());
         assertNotNull(cred.getCredential());

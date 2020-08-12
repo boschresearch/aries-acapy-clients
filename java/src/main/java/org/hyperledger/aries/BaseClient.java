@@ -79,8 +79,7 @@ abstract class BaseClient {
             if (resp.isSuccessful() && resp.body() != null) {
                 result = Optional.of(gson.fromJson(resp.body().string(), t));
             } else if (!resp.isSuccessful()) {
-                log.error("code={} message={}", Integer.valueOf(resp.code()), resp.message());
-                throw new AriesException(resp.code(), resp.message());
+                handleError(resp);
             }
         }
         return result;
@@ -92,9 +91,7 @@ abstract class BaseClient {
             if (resp.isSuccessful() && resp.body() != null) {
                 result = Optional.of(resp.body().string());
             } else if (!resp.isSuccessful()) {
-                String msg = StringUtils.isNotEmpty(resp.message()) ? resp.message() : resp.body().string();
-                log.error("code={} message={}", Integer.valueOf(resp.code()), msg);
-                throw new AriesException(resp.code(), msg);
+                handleError(resp);
             }
         }
         return result;
@@ -103,8 +100,7 @@ abstract class BaseClient {
     void call(Request req) throws IOException {
         try (Response resp = client.newCall(req).execute()) {
             if (!resp.isSuccessful()) {
-                log.error("code={} message={}", Integer.valueOf(resp.code()), resp.message());
-                throw new AriesException(resp.code(), resp.message());
+                handleError(resp);
             }
         }
     }
@@ -127,5 +123,11 @@ abstract class BaseClient {
                 throw new AriesException(0, error.getError());
             }
         }
+    }
+
+    private static void handleError(Response resp) throws IOException {
+        String msg = StringUtils.isNotEmpty(resp.message()) ? resp.message() : resp.body().string();
+        log.error("code={} message={}", Integer.valueOf(resp.code()), msg);
+        throw new AriesException(resp.code(), msg);
     }
 }

@@ -298,6 +298,19 @@ public class AriesClient extends BaseClient {
         return call(req, CredentialExchange.class);
     }
 
+    /**
+     * Store a received credential
+     * @param credentialExchangeId the credential exchange id
+     * @return {@link CredentialExchange}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<CredentialExchange> issueCredentialRecordsStore(@NonNull String credentialExchangeId)
+            throws IOException {
+        Request req = buildPost(url + "/issue-credential/records/" + credentialExchangeId + "/store", "");
+        return call(req, CredentialExchange.class);
+    }
+
+
     // ----------------------------------------------------
     // Credentials- Holder Credential Management
     // ----------------------------------------------------
