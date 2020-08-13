@@ -56,6 +56,7 @@ import org.hyperledger.aries.api.revocation.RevRegsCreated;
 import org.hyperledger.aries.api.revocation.RevocationRegistryState;
 import org.hyperledger.aries.api.schema.SchemaSendRequest;
 import org.hyperledger.aries.api.schema.SchemaSendResponse;
+import org.hyperledger.aries.api.schema.SchemaSendResponse.Schema;
 import org.hyperledger.aries.api.server.AdminStatusLiveliness;
 import org.hyperledger.aries.api.server.AdminStatusReadiness;
 import org.hyperledger.aries.api.wallet.GetDidEndpointResponse;
@@ -475,6 +476,17 @@ public class AriesClient extends BaseClient {
     public Optional<SchemaSendResponse> schemas(@NonNull SchemaSendRequest schema) throws IOException {
         Request req = buildPost(url + "/schemas", schema);
         return call(req, SchemaSendResponse.class);
+    }
+
+    /**
+     * Gets a schema from the ledger
+     * @param schemaId the schemas id or sequence number
+     * @return {@link Schema}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<Schema> schemasGetById(@NonNull String schemaId) throws IOException {
+        Request req = buildGet(url + "/schemas/" + schemaId);
+        return getWrapped(raw(req), "schema", Schema.class);
     }
 
     // ----------------------------------------------------

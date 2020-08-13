@@ -46,6 +46,7 @@ Convenience library based on okhttp and gson to interact with aries cloud agent 
 | /revocation/registry/{rev_reg_id}/publish    | :white_check_mark:           |
 | **schemas**                                  |                              |
 | /schemas                                     | :white_check_mark:           |
+| /schemas/{schema_id}                         | :white_check_mark:           |
 | **server**                                   |                              |
 | /status/live                                 | :white_check_mark:           |
 | /status/ready                                | :white_check_mark:           |

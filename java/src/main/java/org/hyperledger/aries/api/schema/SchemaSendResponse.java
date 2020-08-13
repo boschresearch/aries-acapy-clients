@@ -7,6 +7,8 @@ package org.hyperledger.aries.api.schema;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +25,9 @@ public class SchemaSendResponse {
         private String id;
         private String name;
         private String version;
+        @SerializedName("attrNames")
         private List<String> attrNames;
+        @SerializedName("seqNo")
         private Integer seqNo;
     }
 }

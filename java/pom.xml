@@ -40,7 +40,7 @@
         <maven.surefire.version>2.22.2</maven.surefire.version>
         <!-- Dependency Versions -->
         <junit.jupiter.api.version>5.6.2</junit.jupiter.api.version>
-        <okhttp.version>4.8.0</okhttp.version>
+        <okhttp.version>4.8.1</okhttp.version>
         <pmd.version>6.25.0</pmd.version>
         <testcontainers.version>1.14.3</testcontainers.version>
     </properties>

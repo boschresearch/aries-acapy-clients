@@ -22,7 +22,7 @@ public class CredentialExchange {
     private String credentialExchangeId;
     private Boolean trace;
     private Boolean autoOffer;
-    private String credentialId; // TODO probably not part of the model any more
+    private String credentialId; // only set when the state is credential_acked
     private String state;
     private JsonObject credentialOffer;
     private String connectionId;
