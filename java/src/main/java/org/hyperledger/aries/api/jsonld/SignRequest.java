@@ -44,7 +44,7 @@ public final class SignRequest {
     public static final class SignDocument {
 
         @NonNull @Nonnull
-        private JsonObject credential;  // either VC or VP
+        private JsonObject credential; // either VC or VP
 
         @NonNull @Nonnull
         private Options options;
@@ -69,7 +69,7 @@ public final class SignRequest {
                         .builder()
                         .type("Ed25519Signature2018")
                         .created(TimeUtil.currentTimeFormatted())
-                        .proofPurpose("assertionMethod");
+                        .proofPurpose("authentication"); // VP = authentication, VC = assertionMethod
             }
         }
     }

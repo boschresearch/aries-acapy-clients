@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
+import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest.ProofAttributes.ProofNonRevoked;
 import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest.ProofAttributes.ProofRestrictions;
 
 import com.google.gson.annotations.SerializedName;
@@ -45,6 +46,8 @@ public class PresentProofRequest {
         private String version = "1.0";
 
         private String nonce;
+
+        private ProofNonRevoked nonRevoked;
 
         @Builder.Default
         private Map<String, ProofAttributes> requestedAttributes = new LinkedHashMap<>();
@@ -86,7 +89,7 @@ public class PresentProofRequest {
 
                 private String schemaIssuerDid;
 
-                @SerializedName(value = "credential_definition_id", alternate = "cred_def_id")
+                @SerializedName(value = "cred_def_id", alternate = "credential_definition_id")
                 private String credentialDefinitionId;
 
                 private String issuerDid;

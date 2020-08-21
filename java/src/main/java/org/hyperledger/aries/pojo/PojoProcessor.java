@@ -6,10 +6,12 @@
 package org.hyperledger.aries.pojo;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
@@ -19,20 +21,36 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PojoProcessor {
 
-    public @Nonnull static <T> List<String> fieldNames(@NonNull Class<T> type) {
-        List<String> result = new ArrayList<>();
+    public static @Nonnull <T> List<String> fieldNames(@NonNull Class<T> type) {
+        return fields(type).stream().map(PojoProcessor::fieldName).collect(Collectors.toList());
+    }
+
+    public static @Nonnull <T> List<Field> fields(@NonNull Class<T> type) {
+        List<Field> result = new ArrayList<>();
         Field[] fields = type.getDeclaredFields();
 
         for (int i = 0; i < fields.length; i++) {
             AttributeName an = fields[i].getAnnotation(AttributeName.class);
-            if (an == null || !an.excluded()) {
-                result.add(fields[i].getName());
+            if ((an == null || !an.excluded())
+                    && Modifier.isPrivate(fields[i].getModifiers())) {
+                result.add(fields[i]);
             }
         }
         return result;
     }
 
-    public @Nonnull static <T> T getInstance(@NonNull Class<T> type) {
+    public static @Nonnull String fieldName(@NonNull Field field) {
+        String fieldName;
+        AttributeName an = field.getAnnotation(AttributeName.class);
+        if (an != null) {
+            fieldName = an.value();
+        } else {
+            fieldName = field.getName();
+        }
+        return fieldName;
+    }
+
+    public static @Nonnull <T> T getInstance(@NonNull Class<T> type) {
         return AccessController.doPrivileged((PrivilegedAction<T>) () -> {
             T result = null;
             try {

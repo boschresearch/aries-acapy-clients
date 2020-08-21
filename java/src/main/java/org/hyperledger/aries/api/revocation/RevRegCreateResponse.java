@@ -20,7 +20,7 @@ public class RevRegCreateResponse {
     private String createdAt;
     private RevocRegDef revocRegDef;
     private String issuerDid;
-    @SerializedName(value = "credDefId", alternate = "cred_def_id")
+    @SerializedName(value = "cred_def_id", alternate = "credDefId")
     private String credDefId;
     private String tag;
     private String tailsHash;

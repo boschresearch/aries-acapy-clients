@@ -46,8 +46,6 @@ import org.hyperledger.aries.api.message.PingRequest;
 import org.hyperledger.aries.api.message.PingResponse;
 import org.hyperledger.aries.api.proof.PresentProofProposal;
 import org.hyperledger.aries.api.proof.PresentProofRequest;
-import org.hyperledger.aries.api.proof.PresentProofRequestResponse;
-import org.hyperledger.aries.api.proof.PresentProofResponse;
 import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
 import org.hyperledger.aries.api.revocation.RevRegCreateRequest;
 import org.hyperledger.aries.api.revocation.RevRegCreateResponse;
@@ -419,37 +417,37 @@ public class AriesClient extends BaseClient {
     /**
      * Sends a presentation proposal
      * @param proofProposal {@link PresentProofProposal}
-     * @return {@link PresentProofResponse}
+     * @return {@link PresentationExchangeRecord}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public Optional<PresentProofResponse> presentProofSendProposal(@NonNull PresentProofProposal proofProposal)
+    public Optional<PresentationExchangeRecord> presentProofSendProposal(@NonNull PresentProofProposal proofProposal)
             throws IOException{
         Request req = buildPost(url + "/present-proof/send-proposal", proofProposal);
-        return call(req, PresentProofResponse.class);
+        return call(req, PresentationExchangeRecord.class);
     }
 
     /**
      * Creates a presentation request not bound to any proposal or existing connection
      * @param proofRequest {@link PresentProofRequest}
-     * @return {@link PresentProofRequestResponse}
+     * @return {@link PresentationExchangeRecord}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public Optional<PresentProofRequestResponse> presentProofCreateRequest(@NonNull PresentProofRequest proofRequest)
+    public Optional<PresentationExchangeRecord> presentProofCreateRequest(@NonNull PresentProofRequest proofRequest)
             throws IOException {
         Request req = buildPost(url + "/present-proof/create-request", proofRequest);
-        return call(req, PresentProofRequestResponse.class);
+        return call(req, PresentationExchangeRecord.class);
     }
 
     /**
      * Sends a free presentation request not bound to any proposal
      * @param proofRequest {@link PresentProofRequest}
-     * @return {@link PresentProofResponse}
+     * @return {@link PresentationExchangeRecord}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public Optional<PresentProofResponse> presentProofSendRequest(@NonNull PresentProofRequest proofRequest)
+    public Optional<PresentationExchangeRecord> presentProofSendRequest(@NonNull PresentProofRequest proofRequest)
             throws IOException {
         Request req = buildPost(url + "/present-proof/send-request", proofRequest);
-        return call(req, PresentProofResponse.class);
+        return call(req, PresentationExchangeRecord.class);
     }
 
     /**

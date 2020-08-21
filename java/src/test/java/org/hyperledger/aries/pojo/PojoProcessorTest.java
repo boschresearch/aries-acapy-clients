@@ -28,13 +28,15 @@ class PojoProcessorTest {
     @Test
     void testGetAttributesExclusion() {
         List<String> attr = PojoProcessor.fieldNames(ConcreteExampleWithExclusion.class);
-        assertEquals(2, attr.size());
+        assertEquals(3, attr.size());
         assertEquals("name", attr.get(0));
         assertEquals("street", attr.get(1));
+        assertEquals("myCity", attr.get(2));
     }
 
     @Data @NoArgsConstructor @AllArgsConstructor
     static class ConcreteExample {
+        public static final String DUMMY = "public dummy field";
         private String one;
         private String two;
     }
@@ -45,6 +47,8 @@ class PojoProcessorTest {
         private String street;
         @AttributeName(excluded = true)
         private String other;
+        @AttributeName(value = "myCity")
+        private String city;
     }
 
 }

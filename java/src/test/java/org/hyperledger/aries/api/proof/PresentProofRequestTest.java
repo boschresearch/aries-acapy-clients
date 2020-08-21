@@ -23,7 +23,7 @@ class PresentProofRequestTest extends IntegrationTestBase {
         PresentProofConfig config = PresentProofConfig.builder()
                 .appendAttribute(List.of("name", "email"), ProofRestrictions.builder().build())
                 .build();
-        Optional<PresentProofRequestResponse> resp = ac.presentProofCreateRequest(PresentProofRequest.build(config));
+        Optional<PresentationExchangeRecord> resp = ac.presentProofCreateRequest(PresentProofRequest.build(config));
         assertTrue(resp.isPresent());
         assertNotNull(resp.get().getPresentationExchangeId());
         assertEquals(2, resp.get().getPresentationRequest().getRequestedAttributes().size());

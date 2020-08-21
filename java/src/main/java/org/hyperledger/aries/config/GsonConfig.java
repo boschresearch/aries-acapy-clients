@@ -12,14 +12,21 @@ import com.google.gson.GsonBuilder;
 public class GsonConfig {
 
     public static Gson defaultConfig() {
-        return new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .create();
+        return defaultBuilder()
+                .create()
+                ;
     }
 
     public static Gson prettyPrinter() {
-        return new GsonBuilder()
+        return defaultBuilder()
                 .setPrettyPrinting()
-                .create();
+                .create()
+                ;
+    }
+
+    private static GsonBuilder defaultBuilder() {
+        return new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                ;
     }
 }

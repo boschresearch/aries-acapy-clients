@@ -147,5 +147,45 @@ public class MyHandler extends EventHandler {
     }
 }
 ```
+## Build Connectionless Proof Request
 
+Connectionless proofs are more a thing of mobile wallets, because mostly they involve something that is presented to a human
+like a barcode, but the java client supports this by providing models and builders.
 
+A flow has the usually following steps:
+
+1. The user is presented with a QRCode that contains an invite URL like: https://myhost.com/url/1234
+2. The server side HTTP handler of this URL responds with a HTTP.FOUND response that has the proof request encoded in the m parameter
+3. The mobile wallet tries to match a credential, and then responds with a proof if possible
+3. The server side WebhookHandler waits for the proof and then triggers further actions
+
+```java
+@Get("/url/{requestId}")
+public HttpResponse<Object> connectionLessProof(@QueryValue String requestId) {
+    boolean matchingRequest = false; // TODO manage request states
+    String proofRequestBase64 = ""; // TODO on how to build this see the example below
+    if (matchingRequest) {
+        return HttpResponse
+                .status(HttpStatus.FOUND)
+                .header("location", deploymentUri + "?m=" + proofRequestBase64;
+    }
+    return HttpResponse.notFound();
+}
+```
+Proof Request Builder Example
+
+```java
+ProofRequestPresentationBuilder builder = new ProofRequestPresentationBuilder(ariesClient);
+
+PresentProofConfig config = PresentProofConfig.builder()
+    .appendAttribute(
+        List.of("name", "email"),
+        ProofRestrictions
+            .builder()
+            .schemaId("WgWxqztrNooG92RXvxSTWv:2:schema_name:1.0")
+            .build())
+        .build();
+
+Optional<String> base64 = builder.buildRequest(config);
+
+```

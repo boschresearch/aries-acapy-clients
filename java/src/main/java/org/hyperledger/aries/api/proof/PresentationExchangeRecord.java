@@ -7,6 +7,7 @@ package org.hyperledger.aries.api.proof;
 
 import java.util.List;
 
+import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest;
 import org.hyperledger.aries.pojo.AttributeName;
 import org.hyperledger.aries.webhook.EventParser;
 
@@ -29,6 +30,8 @@ public class PresentationExchangeRecord {
 
     private String state;
 
+    private String errorMsg;
+
     private String role;
 
     private String initiator;
@@ -45,9 +48,11 @@ public class PresentationExchangeRecord {
 
     private JsonObject presentation;
 
-    private JsonObject presentationRequest;
+    private ProofRequest presentationRequest;
 
     private JsonObject presentationProposalDict;
+
+    private JsonObject presentationRequestDict;
 
     public boolean hasCredentialDefinitionId(@NonNull String credentialDefinitionId) {
         if (identifiers != null) {

@@ -18,7 +18,6 @@ import java.util.Set;
 import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
 import org.hyperledger.aries.api.proof.PresentationExchangeRecord.Identifier;
 import org.hyperledger.aries.config.GsonConfig;
-import org.hyperledger.aries.pojo.AttributeName;
 import org.hyperledger.aries.pojo.PojoProcessor;
 
 import com.google.gson.Gson;
@@ -67,6 +66,7 @@ public class EventParser {
     }
 
     /**
+     * Converts the present_proof.presentation into an instance of the provided class type:
      * @param <T> The class type
      * @param json present_proof.presentation
      * @param type POJO instance
@@ -76,24 +76,16 @@ public class EventParser {
         T result = PojoProcessor.getInstance(type);
 
         Set<Entry<String, JsonElement>> revealedAttrs = getRevealedAttributes(json);
-        Field[] fields = type.getDeclaredFields();
+        List<Field> fields = PojoProcessor.fields(type);
         AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
-            for (int i = 0; i < fields.length; i++) {
-                String fieldName;
-                AttributeName a = fields[i].getAnnotation(AttributeName.class);
-                if (a != null) {
-                    fieldName = a.value();
-                } else {
-                    fieldName = fields[i].getName();
-                }
-                if (a == null || !a.excluded()) {
-                    String fieldValue = getValueFor(fieldName, revealedAttrs);
-                    try {
-                        fields[i].setAccessible(true);
-                        fields[i].set(result, fieldValue);
-                    } catch (IllegalAccessException | IllegalArgumentException e) {
-                        log.error("Could not set value of field: {} to: {}", fieldName, fieldValue, e);
-                    }
+            for(Field field: fields) {
+                String fieldName = PojoProcessor.fieldName(field);
+                String fieldValue = getValueFor(fieldName, revealedAttrs);
+                try {
+                    field.setAccessible(true);
+                    field.set(result, fieldValue);
+                } catch (IllegalAccessException | IllegalArgumentException e) {
+                    log.error("Could not set value of field: {} to: {}", fieldName, fieldValue, e);
                 }
             }
             return null; // nothing to return

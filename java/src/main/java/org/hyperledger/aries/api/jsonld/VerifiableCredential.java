@@ -10,6 +10,8 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.google.gson.annotations.SerializedName;
@@ -26,6 +28,7 @@ import lombok.NonNull;
  */
 @Data @Builder @NoArgsConstructor @AllArgsConstructor
 @JsonPropertyOrder({ "@context", "type" })
+@JsonInclude(Include.NON_NULL)
 public class VerifiableCredential {
 
     @Builder.Default
@@ -54,4 +57,18 @@ public class VerifiableCredential {
 
     @Nullable
     private Proof proof;
+
+    // Verifiable Indy Credential
+
+    @Nullable
+    @SerializedName("indyIssuer")
+    private String indyIssuer;
+
+    @Nullable
+    @SerializedName("schemaId")
+    private String schemaId;
+
+    @Nullable
+    @SerializedName("credDefId")
+    private String credDefId;
 }

@@ -23,7 +23,7 @@ public class MockedPresentProofTest extends MockedTestBase {
     @Test
     void testParsePresentationResponse() throws Exception {
         String json = loader.load("files/present-proof-request-response.json");
-        PresentProofRequestResponse response = gson.fromJson(json, PresentProofRequestResponse.class);
+        PresentationExchangeRecord response = gson.fromJson(json, PresentationExchangeRecord.class);
         assertEquals("23243302324860431744596330413752559589", response.getPresentationRequest().getNonce());
     }
 
