@@ -10,6 +10,8 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.hyperledger.aries.config.CredDefId;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -69,6 +71,6 @@ public class VerifiableCredential {
     private String schemaId;
 
     @Nullable
-    @SerializedName("credDefId")
+    @SerializedName(CredDefId.CREDDEFID)
     private String credDefId;
 }

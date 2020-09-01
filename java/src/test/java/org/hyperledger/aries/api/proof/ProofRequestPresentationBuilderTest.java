@@ -34,7 +34,7 @@ class ProofRequestPresentationBuilderTest extends IntegrationTestBase {
     void testBuildConnectionlessProofRequest() throws Exception {
         ProofRequestPresentationBuilder builder = new ProofRequestPresentationBuilder(ac);
 
-        PresentProofConfig config = PresentProofConfig.builder()
+        PresentProofRequestConfig config = PresentProofRequestConfig.builder()
                 .appendAttribute(
                         List.of("name", "email"),
                         ProofRestrictions

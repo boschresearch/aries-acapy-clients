@@ -7,6 +7,8 @@ package org.hyperledger.aries.api.wallet;
 
 import javax.annotation.Nullable;
 
+import org.hyperledger.aries.api.ledger.EndpointType;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,9 +18,9 @@ import lombok.NonNull;
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class SetDidEndpointRequest {
     /**
-     *  Endpoint type to set (default 'endpoint'). Affects only public DIDs.
+     *  Endpoint type to set (default 'Endpoint'); affects only public DIDs.
      */
-    @Nullable private String endpointType;
+    @Nullable private EndpointType endpointType;
 
     @NonNull private String did;
 

@@ -7,45 +7,79 @@ package org.hyperledger.aries.api.proof;
 
 import java.util.List;
 
-import org.hyperledger.aries.api.credential.CredentialAttributes;
+import org.hyperledger.aries.api.proof.PresentProofProposal.PresentationPreview.PresAttrSpec;
+import org.hyperledger.aries.config.CredDefId;
 
 import com.google.gson.annotations.SerializedName;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @NoArgsConstructor
+/**
+ * Aka PresentationProposalRequest
+ * This model is used to build a presentation proposal request, or in other words to send a proof.
+ *
+ */
+@Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class PresentProofProposal {
 
     private String connectionId;
 
-    private PresentationProposal presentationProposal;
+    private PresentationPreview presentationProposal;
 
-    public PresentProofProposal(String connectionId, List<CredentialAttributes> attr) {
+    private Boolean trace;
+
+    private Boolean autoPresent;
+
+    private String comment;
+
+    public PresentProofProposal(String connectionId, List<PresAttrSpec> attr) {
         super();
         this.connectionId = connectionId;
-        this.presentationProposal = new PresentationProposal(attr);
+        this.presentationProposal = new PresentationPreview(attr);
     }
 
-    @Data @NoArgsConstructor
-    public static final class PresentationProposal {
-        @SerializedName("@type")
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static final class PresentationPreview {
+        @SerializedName("@type") @Builder.Default
         private String type = "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/present-proof/1.0/presentation-preview";
-        private List<CredentialAttributes> attributes = List.of();
-        private List<Predicate> predicates = List.of();
-        public PresentationProposal(List<CredentialAttributes> attributes) {
+        @Builder.Default
+        private List<PresAttrSpec> attributes = List.of();
+        @Builder.Default
+        private List<PresPredSpec> predicates = List.of();
+
+        public PresentationPreview(List<PresAttrSpec> attributes) {
             super();
             this.attributes = attributes;
         }
+
+        public PresentationPreview(List<PresAttrSpec> attributes, List<PresPredSpec> predicates) {
+            this(attributes);
+            this.predicates = predicates;
+        }
+
+        @Data @NoArgsConstructor @AllArgsConstructor @Builder
+        public static final class PresAttrSpec {
+            private String name;
+            private String value;
+            @SerializedName(value = CredDefId.CRED_DEF_ID, alternate = CredDefId.CREDENTIAL_DEFINITION_ID)
+            private String credentialDefinitionId;
+            @SerializedName(value = "mime-type")
+            private String mimeType;
+            private String referent;
+        }
+
+        @Data @NoArgsConstructor @AllArgsConstructor @Builder
+        public static final class PresPredSpec {
+            private String name;
+            @SerializedName(value = CredDefId.CRED_DEF_ID, alternate = CredDefId.CREDENTIAL_DEFINITION_ID)
+            private String credentialDefinitionId;
+            private String predicate;
+            private Integer treshold;
+        }
     }
 
-    @Data @NoArgsConstructor
-    public static final class Predicate {
-        private String name;
-        @SerializedName(value = "cred_def_id", alternate = "credential_definition_id")
-        private String credentialDefinitionId;
-        private String predicate;
-        private Integer treshold;
-    }
 
 }

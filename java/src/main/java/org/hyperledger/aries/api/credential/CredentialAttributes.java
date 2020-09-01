@@ -11,10 +11,9 @@ import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
-import org.apache.commons.lang3.StringUtils;
 import org.hyperledger.aries.pojo.AttributeName;
+
+import com.google.gson.annotations.SerializedName;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,20 +27,15 @@ public class CredentialAttributes {
 
     private String name;
     private String value;
-    private String credentialDefinitionId;
+    @SerializedName(value = "mime-type")
+    private String mimeType;
 
     public CredentialAttributes(String name, String value) {
+        super();
         this.name = name;
         this.value = value;
     }
-
     public static <T> List<CredentialAttributes> from(@NonNull T instance) {
-        return from(instance, null);
-    }
-
-    public static <T> List<CredentialAttributes> from(
-            @NonNull T instance,
-            @Nullable String credentialDefinitionId) {
         List<CredentialAttributes> result = new ArrayList<>();
         Field[] fields = instance.getClass().getDeclaredFields();
         AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
@@ -59,11 +53,7 @@ public class CredentialAttributes {
                     } catch (IllegalAccessException | IllegalArgumentException e) {
                         log.error("Could not get value of field: {}", fieldName, e);
                     }
-                    if (StringUtils.isNotEmpty(credentialDefinitionId)) {
-                        result.add(new CredentialAttributes(fieldName, fieldValue, credentialDefinitionId));
-                    } else {
-                        result.add(new CredentialAttributes(fieldName, fieldValue));
-                    }
+                    result.add(new CredentialAttributes(fieldName, fieldValue));
                 }
             }
             return null; // nothing to return

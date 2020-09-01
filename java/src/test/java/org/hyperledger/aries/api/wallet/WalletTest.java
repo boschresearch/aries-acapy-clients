@@ -51,7 +51,6 @@ public class WalletTest extends IntegrationTestBase {
         final String url = "http://localhost:8031";
         SetDidEndpointRequest req = SetDidEndpointRequest
                 .builder()
-                // .endpointType("masterdata")
                 .endpoint(url)
                 .did(localDid.get().getDid())
                 .build();

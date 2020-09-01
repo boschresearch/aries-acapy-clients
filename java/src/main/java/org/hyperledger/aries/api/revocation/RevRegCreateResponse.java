@@ -5,6 +5,8 @@
  */
 package org.hyperledger.aries.api.revocation;
 
+import org.hyperledger.aries.config.CredDefId;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
@@ -20,7 +22,7 @@ public class RevRegCreateResponse {
     private String createdAt;
     private RevocRegDef revocRegDef;
     private String issuerDid;
-    @SerializedName(value = "cred_def_id", alternate = "credDefId")
+    @SerializedName(value = CredDefId.CRED_DEF_ID, alternate = CredDefId.CREDDEFID)
     private String credDefId;
     private String tag;
     private String tailsHash;
@@ -50,7 +52,7 @@ public class RevRegCreateResponse {
         @SerializedName(value = "revocDefType", alternate = "revoc_def_type")
         private String revocDefType;
         private String tag;
-        @SerializedName(value = "credDefId", alternate = "credential_definition_id")
+        @SerializedName(value = CredDefId.CREDDEFID, alternate = CredDefId.CREDENTIAL_DEFINITION_ID)
         private String credDefId;
         private RevocRegDefValue value;
 

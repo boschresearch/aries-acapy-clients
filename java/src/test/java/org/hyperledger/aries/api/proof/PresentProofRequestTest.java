@@ -20,7 +20,7 @@ class PresentProofRequestTest extends IntegrationTestBase {
 
     @Test
     void testProofCreateRequest() throws Exception {
-        PresentProofConfig config = PresentProofConfig.builder()
+        PresentProofRequestConfig config = PresentProofRequestConfig.builder()
                 .appendAttribute(List.of("name", "email"), ProofRestrictions.builder().build())
                 .build();
         Optional<PresentationExchangeRecord> resp = ac.presentProofCreateRequest(PresentProofRequest.build(config));

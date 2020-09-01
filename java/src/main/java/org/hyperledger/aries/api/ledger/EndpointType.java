@@ -5,12 +5,25 @@
  */
 package org.hyperledger.aries.api.ledger;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
+ * Endpoint request types
+ *
  * @since aca-py 0.5.4
  *
  */
+@Getter
+@AllArgsConstructor
 public enum EndpointType {
-    endpoint,
-    Profile,
-    LinkedDomains
+    Endpoint("endpoint"),
+    Profile("profile"),
+    LinkedDomains("linked_domains")
+    ;
+
+    /**
+     * The name of the endpoint how its written to the ledger
+     */
+    private String ledgerName;
 }

@@ -22,7 +22,7 @@ import lombok.NonNull;
 import lombok.experimental.Accessors;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Accessors(chain = true)
-public class PresentProofConfig {
+public class PresentProofRequestConfig {
 
     private String connectionId;
 
@@ -83,8 +83,8 @@ public class PresentProofConfig {
             return this;
         }
 
-        public PresentProofConfig build() {
-            return new PresentProofConfig(cId, attributes);
+        public PresentProofRequestConfig build() {
+            return new PresentProofRequestConfig(cId, attributes);
         }
     }
 

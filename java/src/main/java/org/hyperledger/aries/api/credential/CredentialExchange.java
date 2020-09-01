@@ -5,6 +5,8 @@
  */
 package org.hyperledger.aries.api.credential;
 
+import org.hyperledger.aries.config.CredDefId;
+
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
@@ -33,7 +35,7 @@ public class CredentialExchange {
     private JsonObject credentialOfferDict;
     private JsonObject credentialRequest;
     private JsonObject credentialProposalDict;
-    @SerializedName(value = "cred_def_id", alternate = "credential_definition_id")
+    @SerializedName(value = CredDefId.CRED_DEF_ID, alternate = CredDefId.CREDENTIAL_DEFINITION_ID)
     private String credentialDefinitionId;
     private String schemaId;
     private String createdAt;

@@ -11,6 +11,7 @@ import java.security.PrivilegedAction;
 import java.util.List;
 import java.util.Map;
 
+import org.hyperledger.aries.config.CredDefId;
 import org.hyperledger.aries.pojo.PojoProcessor;
 
 import com.google.gson.annotations.SerializedName;
@@ -31,7 +32,7 @@ public class Credential {
 
     private String schemaId;
 
-    @SerializedName(value = "credential_definition_id", alternate = "cred_def_id")
+    @SerializedName(value = CredDefId.CREDENTIAL_DEFINITION_ID, alternate = CredDefId.CRED_DEF_ID)
     private String credentialDefinitionId;
 
     private String revRegId;

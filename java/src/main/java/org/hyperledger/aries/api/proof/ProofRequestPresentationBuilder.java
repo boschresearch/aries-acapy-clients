@@ -30,7 +30,7 @@ public class ProofRequestPresentationBuilder {
         this.acaPy = acaPy;
     }
 
-    public Optional<String> buildRequest(PresentProofConfig config) throws IOException {
+    public Optional<String> buildRequest(PresentProofRequestConfig config) throws IOException {
 
         Optional<String> result = Optional.empty();
 

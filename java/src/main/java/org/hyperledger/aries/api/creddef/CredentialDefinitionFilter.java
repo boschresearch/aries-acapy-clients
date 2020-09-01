@@ -8,6 +8,7 @@ package org.hyperledger.aries.api.creddef;
 import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hyperledger.aries.config.CredDefId;
 
 import lombok.Builder;
 import lombok.Data;
@@ -26,7 +27,7 @@ public class CredentialDefinitionFilter {
 
     public HttpUrl.Builder buildParams(@NonNull HttpUrl.Builder b) {
         if (StringUtils.isNotEmpty(credentialDefinitionId)) {
-            b.addQueryParameter("cred_def_id", credentialDefinitionId);
+            b.addQueryParameter(CredDefId.CRED_DEF_ID, credentialDefinitionId);
         }
         if (StringUtils.isNotEmpty(issuerDid)) {
             b.addQueryParameter("issuer_did", issuerDid);

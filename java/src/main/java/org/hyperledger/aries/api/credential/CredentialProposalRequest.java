@@ -10,6 +10,8 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import org.hyperledger.aries.config.CredDefId;
+
 import com.google.gson.annotations.SerializedName;
 
 import lombok.AllArgsConstructor;
@@ -32,7 +34,7 @@ public class CredentialProposalRequest {
     private String comment;
 
     @Nullable
-    @SerializedName(value = "credential_definition_id", alternate = "cred_def_id")
+    @SerializedName(value = CredDefId.CREDENTIAL_DEFINITION_ID, alternate = CredDefId.CRED_DEF_ID)
     private String credentialDefinitionId;
 
     /**

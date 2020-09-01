@@ -14,6 +14,7 @@ import javax.annotation.Nullable;
 
 import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest.ProofAttributes.ProofNonRevoked;
 import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest.ProofAttributes.ProofRestrictions;
+import org.hyperledger.aries.config.CredDefId;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -23,6 +24,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+/**
+ * Aka PresentationSendRequestRequest
+ * This model is used to send a presentation request, or in other words to request a proof.
+ *
+ */
 @Data @NoArgsConstructor @AllArgsConstructor
 public class PresentProofRequest {
 
@@ -30,7 +36,7 @@ public class PresentProofRequest {
 
     private ProofRequest proofRequest;
 
-    public static PresentProofRequest build(PresentProofConfig config) {
+    public static PresentProofRequest build(PresentProofRequestConfig config) {
         return new PresentProofRequest(
                 config.getConnectionId(),
                 ProofRequest.build(config));
@@ -89,14 +95,14 @@ public class PresentProofRequest {
 
                 private String schemaIssuerDid;
 
-                @SerializedName(value = "cred_def_id", alternate = "credential_definition_id")
+                @SerializedName(value = CredDefId.CRED_DEF_ID, alternate = CredDefId.CREDENTIAL_DEFINITION_ID)
                 private String credentialDefinitionId;
 
                 private String issuerDid;
             }
         }
 
-        public static ProofRequest build(@NonNull PresentProofConfig config) {
+        public static ProofRequest build(@NonNull PresentProofRequestConfig config) {
             ProofRequest result = new ProofRequest();
             config.getAttributes().forEach((k, v) -> result.addRequestedAttribute(k, v));
             return result;
