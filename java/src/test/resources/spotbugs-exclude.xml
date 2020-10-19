@@ -26,7 +26,12 @@
     </Match>
 
     <Match>
-       <Class name="~.*org\.hyperledger\.aries\.api\.jsonld\.Verifiable.*" />
+       <Class name="~.*org.hyperledger.aries.api.jsonld.Verifiable.*" />
+       <Bug pattern="UPM_UNCALLED_PRIVATE_METHOD" />
+    </Match>
+
+    <Match>
+       <Class name="org.hyperledger.aries.api.proof.PresentationRequest" />
        <Bug pattern="UPM_UNCALLED_PRIVATE_METHOD" />
     </Match>
 

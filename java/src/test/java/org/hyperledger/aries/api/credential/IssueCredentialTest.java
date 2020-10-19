@@ -6,8 +6,8 @@
 package org.hyperledger.aries.api.credential;
 
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.UUID;
 
@@ -32,7 +32,7 @@ class IssueCredentialTest extends IntegrationTestBase {
             ac.issueCredentialRecordsStore(uuid);
             fail("Expected AriesException to be thrown");
         } catch (AriesException e) {
-            assertEquals("Record not found: " + uuid + ".", e.getMessage());
+            assertTrue(e.getMessage().startsWith("Record not found: " + uuid + "."));
         }
     }
 

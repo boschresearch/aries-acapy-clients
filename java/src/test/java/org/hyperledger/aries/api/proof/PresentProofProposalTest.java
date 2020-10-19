@@ -5,8 +5,8 @@
  */
 package org.hyperledger.aries.api.proof;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Map;
 
@@ -35,6 +35,6 @@ public class PresentProofProposalTest extends IntegrationTestBase {
 
         // no credential and no connection, but expecting no parsing errors to happen here.
         AriesException e = assertThrows(AriesException.class, () -> ac.presentProofSendProposal(proposal));
-        assertEquals("Record not found: d0fb05d0-b7bb-4b08-9c82-1199133458c4.", e.getMessage());
+        assertTrue(e.getMessage().startsWith("Record not found: d0fb05d0-b7bb-4b08-9c82-1199133458c4."));
     }
 }

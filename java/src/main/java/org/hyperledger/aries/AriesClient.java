@@ -41,12 +41,16 @@ import org.hyperledger.aries.api.jsonld.VerifyRequest;
 import org.hyperledger.aries.api.jsonld.VerifyResponse;
 import org.hyperledger.aries.api.ledger.EndpointResponse;
 import org.hyperledger.aries.api.ledger.EndpointType;
+import org.hyperledger.aries.api.ledger.TAAAccept;
+import org.hyperledger.aries.api.ledger.TAAInfo;
 import org.hyperledger.aries.api.message.BasicMessage;
 import org.hyperledger.aries.api.message.PingRequest;
 import org.hyperledger.aries.api.message.PingResponse;
 import org.hyperledger.aries.api.proof.PresentProofProposal;
+import org.hyperledger.aries.api.proof.PresentProofRecordsFilter;
 import org.hyperledger.aries.api.proof.PresentProofRequest;
 import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
+import org.hyperledger.aries.api.proof.PresentationRequest;
 import org.hyperledger.aries.api.revocation.RevRegCreateRequest;
 import org.hyperledger.aries.api.revocation.RevRegCreateResponse;
 import org.hyperledger.aries.api.revocation.RevRegUpdateTailsFileUri;
@@ -162,7 +166,7 @@ public class AriesClient extends BaseClient {
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
     public void connectionsRemove(@NonNull String connectionId) throws IOException {
-        Request req = buildPost(url + "/connections/" + connectionId + "/remove", EMPTY_JSON);
+        Request req = buildDelete(url + "/connections/" + connectionId);
         call(req);
       }
 
@@ -309,6 +313,16 @@ public class AriesClient extends BaseClient {
         return call(req, CredentialExchange.class);
     }
 
+    /**
+     * Remove an existing credential exchange record
+     * @param credentialExchangeId the credential exchange id
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public void issueCredentialRecordsRemove(@NonNull String credentialExchangeId) throws IOException {
+        Request req = buildDelete(url + "/issue-credential/records/" + credentialExchangeId);
+        call(req);
+      }
+
 
     // ----------------------------------------------------
     // Credentials- Holder Credential Management
@@ -383,7 +397,7 @@ public class AriesClient extends BaseClient {
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
     public void credentialRemove(@NonNull String referent) throws IOException {
-        Request req = buildPost(url + "/credential/" + referent + "/remove", EMPTY_JSON);
+        Request req = buildDelete(url + "/credential/" + referent);
         call(req);
     }
 
@@ -397,7 +411,21 @@ public class AriesClient extends BaseClient {
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
     public Optional<List<PresentationExchangeRecord>> presentProofRecords() throws IOException {
-        Request req = buildGet(url + "/present-proof/records");
+        return presentProofRecords(null);
+    }
+
+    /**
+     * Fetch all present-proof exchange records
+     * @param filter {@link PresentProofRecordsFilter}
+     * @return list of {@link PresentationExchangeRecord}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<List<PresentationExchangeRecord>> presentProofRecords(@Nullable PresentProofRecordsFilter filter) throws IOException {
+        HttpUrl.Builder b = HttpUrl.parse(url + "/present-proof/records").newBuilder();
+        if (filter != null) {
+            filter.buildParams(b);
+        }
+        Request req = buildGet(b.build().toString());
         final Optional<String> resp = raw(req);
         return getWrapped(resp, "results", PROOF_TYPE);
     }
@@ -451,13 +479,25 @@ public class AriesClient extends BaseClient {
     }
 
     /**
+     * Sends a proof presentation
+     * @param presentationExchangeId the presentation exchange id
+     * @param presentationRequest {@link PresentationRequest}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public void presentProofRecordsSendPresentation(@NonNull String presentationExchangeId,
+            @NonNull PresentationRequest presentationRequest) throws IOException {
+        Request req = buildPost(url + "/present-proof/records/" + presentationExchangeId + "/send-presentation",
+                presentationRequest);
+        call(req);
+    }
+
+    /**
      * Remove an existing presentation exchange record by ID
      * @param presentationExchangeId the presentation exchange id
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
     public void presentProofRecordsRemove(@NonNull String presentationExchangeId) throws IOException {
-        Request req = buildPost(url + "/present-proof/records/" + presentationExchangeId + "/remove",
-                EMPTY_JSON);
+        Request req = buildDelete(url + "/present-proof/records/" + presentationExchangeId);
         call(req);
     }
 
@@ -601,6 +641,27 @@ public class AriesClient extends BaseClient {
         return call(req, EndpointResponse.class);
     }
 
+    /**
+     * Fetch the current transaction author agreement, if any
+     * @return the current transaction author agreement, if any
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<TAAInfo> ledgerTaa() throws IOException {
+        Request req = buildGet(url + "/ledger/taa");
+        return getWrapped(raw(req), "result", TAAInfo.class);
+    }
+
+    /**
+     * Accept the transaction author agreement
+     * @param taaAccept {@link TAAAccept}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     * Or AriesException if TAA is not available
+     */
+    public void ledgerTaaAccept(@NonNull TAAAccept taaAccept) throws IOException {
+        Request req = buildPost(url + "/ledger/taa/accept", taaAccept);
+        call(req);
+    }
+
     // ----------------------------------------------------
     // Revocation
     // ----------------------------------------------------
@@ -685,7 +746,9 @@ public class AriesClient extends BaseClient {
      * @param revRegId the revocation registry id
      * @return {@link RevRegCreateResponse}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     * @deprecated since 0.5.5
      */
+    @Deprecated
     public Optional<RevRegCreateResponse> revocationRegistryPublish(@NonNull String revRegId)
             throws IOException {
         Request req = buildPost(url + "/revocation/registry/" + URLEncoder.encode(revRegId, "UTF-8") + "/publish", EMPTY_JSON);
@@ -768,6 +831,14 @@ public class AriesClient extends BaseClient {
         return new Request.Builder()
                 .url(u)
                 .get()
+                .header(X_API_KEY, apiKey)
+                .build();
+    }
+
+    private Request buildDelete(String u) {
+        return new Request.Builder()
+                .url(u)
+                .delete()
                 .header(X_API_KEY, apiKey)
                 .build();
     }

@@ -6,6 +6,8 @@
 package org.hyperledger.aries.api.proof;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest;
 import org.hyperledger.aries.pojo.AttributeName;
@@ -85,6 +87,15 @@ public class PresentationExchangeRecord {
      */
     public <T> T from(@NonNull Class<T> type) {
         return EventParser.from(presentation.toString(), type);
+    }
+
+    /**
+     * Finds the attribute names in the proof and extracts their corresponding values.
+     * @param names Set of attribute names
+     * @return Map containing the attribute names and their corresponding values
+     */
+    public Map<String, Object> from(@NonNull Set<String> names) {
+        return EventParser.from(presentation.toString(), names);
     }
 
     @Data @NoArgsConstructor

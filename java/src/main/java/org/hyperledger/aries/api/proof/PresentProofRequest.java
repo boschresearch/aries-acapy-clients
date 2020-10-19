@@ -13,9 +13,10 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest.ProofAttributes.ProofNonRevoked;
-import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest.ProofAttributes.ProofRestrictions;
 import org.hyperledger.aries.config.CredDefId;
+import org.hyperledger.aries.config.GsonConfig;
 
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
 import lombok.AllArgsConstructor;
@@ -29,17 +30,23 @@ import lombok.NonNull;
  * This model is used to send a presentation request, or in other words to request a proof.
  *
  */
-@Data @NoArgsConstructor @AllArgsConstructor
+@Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class PresentProofRequest {
 
     private String connectionId;
 
-    private ProofRequest proofRequest;
+    @NonNull private ProofRequest proofRequest;
+
+    private Boolean trace;
+
+    private String comment;
 
     public static PresentProofRequest build(PresentProofRequestConfig config) {
-        return new PresentProofRequest(
-                config.getConnectionId(),
-                ProofRequest.build(config));
+        return PresentProofRequest
+                .builder()
+                .connectionId(config.getConnectionId())
+                .proofRequest(ProofRequest.build(config))
+                .build();
     }
 
     @Data @NoArgsConstructor @AllArgsConstructor @Builder
@@ -62,7 +69,7 @@ public class PresentProofRequest {
         private Map<String, ProofAttributes> requestedPredicates = new LinkedHashMap<>();
 
         public ProofRequest addRequestedAttribute(
-                @NonNull String attribute, @Nullable List<ProofRestrictions> restrictions) {
+                @NonNull String attribute, @Nullable List<JsonObject> restrictions) {
             this.requestedAttributes.put(
                     attribute,
                     ProofAttributes.build(attribute, restrictions));
@@ -73,9 +80,9 @@ public class PresentProofRequest {
         public static class ProofAttributes {
             private String name;
             private ProofNonRevoked nonRevoked;
-            private List<ProofRestrictions> restrictions = new ArrayList<>();
+            private List<JsonObject> restrictions = new ArrayList<>();
 
-            public static ProofAttributes build(@NonNull String name, @Nullable List<ProofRestrictions> restrictions) {
+            public static ProofAttributes build(@NonNull String name, @Nullable List<JsonObject> restrictions) {
                 return new ProofAttributes(name, null, restrictions);
             }
 
@@ -99,6 +106,13 @@ public class PresentProofRequest {
                 private String credentialDefinitionId;
 
                 private String issuerDid;
+
+                /** @since 0.5.4 */
+                private List<String> names;
+
+                public JsonObject toJsonObject() {
+                    return GsonConfig.defaultConfig().toJsonTree(this).getAsJsonObject();
+                }
             }
         }
 

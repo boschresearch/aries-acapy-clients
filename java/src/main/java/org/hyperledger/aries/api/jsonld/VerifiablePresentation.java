@@ -5,14 +5,18 @@
  */
 package org.hyperledger.aries.api.jsonld;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.hyperledger.aries.api.jsonld.VerifiableCredential.VerifiableIndyCredential;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +30,13 @@ import lombok.NonNull;
  */
 @Data @Builder @NoArgsConstructor @AllArgsConstructor
 @JsonPropertyOrder({ "@context", "type" })
-public class VerifiablePresentation {
+public class VerifiablePresentation<T extends VerifiableCredential> {
+
+    public static final transient Type VERIFIABLE_CREDENTIAL_TYPE =
+            new TypeToken<VerifiablePresentation<VerifiableCredential>>(){}.getType();
+
+    public static final transient Type INDY_CREDENTIAL_TYPE =
+            new TypeToken<VerifiablePresentation<VerifiableIndyCredential>>(){}.getType();
 
     @Builder.Default
     @NonNull @Nonnull
@@ -43,7 +53,7 @@ public class VerifiablePresentation {
 
     @Nullable
     @SerializedName("verifiableCredential")
-    private List<VerifiableCredential> verifiableCredential;
+    private List<T> verifiableCredential;
 
     @Nullable
     private Proof proof;

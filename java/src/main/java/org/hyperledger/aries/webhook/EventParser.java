@@ -10,7 +10,10 @@ import java.lang.reflect.Type;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
@@ -22,6 +25,7 @@ import org.hyperledger.aries.pojo.PojoProcessor;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -75,12 +79,14 @@ public class EventParser {
     public static <T> T from(@NonNull String json, @NonNull Class<T> type) {
         T result = PojoProcessor.getInstance(type);
 
-        Set<Entry<String, JsonElement>> revealedAttrs = getRevealedAttributes(json);
+        final Set<Entry<String, JsonElement>> revealedAttrs = getRevealedAttributes(json);
+        final Set<Entry<String, JsonElement>> revealedAttrGroups = getRevealedAttrGroups(json);
+
         List<Field> fields = PojoProcessor.fields(type);
         AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
             for(Field field: fields) {
                 String fieldName = PojoProcessor.fieldName(field);
-                String fieldValue = getValueFor(fieldName, revealedAttrs);
+                String fieldValue = getValueFor(fieldName, revealedAttrs.isEmpty() ? revealedAttrGroups : revealedAttrs);
                 try {
                     field.setAccessible(true);
                     field.set(result, fieldValue);
@@ -89,6 +95,25 @@ public class EventParser {
                 }
             }
             return null; // nothing to return
+        });
+        return result;
+    }
+
+    /**
+     * Finds the attribute names in the present_proof.presentation and extracts their corresponding values.
+     * @param json present_proof.presentation
+     * @param names Set of attribute names
+     * @return Map containing the attribute names and their corresponding values
+     */
+    public static Map<String, Object> from(@NonNull String json, @NonNull Set<String> names) {
+        Map<String, Object> result = new HashMap<>();
+
+        final Set<Entry<String, JsonElement>> revealedAttrs = getRevealedAttributes(json);
+        final Set<Entry<String, JsonElement>> revealedAttrGroups = getRevealedAttrGroups(json);
+
+        names.forEach(name -> {
+            String value = getValueFor(name, revealedAttrs.isEmpty() ? revealedAttrGroups : revealedAttrs);
+            result.put(name, value);
         });
         return result;
     }
@@ -115,6 +140,30 @@ public class EventParser {
                 .getAsJsonObject().get("revealed_attrs").getAsJsonObject()
                 .entrySet()
                 ;
+    }
+
+    private static Set<Entry<String, JsonElement>> getRevealedAttrGroups(String json) {
+        Set<Entry<String, JsonElement>> result = new LinkedHashSet<>();
+        final JsonElement attr = JsonParser
+                .parseString(json)
+                .getAsJsonObject().get("requested_proof")
+                .getAsJsonObject().get("revealed_attr_groups")
+                ;
+        if (attr == null) { // not an attr group
+            return result;
+        }
+        JsonObject attrGroup = attr.getAsJsonObject();
+        final Set<String> childs = attrGroup.keySet();
+        childs.forEach(c -> {
+                final Set<Entry<String, JsonElement>> attrs = attrGroup.get(c).getAsJsonObject().get("values").getAsJsonObject().entrySet();
+                attrs.forEach(a -> {
+                    if(!result.contains(a)) {
+                        result.add(a);
+                    }
+                });
+            }
+        );
+        return result;
     }
 
 }

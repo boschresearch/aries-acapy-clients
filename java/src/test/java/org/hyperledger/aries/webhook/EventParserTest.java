@@ -9,7 +9,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.hyperledger.aries.api.connection.ConnectionRecord;
 import org.hyperledger.aries.api.credential.CredentialExchange;
@@ -46,8 +48,8 @@ public class EventParserTest {
     }
 
     @Test
-    void testParseProofPresentation() throws Exception {
-        String json = loader.load("events/proof-valid.json");
+    void testParseProofPresentationVerifier() throws Exception {
+        String json = loader.load("events/proof-valid-verifier.json");
         Optional<PresentationExchangeRecord> p = parser.parsePresentProof(json);
         assertTrue(p.isPresent());
         assertEquals("verifier", p.get().getRole());
@@ -58,6 +60,39 @@ public class EventParserTest {
         assertEquals(1, p.get().getIdentifiers().size());
         assertTrue(p.get().getIdentifiers().get(0).getSchemaId().startsWith("CHysca6fY8n8ytCDLAJGZj"));
         assertTrue(p.get().getIdentifiers().get(0).getCredentialDefinitionId().startsWith("CHysca6fY8n8ytCDLAJGZj"));
+    }
+
+    @Test
+    void testParseProofPresentationVerifierMap() throws Exception {
+        String json = loader.load("events/proof-valid-verifier.json");
+        Optional<PresentationExchangeRecord> p = parser.parsePresentProof(json);
+        assertTrue(p.isPresent());
+        Map<String, Object> md = p.get().from(Set.of("country", "city"));
+        assertEquals("Switzerland", md.get("country"));
+        assertEquals("Zürich", md.get("city"));
+    }
+
+    @Test
+    void testParseProofPresentationProver() throws Exception {
+        String json = loader.load("events/proof-valid-prover.json");
+        Optional<PresentationExchangeRecord> p = parser.parsePresentProof(json);
+        assertTrue(p.isPresent());
+        assertEquals("prover", p.get().getRole());
+        final BankAccount ba = p.get().from(BankAccount.class);
+        assertNotNull(ba);
+        assertEquals("GB33BUKB20201555555555", ba.getIban());
+        assertEquals("PBNK", ba.getBic());
+    }
+
+    @Test
+    void testParseProofPresentationProverMap() throws Exception {
+        String json = loader.load("events/proof-valid-prover.json");
+        Optional<PresentationExchangeRecord> p = parser.parsePresentProof(json);
+        assertTrue(p.isPresent());
+        final Map<String, Object> ba = p.get().from(Set.of("iban", "bic"));
+        assertNotNull(ba);
+        assertEquals("GB33BUKB20201555555555", ba.get("iban"));
+        assertEquals("PBNK", ba.get("bic"));
     }
 
     @Data @NoArgsConstructor
@@ -80,5 +115,11 @@ public class EventParserTest {
         private String registrationNumber;
         @AttributeName("registration_country")
         private String registrationCountry;
+    }
+
+    @Data @NoArgsConstructor
+    public static final class BankAccount {
+        private String iban;
+        private String bic;
     }
 }

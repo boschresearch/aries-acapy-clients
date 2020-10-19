@@ -7,6 +7,7 @@ package org.hyperledger.aries.api.jsonld;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.hyperledger.aries.api.jsonld.VerifiableCredential.VerifiableIndyCredential;
 import org.hyperledger.aries.config.GsonConfig;
 import org.hyperledger.aries.util.FileLoader;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,7 @@ class JsonldSerialisationTest {
     @Test
     void testGsonSerialisation() {
         final String json = loader.load("json-ld/verifiableCredentialUnsigned.json");
-        final VerifiableCredential vc = GsonConfig.defaultConfig().fromJson(json, VerifiableCredential.class);
+        final VerifiableIndyCredential vc = GsonConfig.defaultConfig().fromJson(json, VerifiableIndyCredential.class);
         String vcString = GsonConfig.prettyPrinter().toJson(vc);
         assertEquals(json, vcString);
     }

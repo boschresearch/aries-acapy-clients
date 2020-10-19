@@ -16,4 +16,7 @@ public class WalletDidResponse {
     private String verkey;
     @SerializedName("public")
     private boolean isPublic;
+
+    /** @since 0.5.5 */
+    private String posture;
 }

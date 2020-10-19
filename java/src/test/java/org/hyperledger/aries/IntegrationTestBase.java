@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Testcontainers
 public abstract class IntegrationTestBase {
 
-    private static final String ARIES_VERSION = "bcgovimages/aries-cloudagent:py36-1.15-0_0.5.4";
+    private static final String ARIES_VERSION = "bcgovimages/aries-cloudagent:py36-1.15-0_0.5.5";
     private static final Integer ARIES_ADMIN_PORT = Integer.valueOf(8031);
 
     protected AriesClient ac;
@@ -30,7 +30,9 @@ public abstract class IntegrationTestBase {
                     + " -it http 0.0.0.0 8030"
                     + " -ot http --admin 0.0.0.0 " + ARIES_ADMIN_PORT
                     + " --admin-insecure-mode"
-                    + " --log-level info"
+                    + " --log-level debug"
+                    + " -e http://0.0.0.0"
+                    + " --no-ledger"
                     + " --plugin aries_cloudagent.messaging.jsonld")
             .waitingFor(Wait.defaultWaitStrategy())
             .withLogConsumer(new Slf4jLogConsumer(log))

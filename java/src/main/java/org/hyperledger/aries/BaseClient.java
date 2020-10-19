@@ -126,8 +126,9 @@ abstract class BaseClient {
     }
 
     private static void handleError(Response resp) throws IOException {
-        String msg = StringUtils.isNotEmpty(resp.message()) ? resp.message() : resp.body().string();
-        log.error("code={} message={}", Integer.valueOf(resp.code()), msg);
-        throw new AriesException(resp.code(), msg);
+        String msg = StringUtils.isNotEmpty(resp.message()) ? resp.message() : "";
+        String body = resp.body() != null ? resp.body().string() : "";
+        log.error("code={} message={}\nbody={}", Integer.valueOf(resp.code()), msg, body);
+        throw new AriesException(resp.code(), msg + "\n" + body);
     }
 }

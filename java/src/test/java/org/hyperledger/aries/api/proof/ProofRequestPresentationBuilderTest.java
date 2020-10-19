@@ -14,6 +14,7 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.hyperledger.aries.IntegrationTestBase;
 import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest;
@@ -35,6 +36,7 @@ class ProofRequestPresentationBuilderTest extends IntegrationTestBase {
         ProofRequestPresentationBuilder builder = new ProofRequestPresentationBuilder(ac);
 
         PresentProofRequestConfig config = PresentProofRequestConfig.builder()
+                .connectionId(UUID.randomUUID().toString())
                 .appendAttribute(
                         List.of("name", "email"),
                         ProofRestrictions

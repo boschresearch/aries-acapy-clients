@@ -5,6 +5,7 @@
  */
 package org.hyperledger.aries.api.proof;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest.ProofAttributes.ProofRestrictions;
+import org.hyperledger.aries.config.GsonConfig;
 import org.hyperledger.aries.pojo.PojoProcessor;
+
+import com.google.gson.JsonObject;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,14 +30,14 @@ public class PresentProofRequestConfig {
 
     private String connectionId;
 
-    private Map<String, List<ProofRestrictions>> attributes = new LinkedHashMap<>();
+    private Map<String, List<JsonObject>> attributes = new LinkedHashMap<>();
 
     @NoArgsConstructor
     public static final class PresentProofConfigBuilder {
 
         private String cId;
 
-        private Map<String, List<ProofRestrictions>> attributes = new LinkedHashMap<>();
+        private Map<String, List<JsonObject>> attributes = new LinkedHashMap<>();
 
         public PresentProofConfigBuilder connectionId(String connectionId) {
             this.cId = connectionId;
@@ -48,10 +52,10 @@ public class PresentProofRequestConfig {
          * @return {@link PresentProofConfigBuilder}
          */
         public @Nonnull <T> PresentProofConfigBuilder appendAttribute(
-                @NonNull Class<T> type, @Nullable ProofRestrictions restriction) {
+                @NonNull Class<T> type, @NonNull ProofRestrictions restriction) {
 
             PojoProcessor.fieldNames(type).forEach(name -> {
-                attributes.put(name, List.of(restriction));
+                attributes.put(name, List.of(restriction.toJsonObject()));
             });
             return this;
         }
@@ -63,10 +67,10 @@ public class PresentProofRequestConfig {
          * @return {@link PresentProofConfigBuilder}
          */
         public PresentProofConfigBuilder appendAttribute(
-                @NonNull List<String> names, @Nullable ProofRestrictions resriction) {
+                @NonNull List<String> names, @NonNull ProofRestrictions resriction) {
 
             names.forEach(name -> {
-                attributes.put(name, List.of(resriction));
+                attributes.put(name, List.of(resriction.toJsonObject()));
             });
             return this;
         }
@@ -79,9 +83,34 @@ public class PresentProofRequestConfig {
          */
         public PresentProofConfigBuilder appendAttribute(
                 @NonNull String name, @Nullable List<ProofRestrictions> restrictions) {
-            attributes.put(name, restrictions);
+            List<JsonObject> ro = new ArrayList<>();
+            if (restrictions != null) {
+                restrictions.forEach(r -> ro.add(r.toJsonObject()));
+            }
+            attributes.put(name, ro);
             return this;
         }
+
+        /**
+         * Allows to add restrictions based on name:value pairs, adding the {@link ProofRestrictions} adds
+         * more parameters like shemaId etc.
+         * @param name attribute name
+         * @param value attribute value
+         * @param restriction {@link ProofRestrictions} additional restrictions
+         * @return {@link PresentProofConfigBuilder}
+         */
+        public PresentProofConfigBuilder appendAttribute(
+                @NonNull String name, @NonNull String value, @Nullable ProofRestrictions restriction) {
+            ProofRestrictions res = restriction;
+            if (res == null) {
+                res = new ProofRestrictions();
+            }
+            final JsonObject jt = GsonConfig.defaultConfig().toJsonTree(res).getAsJsonObject();
+            jt.getAsJsonObject().addProperty("attr::" + name + "::value", value);
+            attributes.put(name, List.of(jt));
+            return this;
+        }
+
 
         public PresentProofRequestConfig build() {
             return new PresentProofRequestConfig(cId, attributes);

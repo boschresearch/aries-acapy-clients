@@ -15,6 +15,7 @@ import java.util.Optional;
 import org.hyperledger.aries.IntegrationTestBase;
 import org.hyperledger.aries.api.jsonld.SignRequest.SignDocument;
 import org.hyperledger.aries.api.jsonld.SignRequest.SignDocument.Options;
+import org.hyperledger.aries.api.jsonld.VerifiableCredential.VerifiableIndyCredential;
 import org.hyperledger.aries.api.wallet.WalletDidResponse;
 import org.hyperledger.aries.config.GsonConfig;
 import org.hyperledger.aries.util.FileLoader;
@@ -67,7 +68,8 @@ class JsonldTest extends IntegrationTestBase {
         WalletDidResponse localDid = createLocalDid();
 
         String json = loader.load("json-ld/verifiablePresentationUnsigned.json");
-        VerifiablePresentation vp = gson.fromJson(json, VerifiablePresentation.class);
+        VerifiablePresentation<VerifiableIndyCredential> vp = gson.fromJson(
+                json, VerifiablePresentation.INDY_CREDENTIAL_TYPE);
 
         JsonElement jsonTree = gson.toJsonTree(vp);
 
@@ -84,7 +86,8 @@ class JsonldTest extends IntegrationTestBase {
         log.debug("sign request: \n{}", pretty.toJson(sr));
 
         // sign the structure
-        Optional<VerifiablePresentation> signed = ac.jsonldSign(sr, VerifiablePresentation.class);
+        Optional<VerifiablePresentation<VerifiableIndyCredential>> signed = ac.jsonldSign(
+                sr, VerifiablePresentation.class);
         assertTrue(signed.isPresent());
         assertNotNull(signed.get().getProof());
         assertEquals("Ed25519Signature2018", signed.get().getProof().getType());
