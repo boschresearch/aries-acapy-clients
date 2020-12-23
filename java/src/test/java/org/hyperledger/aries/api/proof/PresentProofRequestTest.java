@@ -1,23 +1,22 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.proof;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.List;
-import java.util.Optional;
-
+import lombok.extern.slf4j.Slf4j;
 import org.hyperledger.aries.IntegrationTestBase;
 import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest.ProofAttributes.ProofRestrictions;
 import org.hyperledger.aries.config.GsonConfig;
 import org.junit.jupiter.api.Test;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
 class PresentProofRequestTest extends IntegrationTestBase {

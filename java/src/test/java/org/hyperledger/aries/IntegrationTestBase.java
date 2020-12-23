@@ -1,7 +1,7 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries;
 
@@ -18,8 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 @Testcontainers
 public abstract class IntegrationTestBase {
 
-    private static final String ARIES_VERSION = "bcgovimages/aries-cloudagent:py36-1.15-0_0.5.5";
-    private static final Integer ARIES_ADMIN_PORT = Integer.valueOf(8031);
+    private static final String ARIES_VERSION = "bcgovimages/aries-cloudagent:py36-1.15-0_0.5.6";
+    private static final Integer ARIES_ADMIN_PORT = 8031;
 
     protected AriesClient ac;
 
@@ -40,6 +40,6 @@ public abstract class IntegrationTestBase {
 
     @BeforeEach
     void setup() {
-        ac = new AriesClient("http://localhost:" + ariesContainer.getMappedPort(ARIES_ADMIN_PORT.intValue()), null);
+        ac = new AriesClient("http://localhost:" + ariesContainer.getMappedPort(ARIES_ADMIN_PORT), null);
     }
 }

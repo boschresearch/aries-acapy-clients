@@ -1,20 +1,19 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.revocation;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.Optional;
-
+import okhttp3.mockwebserver.MockResponse;
 import org.hyperledger.aries.MockedTestBase;
 import org.hyperledger.aries.config.GsonConfig;
 import org.junit.jupiter.api.Test;
 
-import okhttp3.mockwebserver.MockResponse;
+import java.util.Optional;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MockedRevocationTest extends MockedTestBase {
 

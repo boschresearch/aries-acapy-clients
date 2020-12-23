@@ -1,22 +1,21 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.schema;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.List;
-import java.util.Optional;
-
+import lombok.extern.slf4j.Slf4j;
+import okhttp3.mockwebserver.MockResponse;
 import org.hyperledger.aries.MockedTestBase;
 import org.hyperledger.aries.api.schema.SchemaSendResponse.Schema;
 import org.junit.jupiter.api.Test;
 
-import lombok.extern.slf4j.Slf4j;
-import okhttp3.mockwebserver.MockResponse;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
 class MockedSchemaTest extends MockedTestBase {

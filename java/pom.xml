@@ -6,7 +6,7 @@
 
     <groupId>org.hyperledger</groupId>
     <artifactId>aries-client-python</artifactId>
-    <version>0.4.0-SNAPSHOT</version>
+    <version>0.5.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -41,8 +41,8 @@
         <!-- Dependency Versions -->
         <junit.jupiter.api.version>5.7.0</junit.jupiter.api.version>
         <okhttp.version>4.9.0</okhttp.version>
-        <pmd.version>6.28.0</pmd.version>
-        <testcontainers.version>1.14.3</testcontainers.version>
+        <pmd.version>6.30.0</pmd.version>
+        <testcontainers.version>1.15.1</testcontainers.version>
     </properties>
 
     <dependencies>
@@ -80,7 +80,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>2.11.3</version>
+            <version>2.12.0</version>
         </dependency>
         <!-- Scope Test -->
         <dependency>
@@ -188,7 +188,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.1.3</version>
+                <version>4.1.4</version>
                 <configuration>
                     <effort>Max</effort>
                     <threshold>Low</threshold>
@@ -206,14 +206,14 @@
                     <dependency>
                         <groupId>com.github.spotbugs</groupId>
                         <artifactId>spotbugs</artifactId>
-                        <version>4.1.1</version>
+                        <version>4.2.0</version>
                     </dependency>
                 </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.13.0</version>
+                <version>3.14.0</version>
                 <dependencies>
                     <dependency>
                         <groupId>net.sourceforge.pmd</groupId>
@@ -239,6 +239,26 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>2.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>third-party-report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <excludedScopes>test</excludedScopes>
+                    <licenseMerges>
+                        <licenseMerge>The Apache Software License, Version 2.0|The Apache License, Version 2.0|Apache License, Version 2.0|Apache License 2.0|Apache 2.0</licenseMerge>
+                        <licenseMerge>The MIT License|MIT License</licenseMerge>
+                    </licenseMerges>
+                </configuration>
             </plugin>
         </plugins>
     </build>

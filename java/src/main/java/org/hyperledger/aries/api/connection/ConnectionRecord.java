@@ -1,7 +1,7 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.connection;
 
@@ -48,8 +48,12 @@ public class ConnectionRecord {
 
     private String theirRole;
 
+    /**
+     * The request id is only set if the connection was initated by this agent.
+     * @return true in case the connection was not initiated by this agent
+     */
     public boolean isIncomingConnection() {
-        return StringUtils.isNotEmpty(invitationKey);
+        return StringUtils.isEmpty(requestId);
     }
 
     public boolean isActive() {

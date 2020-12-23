@@ -1,23 +1,15 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
- */
 package org.hyperledger.aries;
 
-import static org.junit.Assert.assertThrows;
-
+import okhttp3.OkHttpClient;
 import org.junit.jupiter.api.Test;
 
-import okhttp3.OkHttpClient;
+import static org.junit.Assert.assertThrows;
 
 class AriesClientBuilderTest {
 
     @Test
     void testEmptyUrl() {
-        assertThrows(NullPointerException.class, () -> {
-            AriesClient.builder().url(null).build();
-        });
+        assertThrows(NullPointerException.class, () -> AriesClient.builder().url(null).build());
     }
 
     @Test

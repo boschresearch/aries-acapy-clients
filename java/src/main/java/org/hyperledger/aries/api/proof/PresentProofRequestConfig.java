@@ -1,29 +1,26 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.proof;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest.ProofAttributes.ProofRestrictions;
-import org.hyperledger.aries.config.GsonConfig;
-import org.hyperledger.aries.pojo.PojoProcessor;
-
 import com.google.gson.JsonObject;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
+import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest.ProofAttributes.ProofRestrictions;
+import org.hyperledger.aries.config.GsonConfig;
+import org.hyperledger.aries.pojo.PojoProcessor;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Accessors(chain = true)
 public class PresentProofRequestConfig {
@@ -37,7 +34,7 @@ public class PresentProofRequestConfig {
 
         private String cId;
 
-        private Map<String, List<JsonObject>> attributes = new LinkedHashMap<>();
+        private final Map<String, List<JsonObject>> attributes = new LinkedHashMap<>();
 
         public PresentProofConfigBuilder connectionId(String connectionId) {
             this.cId = connectionId;
@@ -54,9 +51,7 @@ public class PresentProofRequestConfig {
         public @Nonnull <T> PresentProofConfigBuilder appendAttribute(
                 @NonNull Class<T> type, @NonNull ProofRestrictions restriction) {
 
-            PojoProcessor.fieldNames(type).forEach(name -> {
-                attributes.put(name, List.of(restriction.toJsonObject()));
-            });
+            PojoProcessor.fieldNames(type).forEach(name -> attributes.put(name, List.of(restriction.toJsonObject())));
             return this;
         }
 
@@ -69,9 +64,7 @@ public class PresentProofRequestConfig {
         public PresentProofConfigBuilder appendAttribute(
                 @NonNull List<String> names, @NonNull ProofRestrictions resriction) {
 
-            names.forEach(name -> {
-                attributes.put(name, List.of(resriction.toJsonObject()));
-            });
+            names.forEach(name -> attributes.put(name, List.of(resriction.toJsonObject())));
             return this;
         }
 

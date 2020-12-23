@@ -1,7 +1,7 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.ledger;
 
@@ -25,5 +25,5 @@ public enum EndpointType {
     /**
      * The name of the endpoint how its written to the ledger
      */
-    private String ledgerName;
+    private final String ledgerName;
 }

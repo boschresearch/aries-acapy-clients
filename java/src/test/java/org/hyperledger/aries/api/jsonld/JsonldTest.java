@@ -1,17 +1,13 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.jsonld;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.util.Optional;
-
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import lombok.extern.slf4j.Slf4j;
 import org.hyperledger.aries.IntegrationTestBase;
 import org.hyperledger.aries.api.jsonld.SignRequest.SignDocument;
 import org.hyperledger.aries.api.jsonld.SignRequest.SignDocument.Options;
@@ -21,17 +17,19 @@ import org.hyperledger.aries.config.GsonConfig;
 import org.hyperledger.aries.util.FileLoader;
 import org.junit.jupiter.api.Test;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
+import java.util.Optional;
 
-import lombok.extern.slf4j.Slf4j;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Slf4j
 class JsonldTest extends IntegrationTestBase {
 
-    private Gson gson = GsonConfig.defaultConfig();
-    private Gson pretty = GsonConfig.prettyPrinter();
-    private FileLoader loader = FileLoader.newLoader();
+    private final Gson gson = GsonConfig.defaultConfig();
+    private final Gson pretty = GsonConfig.prettyPrinter();
+    private final FileLoader loader = FileLoader.newLoader();
 
     @Test
     void testSignAndVerifyVC() throws Exception {
@@ -101,9 +99,7 @@ class JsonldTest extends IntegrationTestBase {
 
     @Test
     void testVerifyWrongCredentialType() {
-        assertThrows(IllegalStateException.class, () -> {
-            ac.jsonldVerify("1234", new Object());
-        });
+        assertThrows(IllegalStateException.class, () -> ac.jsonldVerify("1234", new Object()));
     }
 
     private WalletDidResponse createLocalDid() throws Exception {

@@ -1,20 +1,19 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.connection;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import okhttp3.mockwebserver.MockResponse;
+import org.hyperledger.aries.MockedTestBase;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.hyperledger.aries.MockedTestBase;
-import org.junit.jupiter.api.Test;
-
-import okhttp3.mockwebserver.MockResponse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MockedConnectionTest extends MockedTestBase {
 

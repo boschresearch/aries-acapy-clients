@@ -1,27 +1,26 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.proof;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import lombok.extern.slf4j.Slf4j;
+import okhttp3.mockwebserver.MockResponse;
+import org.hyperledger.aries.MockedTestBase;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
 
-import org.hyperledger.aries.MockedTestBase;
-import org.junit.jupiter.api.Test;
-
-import lombok.extern.slf4j.Slf4j;
-import okhttp3.mockwebserver.MockResponse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
 public class MockedPresentProofTest extends MockedTestBase {
 
     @Test
-    void testParsePresentationResponse() throws Exception {
+    void testParsePresentationResponse() {
         String json = loader.load("files/present-proof-request-response.json");
         PresentationExchangeRecord response = gson.fromJson(json, PresentationExchangeRecord.class);
         assertEquals("23243302324860431744596330413752559589", response.getPresentationRequest().getNonce());

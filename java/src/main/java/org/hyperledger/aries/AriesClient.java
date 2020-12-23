@@ -1,23 +1,17 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.net.URLEncoder;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
-import javax.annotation.Nullable;
-
+import com.google.gson.JsonElement;
+import lombok.Builder;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import org.apache.commons.lang3.StringUtils;
 import org.hyperledger.aries.api.connection.ConnectionFilter;
 import org.hyperledger.aries.api.connection.ConnectionRecord;
@@ -33,12 +27,7 @@ import org.hyperledger.aries.api.credential.CredentialExchange;
 import org.hyperledger.aries.api.credential.CredentialFilter;
 import org.hyperledger.aries.api.credential.CredentialProposalRequest;
 import org.hyperledger.aries.api.exception.AriesException;
-import org.hyperledger.aries.api.jsonld.Proof;
-import org.hyperledger.aries.api.jsonld.SignRequest;
-import org.hyperledger.aries.api.jsonld.VerifiableCredential;
-import org.hyperledger.aries.api.jsonld.VerifiablePresentation;
-import org.hyperledger.aries.api.jsonld.VerifyRequest;
-import org.hyperledger.aries.api.jsonld.VerifyResponse;
+import org.hyperledger.aries.api.jsonld.*;
 import org.hyperledger.aries.api.ledger.EndpointResponse;
 import org.hyperledger.aries.api.ledger.EndpointType;
 import org.hyperledger.aries.api.ledger.TAAAccept;
@@ -46,16 +35,8 @@ import org.hyperledger.aries.api.ledger.TAAInfo;
 import org.hyperledger.aries.api.message.BasicMessage;
 import org.hyperledger.aries.api.message.PingRequest;
 import org.hyperledger.aries.api.message.PingResponse;
-import org.hyperledger.aries.api.proof.PresentProofProposal;
-import org.hyperledger.aries.api.proof.PresentProofRecordsFilter;
-import org.hyperledger.aries.api.proof.PresentProofRequest;
-import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
-import org.hyperledger.aries.api.proof.PresentationRequest;
-import org.hyperledger.aries.api.revocation.RevRegCreateRequest;
-import org.hyperledger.aries.api.revocation.RevRegCreateResponse;
-import org.hyperledger.aries.api.revocation.RevRegUpdateTailsFileUri;
-import org.hyperledger.aries.api.revocation.RevRegsCreated;
-import org.hyperledger.aries.api.revocation.RevocationRegistryState;
+import org.hyperledger.aries.api.proof.*;
+import org.hyperledger.aries.api.revocation.*;
 import org.hyperledger.aries.api.schema.SchemaSendRequest;
 import org.hyperledger.aries.api.schema.SchemaSendResponse;
 import org.hyperledger.aries.api.schema.SchemaSendResponse.Schema;
@@ -65,14 +46,18 @@ import org.hyperledger.aries.api.wallet.GetDidEndpointResponse;
 import org.hyperledger.aries.api.wallet.SetDidEndpointRequest;
 import org.hyperledger.aries.api.wallet.WalletDidResponse;
 
-import com.google.gson.JsonElement;
-
-import lombok.Builder;
-import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
+import javax.annotation.Nullable;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class AriesClient extends BaseClient {
@@ -224,7 +209,8 @@ public class AriesClient extends BaseClient {
      * @return {@link PingResponse}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public Optional<PingResponse> connectionsSendPing(@NonNull String connectionId, @NonNull PingRequest comment) throws IOException {
+    public Optional<PingResponse> connectionsSendPing(@NonNull String connectionId, @NonNull PingRequest comment)
+            throws IOException {
         Request req = buildPost(url + "/connections/" + connectionId + "/send-ping", comment);
         return call(req, PingResponse.class);
     }
@@ -420,7 +406,8 @@ public class AriesClient extends BaseClient {
      * @return list of {@link PresentationExchangeRecord}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public Optional<List<PresentationExchangeRecord>> presentProofRecords(@Nullable PresentProofRecordsFilter filter) throws IOException {
+    public Optional<List<PresentationExchangeRecord>> presentProofRecords(@Nullable PresentProofRecordsFilter filter)
+            throws IOException {
         HttpUrl.Builder b = HttpUrl.parse(url + "/present-proof/records").newBuilder();
         if (filter != null) {
             filter.buildParams(b);
@@ -751,7 +738,8 @@ public class AriesClient extends BaseClient {
     @Deprecated
     public Optional<RevRegCreateResponse> revocationRegistryPublish(@NonNull String revRegId)
             throws IOException {
-        Request req = buildPost(url + "/revocation/registry/" + URLEncoder.encode(revRegId, "UTF-8") + "/publish", EMPTY_JSON);
+        Request req = buildPost(url + "/revocation/registry/"
+                + URLEncoder.encode(revRegId, StandardCharsets.UTF_8) + "/publish", EMPTY_JSON);
         return getWrapped(raw(req), "result", RevRegCreateResponse.class);
     }
 

@@ -1,19 +1,18 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.proof;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+import lombok.NonNull;
 import org.hyperledger.aries.api.credential.Credential;
 import org.hyperledger.aries.api.proof.PresentProofProposal.PresentationPreview;
 import org.hyperledger.aries.api.proof.PresentProofProposal.PresentationPreview.PresAttrSpec;
 
-import lombok.NonNull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Helper class to build a {@link PresentProofProposal}

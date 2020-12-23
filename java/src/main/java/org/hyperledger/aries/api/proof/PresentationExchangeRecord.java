@@ -1,25 +1,23 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.proof;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest;
-import org.hyperledger.aries.pojo.AttributeName;
-import org.hyperledger.aries.webhook.EventParser;
-
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest;
+import org.hyperledger.aries.pojo.AttributeName;
+import org.hyperledger.aries.webhook.EventParser;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Data @NoArgsConstructor @AllArgsConstructor
 public class PresentationExchangeRecord {

@@ -1,26 +1,24 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.credential;
+
+import com.google.gson.annotations.SerializedName;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+import org.hyperledger.aries.config.CredDefId;
+import org.hyperledger.aries.pojo.PojoProcessor;
 
 import java.lang.reflect.Field;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.List;
 import java.util.Map;
-
-import org.hyperledger.aries.config.CredDefId;
-import org.hyperledger.aries.pojo.PojoProcessor;
-
-import com.google.gson.annotations.SerializedName;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Data @NoArgsConstructor @AllArgsConstructor
@@ -32,7 +30,8 @@ public class Credential {
 
     private String schemaId;
 
-    @SerializedName(value = CredDefId.CREDENTIAL_DEFINITION_ID, alternate = CredDefId.CRED_DEF_ID)
+    @SerializedName(value = CredDefId.CREDENTIAL_DEFINITION_ID,
+            alternate = {CredDefId.CRED_DEF_ID, CredDefId.CREDENTIALDEFINITIONID})
     private String credentialDefinitionId;
 
     private String revRegId;

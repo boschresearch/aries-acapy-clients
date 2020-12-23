@@ -1,37 +1,25 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.webhook;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Type;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Optional;
-import java.util.Set;
-
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
 import org.hyperledger.aries.api.proof.PresentationExchangeRecord.Identifier;
 import org.hyperledger.aries.config.GsonConfig;
 import org.hyperledger.aries.pojo.PojoProcessor;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
-
-import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.util.*;
+import java.util.Map.Entry;
 
 @Slf4j
 public class EventParser {

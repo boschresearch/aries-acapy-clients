@@ -1,15 +1,14 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.config;
 
+import javax.annotation.Nullable;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-
-import lombok.NonNull;
 
 public class TimeUtil {
 
@@ -19,7 +18,10 @@ public class TimeUtil {
         return currentTimeFormatted(Instant.now());
     }
 
-    public static String currentTimeFormatted(@NonNull Instant instant) {
+    public static String currentTimeFormatted(@Nullable Instant instant) {
+        if (instant == null) {
+            return null;
+        }
         return FORMATTER.format(instant.truncatedTo(ChronoUnit.SECONDS));
     }
 }

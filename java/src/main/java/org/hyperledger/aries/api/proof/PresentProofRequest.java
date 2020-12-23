@@ -1,29 +1,22 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.proof;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Nullable;
-
+import com.google.gson.JsonObject;
+import com.google.gson.annotations.SerializedName;
+import lombok.*;
 import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest.ProofAttributes.ProofNonRevoked;
 import org.hyperledger.aries.config.CredDefId;
 import org.hyperledger.aries.config.GsonConfig;
 
-import com.google.gson.JsonObject;
-import com.google.gson.annotations.SerializedName;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Aka PresentationSendRequestRequest
@@ -118,7 +111,7 @@ public class PresentProofRequest {
 
         public static ProofRequest build(@NonNull PresentProofRequestConfig config) {
             ProofRequest result = new ProofRequest();
-            config.getAttributes().forEach((k, v) -> result.addRequestedAttribute(k, v));
+            config.getAttributes().forEach(result::addRequestedAttribute);
             return result;
         }
     }

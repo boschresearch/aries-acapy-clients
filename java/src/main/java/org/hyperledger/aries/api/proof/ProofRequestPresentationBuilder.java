@@ -1,25 +1,25 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.proof;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.Base64;
-import java.util.Optional;
-
+import com.google.gson.Gson;
 import org.hyperledger.aries.AriesClient;
 import org.hyperledger.aries.api.wallet.GetDidEndpointResponse;
 import org.hyperledger.aries.api.wallet.WalletDidResponse;
 import org.hyperledger.aries.config.GsonConfig;
 
-import com.google.gson.Gson;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+import java.util.Optional;
 
 public class ProofRequestPresentationBuilder {
 
-    private static final Charset UTF_8 = Charset.forName("UTF-8");
+    private static final Charset UTF_8 = StandardCharsets.UTF_8;
 
     private final Gson gson = GsonConfig.defaultConfig();
 
@@ -39,7 +39,7 @@ public class ProofRequestPresentationBuilder {
 
         final Optional<WalletDidResponse> walletDidPublic = acaPy.walletDidPublic();
         if (walletDidPublic.isPresent()) {
-            String agentPublicDid = null;
+            String agentPublicDid;
             agentVerkey = walletDidPublic.get().getVerkey();
             agentPublicDid = walletDidPublic.get().getDid();
             final Optional<GetDidEndpointResponse> agentEndpoint = acaPy.walletGetDidEndpoint(agentPublicDid);

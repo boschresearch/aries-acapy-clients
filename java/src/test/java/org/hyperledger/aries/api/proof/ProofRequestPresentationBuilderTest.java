@@ -1,21 +1,11 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.proof;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.nio.charset.Charset;
-import java.util.Base64;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
-
+import com.google.gson.Gson;
 import org.hyperledger.aries.IntegrationTestBase;
 import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest;
 import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest.ProofAttributes.ProofRestrictions;
@@ -23,13 +13,19 @@ import org.hyperledger.aries.api.proof.ProofRequestPresentation.PresentationAtta
 import org.hyperledger.aries.config.GsonConfig;
 import org.junit.jupiter.api.Test;
 
-import com.google.gson.Gson;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProofRequestPresentationBuilderTest extends IntegrationTestBase {
 
-    private static final Charset UTF_8 = Charset.forName("UTF-8");
+    private static final Charset UTF_8 = StandardCharsets.UTF_8;
 
-    private Gson gson = GsonConfig.defaultConfig();
+    private final Gson gson = GsonConfig.defaultConfig();
 
     @Test
     void testBuildConnectionlessProofRequest() throws Exception {

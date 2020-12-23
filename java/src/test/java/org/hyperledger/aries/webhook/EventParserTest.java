@@ -1,18 +1,12 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.webhook;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hyperledger.aries.api.connection.ConnectionRecord;
 import org.hyperledger.aries.api.credential.CredentialExchange;
 import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
@@ -20,13 +14,18 @@ import org.hyperledger.aries.pojo.AttributeName;
 import org.hyperledger.aries.util.FileLoader;
 import org.junit.jupiter.api.Test;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EventParserTest {
 
-    private FileLoader loader = FileLoader.newLoader();
-    private EventParser parser = new EventParser();
+    private final FileLoader loader = FileLoader.newLoader();
+    private final EventParser parser = new EventParser();
 
     @Test
     void testParseConnectionEvent() {
@@ -48,7 +47,7 @@ public class EventParserTest {
     }
 
     @Test
-    void testParseProofPresentationVerifier() throws Exception {
+    void testParseProofPresentationVerifier() {
         String json = loader.load("events/proof-valid-verifier.json");
         Optional<PresentationExchangeRecord> p = parser.parsePresentProof(json);
         assertTrue(p.isPresent());
@@ -63,7 +62,7 @@ public class EventParserTest {
     }
 
     @Test
-    void testParseProofPresentationVerifierMap() throws Exception {
+    void testParseProofPresentationVerifierMap() {
         String json = loader.load("events/proof-valid-verifier.json");
         Optional<PresentationExchangeRecord> p = parser.parsePresentProof(json);
         assertTrue(p.isPresent());
@@ -73,7 +72,7 @@ public class EventParserTest {
     }
 
     @Test
-    void testParseProofPresentationProver() throws Exception {
+    void testParseProofPresentationProver() {
         String json = loader.load("events/proof-valid-prover.json");
         Optional<PresentationExchangeRecord> p = parser.parsePresentProof(json);
         assertTrue(p.isPresent());
@@ -85,7 +84,7 @@ public class EventParserTest {
     }
 
     @Test
-    void testParseProofPresentationProverMap() throws Exception {
+    void testParseProofPresentationProverMap() {
         String json = loader.load("events/proof-valid-prover.json");
         Optional<PresentationExchangeRecord> p = parser.parsePresentProof(json);
         assertTrue(p.isPresent());

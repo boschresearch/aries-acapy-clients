@@ -1,10 +1,14 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.pojo;
 
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+
+import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.security.AccessController;
@@ -12,11 +16,6 @@ import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.annotation.Nonnull;
-
-import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class PojoProcessor {
@@ -29,11 +28,11 @@ public class PojoProcessor {
         List<Field> result = new ArrayList<>();
         Field[] fields = type.getDeclaredFields();
 
-        for (int i = 0; i < fields.length; i++) {
-            AttributeName an = fields[i].getAnnotation(AttributeName.class);
+        for (Field field : fields) {
+            AttributeName an = field.getAnnotation(AttributeName.class);
             if ((an == null || !an.excluded())
-                    && Modifier.isPrivate(fields[i].getModifiers())) {
-                result.add(fields[i]);
+                    && Modifier.isPrivate(field.getModifiers())) {
+                result.add(field);
             }
         }
         return result;
@@ -52,7 +51,7 @@ public class PojoProcessor {
 
     public static @Nonnull <T> T getInstance(@NonNull Class<T> type) {
         return AccessController.doPrivileged((PrivilegedAction<T>) () -> {
-            T result = null;
+            T result;
             try {
                 result = type.getConstructor().newInstance();
             } catch (Exception e) {

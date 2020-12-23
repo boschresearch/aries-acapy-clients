@@ -1,16 +1,15 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.proof;
 
+import com.google.gson.annotations.SerializedName;
+import lombok.Data;
+
 import java.util.List;
 import java.util.Map;
-
-import com.google.gson.annotations.SerializedName;
-
-import lombok.Data;
 
 /**
  * Connection less present proof request

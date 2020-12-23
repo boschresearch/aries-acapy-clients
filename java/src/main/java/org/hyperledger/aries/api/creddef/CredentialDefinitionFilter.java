@@ -1,19 +1,18 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.creddef;
-
-import javax.annotation.Nullable;
-
-import org.apache.commons.lang3.StringUtils;
-import org.hyperledger.aries.config.CredDefId;
 
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 import okhttp3.HttpUrl;
+import org.apache.commons.lang3.StringUtils;
+import org.hyperledger.aries.config.CredDefId;
+
+import javax.annotation.Nullable;
 
 @Data @Builder
 public class CredentialDefinitionFilter {

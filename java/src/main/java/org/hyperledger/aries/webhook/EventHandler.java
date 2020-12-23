@@ -1,7 +1,7 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.webhook;
 
@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class EventHandler {
 
-    private EventParser parser = new EventParser();
+    private final EventParser parser = new EventParser();
 
     public void handleEvent(String eventType, String json) {
 
@@ -24,25 +24,15 @@ public abstract class EventHandler {
 
         try {
             if ("connections".equals(eventType)) {
-                parser.parseValueSave(json, ConnectionRecord.class).ifPresent(connection -> {
-                    handleConnection(connection);
-                });
+                parser.parseValueSave(json, ConnectionRecord.class).ifPresent(this::handleConnection);
             } else if ("present_proof".equals(eventType)) {
-                parser.parsePresentProof(json).ifPresent(proof -> {
-                    handleProof(proof);
-                });
+                parser.parsePresentProof(json).ifPresent(this::handleProof);
             } else if ("issue_credential".equals(eventType)) {
-                parser.parseValueSave(json, CredentialExchange.class).ifPresent(credential -> {
-                    handleCredential(credential);
-                });
+                parser.parseValueSave(json, CredentialExchange.class).ifPresent(this::handleCredential);
             } else if ("basicmessages".equals(eventType)) {
-                parser.parseValueSave(json, BasicMessage.class).ifPresent(message -> {
-                    handleBasicMessage(message);
-                });
+                parser.parseValueSave(json, BasicMessage.class).ifPresent(this::handleBasicMessage);
             } else if ("ping".equals(eventType)) {
-                parser.parseValueSave(json, PingEvent.class).ifPresent(ping -> {
-                    handlePing(ping);
-                });
+                parser.parseValueSave(json, PingEvent.class).ifPresent(this::handlePing);
             }
         } catch (Exception e) {
             log.error("Error in webhook event handler:", e);

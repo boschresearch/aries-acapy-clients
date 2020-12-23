@@ -1,25 +1,24 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.credential;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.List;
-
-import org.hyperledger.aries.pojo.AttributeName;
-import org.junit.jupiter.api.Test;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hyperledger.aries.pojo.AttributeName;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CredentialAttributesTest {
 
     @Test
-    void testNoExclusions() throws Exception {
+    void testNoExclusions() {
         List<CredentialAttributes> creds = CredentialAttributes.from(
                 new ConcreteCredential("testname", "teststreet", "bar"));
         assertEquals(3, creds.size());
@@ -28,7 +27,7 @@ public class CredentialAttributesTest {
     }
 
     @Test
-    void testWithExclusions() throws Exception {
+    void testWithExclusions() {
         List<CredentialAttributes> creds = CredentialAttributes.from(
                 new ConcreteCredentialWithExclusion());
         assertEquals(2, creds.size());

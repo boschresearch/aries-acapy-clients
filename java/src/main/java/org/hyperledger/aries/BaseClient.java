@@ -1,18 +1,16 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.Collection;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Nullable;
-
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
+import lombok.extern.slf4j.Slf4j;
+import okhttp3.*;
 import org.apache.commons.lang3.StringUtils;
 import org.hyperledger.aries.api.connection.ConnectionRecord;
 import org.hyperledger.aries.api.credential.Credential;
@@ -22,17 +20,12 @@ import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
 import org.hyperledger.aries.api.wallet.WalletDidResponse;
 import org.hyperledger.aries.config.GsonConfig;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
-
-import lombok.extern.slf4j.Slf4j;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import javax.annotation.Nullable;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 abstract class BaseClient {
@@ -128,7 +121,7 @@ abstract class BaseClient {
     private static void handleError(Response resp) throws IOException {
         String msg = StringUtils.isNotEmpty(resp.message()) ? resp.message() : "";
         String body = resp.body() != null ? resp.body().string() : "";
-        log.error("code={} message={}\nbody={}", Integer.valueOf(resp.code()), msg, body);
+        log.error("code={} message={}\nbody={}", resp.code(), msg, body);
         throw new AriesException(resp.code(), msg + "\n" + body);
     }
 }

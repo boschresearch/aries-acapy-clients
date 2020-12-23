@@ -1,32 +1,26 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.connection;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.List;
-import java.util.Optional;
-
+import lombok.extern.slf4j.Slf4j;
 import org.hyperledger.aries.IntegrationTestBase;
 import org.hyperledger.aries.api.exception.AriesException;
 import org.junit.jupiter.api.Test;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 public class ConnectionRecordTest extends IntegrationTestBase {
 
     @Test
-    void testDeleteConnection() throws Exception {
-        assertThrows(AriesException.class, () -> {
-            ac.connectionsRemove("1");
-        });
+    void testDeleteConnection() {
+        assertThrows(AriesException.class, () -> ac.connectionsRemove("1"));
     }
 
     @Test
@@ -38,11 +32,9 @@ public class ConnectionRecordTest extends IntegrationTestBase {
     }
 
     @Test
-    void testGetConnectionsWrongFilter() throws Exception {
-        assertThrows(AriesException.class, () -> {
-            ac.connections(
-                ConnectionFilter.builder().myDid("wrong_format").build());
-        });
+    void testGetConnectionsWrongFilter() {
+        assertThrows(AriesException.class, () -> ac.connections(
+            ConnectionFilter.builder().myDid("wrong_format").build()));
     }
 
     @Test

@@ -1,18 +1,17 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.proof;
-
-import javax.annotation.Nullable;
-
-import org.apache.commons.lang3.StringUtils;
 
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
 import okhttp3.HttpUrl;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.annotation.Nullable;
 
 @Data @Builder
 public class PresentProofRecordsFilter {
@@ -41,7 +40,6 @@ public class PresentProofRecordsFilter {
     public enum PresentationExchangeRole {
         prover,
         verifier
-        ;
     }
 
     public enum PresentationExchangeState {
@@ -53,6 +51,5 @@ public class PresentProofRecordsFilter {
         presentation_received,
         verified,
         presentation_acked
-        ;
     }
 }

@@ -1,23 +1,23 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.credential;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.List;
-import java.util.Optional;
-
+import okhttp3.mockwebserver.MockResponse;
 import org.hyperledger.aries.MockedTestBase;
 import org.hyperledger.aries.api.creddef.CredentialDefinition;
 import org.hyperledger.aries.api.creddef.CredentialDefinition.CredentialDefinitionRequest;
 import org.hyperledger.aries.api.creddef.CredentialDefinition.CredentialDefinitionResponse;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-import okhttp3.mockwebserver.MockResponse;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MockedCredentialTest extends MockedTestBase {
 
@@ -102,7 +102,7 @@ class MockedCredentialTest extends MockedTestBase {
         final List<String> credentials = ac.credentialIds(
                 CredentialFilter.credentialDefinitionId(credentialDefinitionId)
                 .and(CredentialFilter.schemaId(schemaId)));
-        assertTrue(credentials.size() == 1);
+        Assert.assertEquals(1, credentials.size());
         assertEquals("60591077-717b-429b-bda1-f5930d2870c7", credentials.get(0));
     }
 

@@ -1,24 +1,22 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.jsonld;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.hyperledger.aries.api.jsonld.SignRequest.SignDocument.Options;
-import org.hyperledger.aries.config.GsonConfig;
-import org.hyperledger.aries.config.TimeUtil;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
-
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
+import org.hyperledger.aries.api.jsonld.SignRequest.SignDocument.Options;
+import org.hyperledger.aries.config.GsonConfig;
+import org.hyperledger.aries.config.TimeUtil;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Use the SignRequest.from() method to easily construct a new sign request.

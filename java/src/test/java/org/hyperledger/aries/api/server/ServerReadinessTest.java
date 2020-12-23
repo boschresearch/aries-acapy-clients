@@ -1,20 +1,20 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.server;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.time.Duration;
-import java.util.Optional;
 
 import org.hyperledger.aries.AriesClient;
 import org.hyperledger.aries.IntegrationTestBase;
 import org.hyperledger.aries.api.exception.AriesException;
 import org.junit.jupiter.api.Test;
+
+import java.time.Duration;
+import java.util.Optional;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ServerReadinessTest extends IntegrationTestBase {
 
@@ -28,11 +28,9 @@ class ServerReadinessTest extends IntegrationTestBase {
     }
 
     @Test
-    void testReadinessFailure() throws Exception {
+    void testReadinessFailure() {
         AriesClient broken = new AriesClient("http://localhost:12344");
-        assertThrows(AriesException.class, () -> {
-            broken.statusWaitUntilReady(Duration.ofMillis(300));
-        });
+        assertThrows(AriesException.class, () -> broken.statusWaitUntilReady(Duration.ofMillis(300)));
     }
 
 }

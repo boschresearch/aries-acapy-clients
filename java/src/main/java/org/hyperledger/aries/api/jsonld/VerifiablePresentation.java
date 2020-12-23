@@ -1,28 +1,22 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.jsonld;
-
-import java.lang.reflect.Type;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.hyperledger.aries.api.jsonld.VerifiableCredential.VerifiableIndyCredential;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
+import lombok.*;
+import org.hyperledger.aries.api.jsonld.VerifiableCredential.VerifiableIndyCredential;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @see <a href="https://www.w3.org/2018/credentials/v1#VerifiablePresentation">VerifiablePresentation</a>
@@ -57,4 +51,8 @@ public class VerifiablePresentation<T extends VerifiableCredential> {
 
     @Nullable
     private Proof proof;
+
+    public List<T> getVerifiableCredential() {
+        return verifiableCredential != null ? verifiableCredential : new ArrayList<>();
+    }
 }

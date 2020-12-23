@@ -1,28 +1,27 @@
-/**
- * Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
- *
- * SPDX-License-Identifier: Apache-2.0
+/*
+  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
+
+  SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.proof;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Map;
-
+import lombok.extern.slf4j.Slf4j;
 import org.hyperledger.aries.IntegrationTestBase;
 import org.hyperledger.aries.api.credential.Credential;
 import org.hyperledger.aries.api.exception.AriesException;
 import org.hyperledger.aries.config.GsonConfig;
 import org.junit.jupiter.api.Test;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Slf4j
 public class PresentProofProposalTest extends IntegrationTestBase {
 
     @Test
-    void testBuildPresentationProposal() throws Exception {
+    void testBuildPresentationProposal() {
         Credential cred = new Credential();
         cred.setAttrs(Map.of("street", "teststreet"));
         cred.setCredentialDefinitionId("WgWxqztrNooG92RXvxSTWv:3:CL:20:tag");
