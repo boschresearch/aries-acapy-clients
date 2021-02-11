@@ -39,7 +39,15 @@ public class ConnectionRecordTest extends IntegrationTestBase {
 
     @Test
     void testCreateInvitation() throws Exception {
-        final Optional<CreateInvitationResponse> inv = ac.connectionsCreateInvitation();
+        final Optional<CreateInvitationResponse> inv = ac.connectionsCreateInvitation(
+                CreateInvitationRequest
+                        .builder()
+                        .recipientKeys(List.of())
+                        .build(),
+                CreateInvitationParams
+                        .builder()
+                        .autoAccept(Boolean.TRUE)
+                        .build());
         assertTrue(inv.isPresent());
         assertNotNull(inv.get().getInvitationUrl());
         log.debug("{}", inv.get());

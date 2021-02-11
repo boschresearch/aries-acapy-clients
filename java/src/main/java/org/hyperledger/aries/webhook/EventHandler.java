@@ -12,6 +12,7 @@ import org.hyperledger.aries.api.message.PingEvent;
 import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
 
 import lombok.extern.slf4j.Slf4j;
+import org.hyperledger.aries.api.revocation.RevocationEvent;
 
 @Slf4j
 public abstract class EventHandler {
@@ -33,6 +34,8 @@ public abstract class EventHandler {
                 parser.parseValueSave(json, BasicMessage.class).ifPresent(this::handleBasicMessage);
             } else if ("ping".equals(eventType)) {
                 parser.parseValueSave(json, PingEvent.class).ifPresent(this::handlePing);
+            } else if ("issuer_cred_rev".equals(eventType)) {
+                parser.parseValueSave(json, RevocationEvent.class).ifPresent(this::handleRevocation);
             }
         } catch (Exception e) {
             log.error("Error in webhook event handler:", e);
@@ -57,6 +60,10 @@ public abstract class EventHandler {
 
     public void handlePing(PingEvent ping) {
         log.debug("Ping: {}", ping);
+    }
+
+    public void handleRevocation(RevocationEvent revocation) {
+        log.debug("Revocation: {}", revocation);
     }
 
     public void handleRaw(String eventType, String json) {

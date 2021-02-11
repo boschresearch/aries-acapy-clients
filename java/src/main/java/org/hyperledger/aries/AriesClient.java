@@ -13,10 +13,7 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.apache.commons.lang3.StringUtils;
-import org.hyperledger.aries.api.connection.ConnectionFilter;
-import org.hyperledger.aries.api.connection.ConnectionRecord;
-import org.hyperledger.aries.api.connection.CreateInvitationResponse;
-import org.hyperledger.aries.api.connection.ReceiveInvitationRequest;
+import org.hyperledger.aries.api.connection.*;
 import org.hyperledger.aries.api.creddef.CredentialDefinition;
 import org.hyperledger.aries.api.creddef.CredentialDefinition.CredentialDefinitionRequest;
 import org.hyperledger.aries.api.creddef.CredentialDefinition.CredentialDefinitionResponse;
@@ -49,8 +46,6 @@ import org.hyperledger.aries.api.wallet.WalletDidResponse;
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -159,9 +154,41 @@ public class AriesClient extends BaseClient {
      * Create a new connection invitation
      * @return {@link CreateInvitationResponse}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     * @deprecated see {@link #connectionsCreateInvitation(CreateInvitationRequest)}
      */
+    @Deprecated
     public Optional<CreateInvitationResponse> connectionsCreateInvitation() throws IOException {
         Request req = buildPost(url + "/connections/create-invitation", EMPTY_JSON);
+        return call(req, CreateInvitationResponse.class);
+    }
+
+    /**
+     * Create a new connection invitation
+     * @param request {@link CreateInvitationRequest}
+     * @return {@link CreateInvitationResponse}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     * @since 0.6.0
+     */
+    public Optional<CreateInvitationResponse> connectionsCreateInvitation(@NonNull CreateInvitationRequest request)
+            throws IOException {
+        return connectionsCreateInvitation(request, null);
+    }
+
+    /**
+     * Create a new connection invitation
+     * @param request {@link CreateInvitationRequest}
+     * @param params {@link CreateInvitationParams}
+     * @return {@link CreateInvitationResponse}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     * @since 0.6.0
+     */
+    public Optional<CreateInvitationResponse> connectionsCreateInvitation(
+            @NonNull CreateInvitationRequest request, @Nullable CreateInvitationParams params) throws IOException {
+        HttpUrl.Builder b = HttpUrl.parse(url + "/connections/create-invitation").newBuilder();
+        if (params != null) {
+            params.buildParams(b);
+        }
+        Request req = buildPost(b.build().toString(), request);
         return call(req, CreateInvitationResponse.class);
     }
 
@@ -260,7 +287,7 @@ public class AriesClient extends BaseClient {
     }
 
     // ----------------------------------------------------
-    // Issue Credential - Credential Issue
+    // Issue Credential - Credential Issue v1.0
     // ----------------------------------------------------
 
     /**
@@ -309,6 +336,11 @@ public class AriesClient extends BaseClient {
         call(req);
       }
 
+    // ----------------------------------------------------
+    // Issue Credential - Credential Issue v1.0
+    // ----------------------------------------------------
+
+    // TODO
 
     // ----------------------------------------------------
     // Credentials- Holder Credential Management
@@ -343,7 +375,7 @@ public class AriesClient extends BaseClient {
     }
 
     /**
-     * Fetch credentials from wallet
+     * Fetch credentials ids from wallet
      * @return only the credential IDs
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
@@ -352,7 +384,7 @@ public class AriesClient extends BaseClient {
     }
 
     /**
-     * Fetch credentials from wallet
+     * Fetch credentials ids from wallet
      * @param filter see {@link CredentialFilter} for prepared filters
      * @return only the credential IDs based on the filter criteria
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
@@ -368,23 +400,35 @@ public class AriesClient extends BaseClient {
 
     /**
      * Fetch a credential from wallet by id
-     * @param referent referent
+     * @param credentialId credentialId
      * @return {@link Credential}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public Optional<Credential> credential(@NonNull String referent) throws IOException {
-        Request req = buildGet(url + "/credential/" + referent);
+    public Optional<Credential> credential(@NonNull String credentialId) throws IOException {
+        Request req = buildGet(url + "/credential/" + credentialId);
         return call(req, Credential.class);
     }
 
     /**
-     * Remove a credential from the wallet by id (referent)
-     * @param referent referent
+     * Remove a credential from the wallet by id (credentialId)
+     * @param credentialId credentialId
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public void credentialRemove(@NonNull String referent) throws IOException {
-        Request req = buildDelete(url + "/credential/" + referent);
+    public void credentialRemove(@NonNull String credentialId) throws IOException {
+        Request req = buildDelete(url + "/credential/" + credentialId);
         call(req);
+    }
+
+    /**
+     * Query credential revocation status by id
+     * @param credentialId credentialId
+     * @return {@link Credential.CredentialRevokedResult}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<Credential.CredentialRevokedResult> credentialRevoked(@NonNull String credentialId)
+            throws IOException {
+        Request req = buildGet(url + "/credential/revoked/" + credentialId);
+        return call(req, Credential.CredentialRevokedResult.class);
     }
 
     // ----------------------------------------------------
@@ -654,11 +698,23 @@ public class AriesClient extends BaseClient {
     // ----------------------------------------------------
 
     /**
+     * Get an active revocation registry by credential definition id
+     * @param credentialDefinitionId the credential definition id
+     * @return {@link RevRegCreateResponse}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<RevRegCreateResponse> revocationActiveRegistry(@NonNull String credentialDefinitionId)
+            throws IOException {
+        Request req = buildGet(url + "/revocation/active-registry/" + credentialDefinitionId);
+        return getWrapped(raw(req), "result", RevRegCreateResponse.class);
+    }
+
+    /**
      * Creates a new revocation registry
      * Creating a new registry is a three step flow:
-     * First: create the registry
-     * Second: publish the URI of the tails file
-     * Third: Set the registry to active
+     * First: create the registry {@link #revocationCreateRegistry}
+     * Second: publish the URI of the tails file {@link #revocationRegistryUpdateUri}
+     * Third: Set the registry to active {@link #revocationActiveRegistry}
      * @param revRegRequest {@link RevRegCreateRequest}
      * @return {@link RevRegCreateResponse}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
@@ -717,30 +773,15 @@ public class AriesClient extends BaseClient {
     }
 
     /**
-     * Get an active revocation registry by credential definition id
-     * @param credentialDefinitionId the credential definition id
-     * @return {@link RevRegCreateResponse}
+     * Revoke an issued credential
+     * @param revokeRequest {@link RevokeRequest}
+     * @return empty object when success
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public Optional<RevRegCreateResponse> revocationActiveRegistry(@NonNull String credentialDefinitionId)
+    public Optional<RevRegCreateResponse.RevocationModuleResponse> revocationRevoke(@NonNull RevokeRequest revokeRequest)
             throws IOException {
-        Request req = buildGet(url + "/revocation/active-registry/" + credentialDefinitionId);
-        return getWrapped(raw(req), "result", RevRegCreateResponse.class);
-    }
-
-    /**
-     * Creates a new revocation registry
-     * @param revRegId the revocation registry id
-     * @return {@link RevRegCreateResponse}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     * @deprecated since 0.5.5
-     */
-    @Deprecated
-    public Optional<RevRegCreateResponse> revocationRegistryPublish(@NonNull String revRegId)
-            throws IOException {
-        Request req = buildPost(url + "/revocation/registry/"
-                + URLEncoder.encode(revRegId, StandardCharsets.UTF_8) + "/publish", EMPTY_JSON);
-        return getWrapped(raw(req), "result", RevRegCreateResponse.class);
+        Request req = buildPost(url + "/revocation/revoke", revokeRequest);
+        return getWrapped(raw(req), "result", RevRegCreateResponse.RevocationModuleResponse.class);
     }
 
     // ----------------------------------------------------

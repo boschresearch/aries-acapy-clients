@@ -12,6 +12,6 @@ import javax.annotation.Nullable;
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class RevRegCreateRequest {
     @NonNull private String credentialDefinitionId;
-    /** Maximun credentials */
+    /** Maximum credentials, minimum 4, maximum 32768 */
     @Nullable private Integer maxCredNum;
 }

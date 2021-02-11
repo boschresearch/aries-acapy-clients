@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.hyperledger.aries.pojo.AttributeName;
 
 import java.lang.reflect.Field;
@@ -41,6 +42,9 @@ public class CredentialAttributes {
             for (Field field : fields) {
                 String fieldName = field.getName();
                 AttributeName a = field.getAnnotation(AttributeName.class);
+                if (a != null && StringUtils.isNotEmpty(a.value())) {
+                    fieldName = a.value();
+                }
                 if (a == null || !a.excluded()) {
                     String fieldValue = "";
                     try {

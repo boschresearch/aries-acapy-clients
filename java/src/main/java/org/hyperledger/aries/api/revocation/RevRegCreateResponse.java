@@ -16,33 +16,28 @@ import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor
 public class RevRegCreateResponse {
-    private String state;
-    private String tailsPublicUri;
-    private RevocRegEntry revocRegEntry;
-    private String createdAt;
     private RevocRegDef revocRegDef;
-    private String issuerDid;
-    @SerializedName(value = CredDefId.CRED_DEF_ID, alternate = CredDefId.CREDDEFID)
-    private String credDefId;
-    private String tag;
     private String tailsHash;
-    private Long maxCredNum;
-    private String revocDefType;
-    private String tailsLocalPath;
     private String recordId;
     private String updatedAt;
-    private String revocRegId;
+    private String state;
+    private String revocDefType;
+    @SerializedName(value = CredDefId.CRED_DEF_ID, alternate = CredDefId.CREDDEFID)
+    private String credDefId;
+    private RevocRegEntry revocRegEntry;
     private JsonArray pendingPub;
+    private String revocRegId;
+    private String createdAt;
+    private Long maxCredNum;
+    private String tailsLocalPath;
+    private String tailsPublicUri;
+    private String issuerDid;
+    private String tag;
 
     @Data @NoArgsConstructor
     public static final class RevocRegEntry {
         private String ver;
-        private RevocRegEntryValue value;
-
-        @Data @NoArgsConstructor
-        public static final class RevocRegEntryValue {
-            private String accum;
-        }
+        private JsonObject value;
     }
 
     @Data @NoArgsConstructor
@@ -69,6 +64,11 @@ public class RevRegCreateResponse {
             @SerializedName(value = "tailsLocation", alternate = "tails_location")
             private String tailsLocation;
         }
+    }
+
+    @Data @NoArgsConstructor
+    public static final class RevocationModuleResponse {
+        // epmty for now
     }
 
 }

@@ -33,6 +33,15 @@ public class CredentialAttributesTest {
         assertEquals(2, creds.size());
     }
 
+    @Test
+    void testWithAttributeName() {
+        List<CredentialAttributes> creds = CredentialAttributes.from(
+                new ConcreteCredentialWithName("testname", "teststreet", "bar"));
+        assertEquals(3, creds.size());
+        assertEquals("custom", creds.get(2).getName());
+        assertEquals("bar", creds.get(2).getValue());
+    }
+
     @Data @NoArgsConstructor @AllArgsConstructor
     static class ConcreteCredential {
         private String name;
@@ -43,8 +52,17 @@ public class CredentialAttributesTest {
     @Data @NoArgsConstructor @AllArgsConstructor
     static class ConcreteCredentialWithExclusion {
         private String name;
+        @AttributeName("street")
         private String street;
         @AttributeName(excluded = true)
+        private String other;
+    }
+
+    @Data @NoArgsConstructor @AllArgsConstructor
+    static class ConcreteCredentialWithName {
+        private String name;
+        private String street;
+        @AttributeName("custom")
         private String other;
     }
 }

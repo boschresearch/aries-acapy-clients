@@ -17,6 +17,7 @@ Convenience library based on okhttp and gson to interact with aries cloud agent 
 | GET    | /credential/{credential_id}                           | :white_check_mark: |
 | DELETE | /credential/{credential_id}                           | :white_check_mark: |
 | GET    | /credentials                                          | :white_check_mark: |
+| GET    | /credentials/revoked                                  | :white_check_mark: |
 |        | **credential-definition**                             |                    |
 | POST   | /credential-definitions                               | :white_check_mark: |
 | GET    | /credential-definitions/created                       | :white_check_mark: |
@@ -47,6 +48,7 @@ Convenience library based on okhttp and gson to interact with aries cloud agent 
 | GET    | /revocation/registry/{rev_reg_id}                     | :white_check_mark: |
 | PATCH  | /revocation/registry/{rev_reg_id}                     | :white_check_mark: |
 | GET    | /revocation/active-registry/{cred_def_id}             | :white_check_mark: |
+| POST   | /revocation/revoke                                    | :white_check_mark: |
 |        | **schemas**                                           |                    |
 | POST   | /schemas                                              | :white_check_mark: |
 | GET    | /schemas/{schema_id}                                  | :white_check_mark: |

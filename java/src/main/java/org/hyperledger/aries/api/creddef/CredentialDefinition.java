@@ -36,9 +36,10 @@ public final class CredentialDefinition {
 
     @Data @NoArgsConstructor @AllArgsConstructor @Builder
     public static final class CredentialDefinitionRequest {
-        private String tag;
-        Boolean supportRevocation;
+        private Integer revocationRegistrySize;
         private String schemaId;
+        private Boolean supportRevocation;
+        private String tag;
     }
 
     @Data @NoArgsConstructor @AllArgsConstructor

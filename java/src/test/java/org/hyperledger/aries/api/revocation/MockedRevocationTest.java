@@ -84,15 +84,4 @@ class MockedRevocationTest extends MockedTestBase {
         assertEquals(parsedActive, GsonConfig.prettyPrinter().toJson(reg.get()));
     }
 
-    @Test
-    void testPublishRegistry() throws Exception {
-        server.enqueue(new MockResponse().setBody(response));
-
-        final Optional<RevRegCreateResponse> reg = ac.revocationRegistryPublish("mocked");
-
-        assertTrue(reg.isPresent());
-
-        assertEquals(parsed, GsonConfig.prettyPrinter().toJson(reg.get()));
-    }
-
 }

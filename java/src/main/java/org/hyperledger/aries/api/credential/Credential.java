@@ -63,4 +63,9 @@ public class Credential {
         });
         return result;
     }
+
+    @Data @NoArgsConstructor @AllArgsConstructor
+    public static final class CredentialRevokedResult {
+        private Boolean revoked;
+    }
 }
