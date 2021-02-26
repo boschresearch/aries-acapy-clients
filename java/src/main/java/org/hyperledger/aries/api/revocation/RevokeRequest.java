@@ -20,6 +20,6 @@ public class RevokeRequest {
     /** and revocation registry identifier */
     private String revRegId;
 
-    /** If falls, needs a call to /revocation/publish-revocations later */
+    /** If false, needs a call to /revocation/publish-revocations later */
     private Boolean publish;
 }

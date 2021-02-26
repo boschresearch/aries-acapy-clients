@@ -40,6 +40,8 @@
         <maven.surefire.version>2.22.2</maven.surefire.version>
         <!-- Dependency Versions -->
         <junit.jupiter.api.version>5.7.1</junit.jupiter.api.version>
+        <kotlin.version>1.4.31</kotlin.version>
+        <lombok.version>1.18.18</lombok.version>
         <okhttp.version>4.9.1</okhttp.version>
         <pmd.version>6.31.0</pmd.version>
         <testcontainers.version>1.15.1</testcontainers.version>
@@ -49,7 +51,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.18</version>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -61,6 +63,16 @@
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
             <version>${okhttp.version}</version>
+        </dependency>
+        <dependency><!-- okhttp vulnerability overwrite -->
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+        <dependency><!-- okhttp vulnerability overwrite -->
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib-common</artifactId>
+            <version>${kotlin.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -169,11 +181,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>3.0.0-M1</version>
-            </plugin>
             <!-- Quality -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -194,6 +201,13 @@
                     <threshold>Low</threshold>
                     <xmlOutput>true</xmlOutput>
                     <excludeFilterFile>src/test/resources/spotbugs-exclude.xml</excludeFilterFile>
+                    <plugins>
+                        <plugin>
+                            <groupId>com.h3xstream.findsecbugs</groupId>
+                            <artifactId>findsecbugs-plugin</artifactId>
+                            <version>LATEST</version>
+                        </plugin>
+                    </plugins>
                 </configuration>
                 <executions>
                     <execution>
@@ -241,26 +255,101 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <version>2.0.0</version>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>6.1.1</version>
+                <configuration>
+                    <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability>
+                </configuration>
                 <executions>
                     <execution>
-                        <phase>generate-resources</phase>
                         <goals>
-                            <goal>third-party-report</goal>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.6</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- mvn se.ayoy.maven-plugins:ayoy-license-verifier-maven-plugin:verify -->
+            <plugin>
+                <groupId>se.ayoy.maven-plugins</groupId>
+                <artifactId>ayoy-license-verifier-maven-plugin</artifactId>
+                <version>1.2.0</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>verify</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
-                    <excludedScopes>test</excludedScopes>
-                    <licenseMerges>
-                        <licenseMerge>The Apache Software License, Version 2.0|The Apache License, Version 2.0|Apache License, Version 2.0|Apache License 2.0|Apache 2.0</licenseMerge>
-                        <licenseMerge>The MIT License|MIT License</licenseMerge>
-                    </licenseMerges>
+                    <licenseFile>${project.basedir}/licenses.xml</licenseFile>
+                    <failOnForbidden>true</failOnForbidden>
+                    <failOnMissing>true</failOnMissing>
+                    <failOnUnknown>true</failOnUnknown>
+                    <excludedScopes>
+                        <!-- Ignore all scopes that do not distribute artifacts -->
+                        <scope>test</scope>
+                        <scope>provided</scope>
+                    </excludedScopes>
                 </configuration>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.9.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>3.0.0-M1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
+
+    <!-- mvn site -->
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.1.1</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>dependencies</report>
+                            <report>dependency-convergence</report>
+                            <report>dependency-info</report>
+                            <report>modules</report>
+                            <report>licenses</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 
 </project>

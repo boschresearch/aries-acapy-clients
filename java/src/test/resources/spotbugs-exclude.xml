@@ -6,8 +6,7 @@
 
     <!-- Java 11 false positive -->
     <Match>
-        <Bug
-            pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE,RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" />
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE,RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" />
     </Match>
 
     <Match>
@@ -33,6 +32,10 @@
     <Match>
        <Class name="org.hyperledger.aries.api.proof.PresentationRequest" />
        <Bug pattern="UPM_UNCALLED_PRIVATE_METHOD" />
+    </Match>
+
+    <Match>
+        <Bug pattern="CRLF_INJECTION_LOGS" />
     </Match>
 
 </FindBugsFilter>

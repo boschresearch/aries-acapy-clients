@@ -50,6 +50,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -107,7 +108,7 @@ public class AriesClient extends BaseClient {
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
     public Optional<List<ConnectionRecord>> connections(@Nullable ConnectionFilter filter) throws IOException {
-        HttpUrl.Builder b = HttpUrl.parse(url + "/connections").newBuilder();
+        HttpUrl.Builder b = Objects.requireNonNull(HttpUrl.parse(url + "/connections")).newBuilder();
         if (filter != null) {
             filter.buildParams(b);
         }
@@ -184,7 +185,7 @@ public class AriesClient extends BaseClient {
      */
     public Optional<CreateInvitationResponse> connectionsCreateInvitation(
             @NonNull CreateInvitationRequest request, @Nullable CreateInvitationParams params) throws IOException {
-        HttpUrl.Builder b = HttpUrl.parse(url + "/connections/create-invitation").newBuilder();
+        HttpUrl.Builder b = Objects.requireNonNull(HttpUrl.parse(url + "/connections/create-invitation")).newBuilder();
         if (params != null) {
             params.buildParams(b);
         }
@@ -202,7 +203,7 @@ public class AriesClient extends BaseClient {
     public Optional<ConnectionRecord> connectionsReceiveInvitation(
             @NonNull ReceiveInvitationRequest invite, @Nullable String alias)
             throws IOException{
-        HttpUrl.Builder b = HttpUrl.parse(url + "/connections/receive-invitation").newBuilder();
+        HttpUrl.Builder b = Objects.requireNonNull(HttpUrl.parse(url + "/connections/receive-invitation")).newBuilder();
         if (StringUtils.isNotEmpty(alias)) {
             b.addQueryParameter("alias", alias);
         }
@@ -266,7 +267,7 @@ public class AriesClient extends BaseClient {
      */
     public Optional<CredentialDefinitionsCreated> credentialDefinitionsCreated(
             @Nullable CredentialDefinitionFilter filter) throws IOException {
-        HttpUrl.Builder b = HttpUrl.parse(url + "/credential-definitions/created").newBuilder();
+        HttpUrl.Builder b = Objects.requireNonNull(HttpUrl.parse(url + "/credential-definitions/created")).newBuilder();
         if (filter != null) {
             filter.buildParams(b);
         }
@@ -452,7 +453,7 @@ public class AriesClient extends BaseClient {
      */
     public Optional<List<PresentationExchangeRecord>> presentProofRecords(@Nullable PresentProofRecordsFilter filter)
             throws IOException {
-        HttpUrl.Builder b = HttpUrl.parse(url + "/present-proof/records").newBuilder();
+        HttpUrl.Builder b = Objects.requireNonNull(HttpUrl.parse(url + "/present-proof/records")).newBuilder();
         if (filter != null) {
             filter.buildParams(b);
         }
@@ -663,7 +664,7 @@ public class AriesClient extends BaseClient {
      */
     public Optional<EndpointResponse> ledgerDidEndpoint(@NonNull String did, @Nullable EndpointType type)
             throws IOException{
-        HttpUrl.Builder b = HttpUrl.parse(url + "/ledger/did-endpoint").newBuilder();
+        HttpUrl.Builder b = Objects.requireNonNull(HttpUrl.parse(url + "/ledger/did-endpoint")).newBuilder();
         b.addQueryParameter("did", did);
         if (type != null) {
             b.addQueryParameter("endpoint_type", type.toString());
@@ -735,7 +736,7 @@ public class AriesClient extends BaseClient {
     public Optional<RevRegsCreated> revocationRegistriesCreated(
             @Nullable String credentialDefinitionId, @Nullable RevocationRegistryState state)
             throws IOException{
-        HttpUrl.Builder b = HttpUrl.parse(url + "/revocation/registries/created").newBuilder();
+        HttpUrl.Builder b = Objects.requireNonNull(HttpUrl.parse(url + "/revocation/registries/created")).newBuilder();
         if (StringUtils.isNotEmpty(credentialDefinitionId)) {
             b.addQueryParameter("cred_def_id", credentialDefinitionId);
         }
@@ -781,7 +782,7 @@ public class AriesClient extends BaseClient {
     public Optional<RevRegCreateResponse.RevocationModuleResponse> revocationRevoke(@NonNull RevokeRequest revokeRequest)
             throws IOException {
         Request req = buildPost(url + "/revocation/revoke", revokeRequest);
-        return getWrapped(raw(req), "result", RevRegCreateResponse.RevocationModuleResponse.class);
+        return call(req, RevRegCreateResponse.RevocationModuleResponse.class);
     }
 
     // ----------------------------------------------------
