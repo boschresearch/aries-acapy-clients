@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Schemas are the same for all clients once they are agreed upon.
  */
-@Data @NoArgsConstructor @AllArgsConstructor
+@Data @NoArgsConstructor @AllArgsConstructor @Builder
 public final class CredentialDefinition {
 
     private String ver;

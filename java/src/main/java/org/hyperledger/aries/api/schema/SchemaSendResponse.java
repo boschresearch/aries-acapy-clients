@@ -18,7 +18,7 @@ public class SchemaSendResponse {
     private String schemaId;
     private Schema schema;
 
-    @Data @NoArgsConstructor
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
     public static final class Schema {
         private String ver;
         private String id;

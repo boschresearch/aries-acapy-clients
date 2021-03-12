@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class LedgerTaaTest extends IntegrationTestBase {
+class LedgeTest extends IntegrationTestBase {
 
     @Test
     void testGetTaa() {
@@ -21,6 +21,11 @@ class LedgerTaaTest extends IntegrationTestBase {
     @Test
     void testAcceptTaa() {
         assertThrows(AriesException.class, ()-> ac.ledgerTaaAccept(new TAAAccept()));
+    }
+
+    @Test
+    void testDidVerkey() throws Exception {
+        assertThrows(AriesException.class, ()-> ac.ledgerDidVerkey("5mwQSWnRePrZ3oF67C4Kqe"));
     }
 
 }

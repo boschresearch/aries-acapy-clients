@@ -22,6 +22,7 @@ public class PresentProofProposalBuilder {
 
     /**
      * Usecase: send a single wallet credential to a connection.
+     * @param connectionId the connection id
      * @param cred {@link Credential}
      * @return simple {@link PresentProofProposal} without any predicates set
      */

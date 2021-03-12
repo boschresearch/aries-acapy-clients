@@ -25,10 +25,7 @@ import org.hyperledger.aries.api.credential.CredentialFilter;
 import org.hyperledger.aries.api.credential.CredentialProposalRequest;
 import org.hyperledger.aries.api.exception.AriesException;
 import org.hyperledger.aries.api.jsonld.*;
-import org.hyperledger.aries.api.ledger.EndpointResponse;
-import org.hyperledger.aries.api.ledger.EndpointType;
-import org.hyperledger.aries.api.ledger.TAAAccept;
-import org.hyperledger.aries.api.ledger.TAAInfo;
+import org.hyperledger.aries.api.ledger.*;
 import org.hyperledger.aries.api.message.BasicMessage;
 import org.hyperledger.aries.api.message.PingRequest;
 import org.hyperledger.aries.api.message.PingResponse;
@@ -654,6 +651,19 @@ public class AriesClient extends BaseClient {
     // ----------------------------------------------------
     // Ledger
     // ----------------------------------------------------
+
+    /**
+     * Get the verkey for a did from the ledger
+     * @param did the DID of interest
+     * @return {@link EndpointResponse}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<DidVerkeyResponse> ledgerDidVerkey(@NonNull String did)  throws IOException{
+        HttpUrl.Builder b = Objects.requireNonNull(HttpUrl.parse(url + "/ledger/did-verkey")).newBuilder();
+        b.addQueryParameter("did", did);
+        Request req = buildGet(b.build().toString());
+        return call(req, DidVerkeyResponse.class);
+    }
 
     /**
      * Get the endpoint for a DID from the ledger.

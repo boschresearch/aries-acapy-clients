@@ -31,6 +31,7 @@ Convenience library based on okhttp and gson to interact with aries cloud agent 
 | POST   | /jsonld/sign                                          | :white_check_mark: |
 | POST   | /jsonld/verify                                        | :white_check_mark: |
 |        | **ledger**                                            |                    |
+| GET    | /ledger/did-verkey                                    | :white_check_mark: |
 | GET    | /ledger/did-endpoint                                  | :white_check_mark: |
 | GET    | /ledger/taa                                           | :white_check_mark: |
 | POST   | /ledger/taa/accept                                    | :white_check_mark: |
