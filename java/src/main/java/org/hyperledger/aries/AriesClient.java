@@ -6,6 +6,7 @@
 package org.hyperledger.aries;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import lombok.Builder;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -508,6 +509,20 @@ public class AriesClient extends BaseClient {
     }
 
     /**
+     * Sends a free presentation request not bound to any proposal. Use this method if you want to have full
+     * control over the proof request.
+     * @param proofRequestJson json string
+     * @return {@link PresentationExchangeRecord}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<PresentationExchangeRecord> presentProofSendRequest(@NonNull String proofRequestJson)
+            throws IOException {
+        JsonObject proofRequest = gson.fromJson(proofRequestJson, JsonObject.class);
+        Request req = buildPost(url + "/present-proof/send-request", proofRequest);
+        return call(req, PresentationExchangeRecord.class);
+    }
+
+    /**
      * Sends a proof presentation
      * @param presentationExchangeId the presentation exchange id
      * @param presentationRequest {@link PresentationRequest}
@@ -836,7 +851,7 @@ public class AriesClient extends BaseClient {
                     return;
                 }
             } catch (IOException e) {
-                log.error("aca-py not ready yet, reason: {}", e.getMessage());
+                log.trace("aca-py not ready yet, reason: {}", e.getMessage());
             }
             try {
                 Thread.sleep(100);
@@ -844,7 +859,9 @@ public class AriesClient extends BaseClient {
                 log.error("Interrupted while waiting for aca-py", e);
             }
         }
-        throw new AriesException(0, "Timeout reached while waiting for aca-py to be ready");
+        String msg = "Timeout exceeded, aca-py not ready after: " + timeout.toString();
+        log.error(msg);
+        throw new AriesException(0, msg);
     }
 
     // ----------------------------------------------------

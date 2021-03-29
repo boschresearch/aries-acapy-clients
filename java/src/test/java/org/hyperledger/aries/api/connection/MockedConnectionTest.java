@@ -7,13 +7,11 @@ package org.hyperledger.aries.api.connection;
 
 import okhttp3.mockwebserver.MockResponse;
 import org.hyperledger.aries.MockedTestBase;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MockedConnectionTest extends MockedTestBase {
 
@@ -23,8 +21,8 @@ class MockedConnectionTest extends MockedTestBase {
         server.enqueue(new MockResponse().setBody(json));
 
         final Optional<List<ConnectionRecord>> c = ac.connections();
-        assertTrue(c.isPresent());
-        assertEquals(13, c.get().size());
+        Assertions.assertTrue(c.isPresent());
+        Assertions.assertEquals(13, c.get().size());
     }
 
     @Test
@@ -34,8 +32,8 @@ class MockedConnectionTest extends MockedTestBase {
 
         final Optional<List<ConnectionRecord>> c = ac.connections(
                 ConnectionFilter.builder().state(ConnectionState.active).build());
-        assertTrue(c.isPresent());
-        assertEquals(9, c.get().size());
+        Assertions.assertTrue(c.isPresent());
+        Assertions.assertEquals(9, c.get().size());
     }
 
     @Test
@@ -44,7 +42,7 @@ class MockedConnectionTest extends MockedTestBase {
         server.enqueue(new MockResponse().setBody(json));
 
         List<String> c = ac.connectionIds();
-        assertEquals(13, c.size());
+        Assertions.assertEquals(13, c.size());
     }
 
     @Test
@@ -53,7 +51,7 @@ class MockedConnectionTest extends MockedTestBase {
         server.enqueue(new MockResponse().setBody(json));
 
         List<String> c = ac.connectionIds(ConnectionFilter.builder().state(ConnectionState.active).build());
-        assertEquals(9, c.size());
+        Assertions.assertEquals(9, c.size());
     }
 
     @Test
@@ -62,8 +60,8 @@ class MockedConnectionTest extends MockedTestBase {
         server.enqueue(new MockResponse().setBody(json));
 
         final Optional<CreateInvitationResponse> inv = ac.connectionsCreateInvitation();
-        assertTrue(inv.isPresent());
-        assertTrue(inv.get().getConnectionId().startsWith("d16dc0bf"));
+        Assertions.assertTrue(inv.isPresent());
+        Assertions.assertTrue(inv.get().getConnectionId().startsWith("d16dc0bf"));
     }
 
     @Test
@@ -72,8 +70,8 @@ class MockedConnectionTest extends MockedTestBase {
         server.enqueue(new MockResponse().setBody(json));
 
         final Optional<ConnectionRecord> con = ac.connectionsReceiveInvitation(new ReceiveInvitationRequest(), null);
-        assertTrue(con.isPresent());
-        assertTrue(con.get().getConnectionId().startsWith("ce43c882"));
+        Assertions.assertTrue(con.isPresent());
+        Assertions.assertTrue(con.get().getConnectionId().startsWith("ce43c882"));
     }
 
 }

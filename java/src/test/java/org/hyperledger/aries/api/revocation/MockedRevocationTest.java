@@ -8,12 +8,10 @@ package org.hyperledger.aries.api.revocation;
 import okhttp3.mockwebserver.MockResponse;
 import org.hyperledger.aries.MockedTestBase;
 import org.hyperledger.aries.config.GsonConfig;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MockedRevocationTest extends MockedTestBase {
 
@@ -29,9 +27,8 @@ class MockedRevocationTest extends MockedTestBase {
                 .credentialDefinitionId("VoSfM3eGaPxduty34ySygw:3:CL:571:sparta_bank")
                 .build());
 
-        assertTrue(reg.isPresent());
-
-        assertEquals(parsed, GsonConfig.prettyPrinter().toJson(reg.get()));
+        Assertions.assertTrue(reg.isPresent());
+        Assertions.assertEquals(parsed, GsonConfig.prettyPrinter().toJson(reg.get()));
     }
 
     @Test
@@ -42,9 +39,9 @@ class MockedRevocationTest extends MockedTestBase {
 
         final Optional<RevRegsCreated> created = ac.revocationRegistriesCreated(null, null);
 
-        assertTrue(created.isPresent());
-        assertEquals(2, created.get().getRevRegIds().size());
-        assertTrue(created.get().getRevRegIds().get(0).startsWith("VoSfM3eGaPxduty34ySygw"));
+        Assertions.assertTrue(created.isPresent());
+        Assertions.assertEquals(2, created.get().getRevRegIds().size());
+        Assertions.assertTrue(created.get().getRevRegIds().get(0).startsWith("VoSfM3eGaPxduty34ySygw"));
     }
 
     @Test
@@ -53,9 +50,8 @@ class MockedRevocationTest extends MockedTestBase {
 
         final Optional<RevRegCreateResponse> reg = ac.revocationRegistryGetById("mocked");
 
-        assertTrue(reg.isPresent());
-
-        assertEquals(parsed, GsonConfig.prettyPrinter().toJson(reg.get()));
+        Assertions.assertTrue(reg.isPresent());
+        Assertions.assertEquals(parsed, GsonConfig.prettyPrinter().toJson(reg.get()));
     }
 
     @Test
@@ -65,9 +61,8 @@ class MockedRevocationTest extends MockedTestBase {
         final Optional<RevRegCreateResponse> reg = ac.revocationRegistryUpdateUri("mocked",
                 new RevRegUpdateTailsFileUri("https://something.bar"));
 
-        assertTrue(reg.isPresent());
-
-        assertEquals(parsed, GsonConfig.prettyPrinter().toJson(reg.get()));
+        Assertions.assertTrue(reg.isPresent());
+        Assertions.assertEquals(parsed, GsonConfig.prettyPrinter().toJson(reg.get()));
     }
 
     @Test
@@ -79,9 +74,8 @@ class MockedRevocationTest extends MockedTestBase {
 
         final Optional<RevRegCreateResponse> reg = ac.revocationActiveRegistry("mocked");
 
-        assertTrue(reg.isPresent());
-
-        assertEquals(parsedActive, GsonConfig.prettyPrinter().toJson(reg.get()));
+        Assertions.assertTrue(reg.isPresent());
+        Assertions.assertEquals(parsedActive, GsonConfig.prettyPrinter().toJson(reg.get()));
     }
 
 }

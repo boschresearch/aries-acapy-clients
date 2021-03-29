@@ -12,7 +12,6 @@ import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest.ProofAtt
 import org.hyperledger.aries.config.CredDefId;
 import org.hyperledger.aries.config.GsonConfig;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -34,14 +33,6 @@ public class PresentProofRequest {
 
     private String comment;
 
-    public static PresentProofRequest build(PresentProofRequestConfig config) {
-        return PresentProofRequest
-                .builder()
-                .connectionId(config.getConnectionId())
-                .proofRequest(ProofRequest.build(config))
-                .build();
-    }
-
     @Data @NoArgsConstructor @AllArgsConstructor @Builder
     public static class ProofRequest {
 
@@ -61,23 +52,13 @@ public class PresentProofRequest {
         @Builder.Default
         private Map<String, ProofAttributes> requestedPredicates = new LinkedHashMap<>();
 
-        public ProofRequest addRequestedAttribute(
-                @NonNull String attribute, @Nullable List<JsonObject> restrictions) {
-            this.requestedAttributes.put(
-                    attribute,
-                    ProofAttributes.build(attribute, restrictions));
-            return this;
-        }
-
-        @Data @NoArgsConstructor @AllArgsConstructor
+        @Data @NoArgsConstructor @AllArgsConstructor @Builder
         public static class ProofAttributes {
             private String name;
+            /** @since 0.5.4 */
+            private List<String> names;
             private ProofNonRevoked nonRevoked;
             private List<JsonObject> restrictions = new ArrayList<>();
-
-            public static ProofAttributes build(@NonNull String name, @Nullable List<JsonObject> restrictions) {
-                return new ProofAttributes(name, null, restrictions);
-            }
 
             @Data @NoArgsConstructor @AllArgsConstructor @Builder
             public static class ProofNonRevoked {
@@ -100,19 +81,18 @@ public class PresentProofRequest {
 
                 private String issuerDid;
 
-                /** @since 0.5.4 */
-                private List<String> names;
-
                 public JsonObject toJsonObject() {
                     return GsonConfig.defaultConfig().toJsonTree(this).getAsJsonObject();
                 }
-            }
-        }
 
-        public static ProofRequest build(@NonNull PresentProofRequestConfig config) {
-            ProofRequest result = new ProofRequest();
-            config.getAttributes().forEach(result::addRequestedAttribute);
-            return result;
+                public static JsonObject addNameValue(
+                        @NonNull String name,
+                        @NonNull String value,
+                        @NonNull JsonObject restriction) {
+                    restriction.addProperty("attr::" + name + "::value", value);
+                    return restriction;
+                }
+            }
         }
     }
 }

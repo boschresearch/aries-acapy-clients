@@ -8,12 +8,12 @@ package org.hyperledger.aries.api.proof;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.mockwebserver.MockResponse;
 import org.hyperledger.aries.MockedTestBase;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
@@ -33,9 +33,9 @@ public class MockedPresentProofTest extends MockedTestBase {
 
         final Optional<List<PresentationExchangeRecord>> res = ac.presentProofRecords();
 
-        assertTrue(res.isPresent());
+        Assertions.assertTrue(res.isPresent());
         assertEquals(2, res.get().size());
-        assertTrue(res.get().get(1).getConnectionId().startsWith("d6cf95bd"));
+        Assertions.assertTrue(res.get().get(1).getConnectionId().startsWith("d6cf95bd"));
     }
 
     @Test
@@ -45,8 +45,8 @@ public class MockedPresentProofTest extends MockedTestBase {
 
         final Optional<PresentationExchangeRecord> res = ac.presentProofRecord("mock");
 
-        assertTrue(res.isPresent());
-        assertTrue(res.get().getConnectionId().startsWith("00598f57"));
+        Assertions.assertTrue(res.isPresent());
+        Assertions.assertTrue(res.get().getConnectionId().startsWith("00598f57"));
         log.debug(pretty.toJson(res.get()));
     }
 }

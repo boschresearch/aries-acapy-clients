@@ -111,13 +111,13 @@ ac.issueCredentialSend(new IssueCredentialSend(connectionId, credentialdefinitio
 ### Present Proof Request
 
 ```Java
-PresentProofConfig config = PresentProofConfig.builder
-    .connectionId(connectionId)
-    .appendAttribute(MyCredentialDefinition.class, ProofRestrictions.builder()
+PresentProofRequest proofRequest = PresentProofRequestHelper.buildForEachAttribute(
+    connectionId,
+    MySchemaPojo.class,
+    ProofRestrictions.builder()
         .credentialDefinitionId(credentialDefinitionId)
-        .build())
-    .build();
-ac.presentProofSendRequest(PresentProofRequest.build(config));
+        .build());
+ac.presentProofSendRequest(PresentProofRequest.build(proofRequest));
 ```
 
 ## Webhook Handler
@@ -183,15 +183,14 @@ Proof Request Builder Example
 ```java
 ProofRequestPresentationBuilder builder = new ProofRequestPresentationBuilder(ariesClient);
 
-PresentProofConfig config = PresentProofConfig.builder()
-    .appendAttribute(
+PresentProofRequest presentProofRequest = PresentProofRequestHelper.buildForEachAttribute(
+        connectionId,
         List.of("name", "email"),
         ProofRestrictions
             .builder()
             .schemaId("WgWxqztrNooG92RXvxSTWv:2:schema_name:1.0")
-            .build())
-        .build();
+            .build());
 
-Optional<String> base64 = builder.buildRequest(config);
+Optional<String> base64 = builder.buildRequest(presentProofRequest);
 
 ```

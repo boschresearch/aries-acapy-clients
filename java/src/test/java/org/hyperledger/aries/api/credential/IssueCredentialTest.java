@@ -7,6 +7,7 @@ package org.hyperledger.aries.api.credential;
 
 import org.hyperledger.aries.IntegrationTestBase;
 import org.hyperledger.aries.api.exception.AriesException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
@@ -26,9 +27,9 @@ class IssueCredentialTest extends IntegrationTestBase {
         String uuid = UUID.randomUUID().toString();
         try {
             ac.issueCredentialRecordsStore(uuid);
-            fail("Expected AriesException to be thrown");
+            Assertions.fail("Expected AriesException to be thrown");
         } catch (AriesException e) {
-            assertTrue(e.getMessage().startsWith("Record not found: " + uuid + "."));
+            Assertions.assertTrue(e.getMessage().startsWith("Record not found: " + uuid + "."));
         }
     }
 

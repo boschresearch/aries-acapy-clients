@@ -7,25 +7,24 @@ package org.hyperledger.aries.api.ledger;
 
 import org.hyperledger.aries.IntegrationTestBase;
 import org.hyperledger.aries.api.exception.AriesException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LedgeTest extends IntegrationTestBase {
 
     @Test
     void testGetTaa() {
-        assertThrows(AriesException.class, ()-> ac.ledgerTaa());
+        Assertions.assertThrows(AriesException.class, ()-> ac.ledgerTaa());
     }
 
     @Test
     void testAcceptTaa() {
-        assertThrows(AriesException.class, ()-> ac.ledgerTaaAccept(new TAAAccept()));
+        Assertions.assertThrows(AriesException.class, ()-> ac.ledgerTaaAccept(new TAAAccept()));
     }
 
     @Test
-    void testDidVerkey() throws Exception {
-        assertThrows(AriesException.class, ()-> ac.ledgerDidVerkey("5mwQSWnRePrZ3oF67C4Kqe"));
+    void testDidVerkey() {
+        Assertions.assertThrows(AriesException.class, ()-> ac.ledgerDidVerkey("5mwQSWnRePrZ3oF67C4Kqe"));
     }
 
 }

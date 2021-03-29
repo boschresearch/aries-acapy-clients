@@ -30,7 +30,7 @@ public class ProofRequestPresentationBuilder {
         this.acaPy = acaPy;
     }
 
-    public Optional<String> buildRequest(PresentProofRequestConfig config) throws IOException {
+    public Optional<String> buildRequest(PresentProofRequest presentProofRequest) throws IOException {
 
         Optional<String> result = Optional.empty();
 
@@ -49,7 +49,7 @@ public class ProofRequestPresentationBuilder {
         }
 
         Optional<PresentationExchangeRecord> exchangeRecord =
-                acaPy.presentProofCreateRequest(PresentProofRequest.build(config));
+                acaPy.presentProofCreateRequest(presentProofRequest);
 
         if (exchangeRecord.isPresent()) {
             String requestJson = gson.toJson(exchangeRecord.get().getPresentationRequest());

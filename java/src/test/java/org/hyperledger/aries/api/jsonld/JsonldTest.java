@@ -15,14 +15,10 @@ import org.hyperledger.aries.api.jsonld.VerifiableCredential.VerifiableIndyCrede
 import org.hyperledger.aries.api.wallet.WalletDidResponse;
 import org.hyperledger.aries.config.GsonConfig;
 import org.hyperledger.aries.util.FileLoader;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Slf4j
 class JsonldTest extends IntegrationTestBase {
@@ -48,15 +44,15 @@ class JsonldTest extends IntegrationTestBase {
 
         // sign the structure
         Optional<VerifiableCredential> signed = ac.jsonldSign(sr, VerifiableCredential.class);
-        assertTrue(signed.isPresent());
-        assertNotNull(signed.get().getProof());
-        assertEquals("Ed25519Signature2018", signed.get().getProof().getType());
-        assertTrue(signed.get().getProof().getJws().startsWith("eyJhbGciOiA"));
+        Assertions.assertTrue(signed.isPresent());
+        Assertions.assertNotNull(signed.get().getProof());
+        Assertions.assertEquals("Ed25519Signature2018", signed.get().getProof().getType());
+        Assertions.assertTrue(signed.get().getProof().getJws().startsWith("eyJhbGciOiA"));
 
         // verify the structure
         final Optional<VerifyResponse> verified = ac.jsonldVerify(localDid.getVerkey(), signed.get());
-        assertTrue(verified.isPresent());
-        assertTrue(verified.get().isValid());
+        Assertions.assertTrue(verified.isPresent());
+        Assertions.assertTrue(verified.get().isValid());
     }
 
     @Test
@@ -86,25 +82,25 @@ class JsonldTest extends IntegrationTestBase {
         // sign the structure
         Optional<VerifiablePresentation<VerifiableIndyCredential>> signed = ac.jsonldSign(
                 sr, VerifiablePresentation.class);
-        assertTrue(signed.isPresent());
-        assertNotNull(signed.get().getProof());
-        assertEquals("Ed25519Signature2018", signed.get().getProof().getType());
-        assertTrue(signed.get().getProof().getJws().startsWith("eyJhbGciOiA"));
+        Assertions.assertTrue(signed.isPresent());
+        Assertions.assertNotNull(signed.get().getProof());
+        Assertions.assertEquals("Ed25519Signature2018", signed.get().getProof().getType());
+        Assertions.assertTrue(signed.get().getProof().getJws().startsWith("eyJhbGciOiA"));
 
         // verify the structure
         final Optional<VerifyResponse> verified = ac.jsonldVerify(localDid.getVerkey(), signed.get());
-        assertTrue(verified.isPresent());
-        assertTrue(verified.get().isValid());
+        Assertions.assertTrue(verified.isPresent());
+        Assertions.assertTrue(verified.get().isValid());
     }
 
     @Test
     void testVerifyWrongCredentialType() {
-        assertThrows(IllegalStateException.class, () -> ac.jsonldVerify("1234", new Object()));
+        Assertions.assertThrows(IllegalStateException.class, () -> ac.jsonldVerify("1234", new Object()));
     }
 
     private WalletDidResponse createLocalDid() throws Exception {
         final Optional<WalletDidResponse> localDid = ac.walletDidCreate();
-        assertTrue(localDid.isPresent());
+        Assertions.assertTrue(localDid.isPresent());
         log.debug("localDid: {}", localDid.get());
         return localDid.get();
     }

@@ -10,14 +10,11 @@ import org.hyperledger.aries.MockedTestBase;
 import org.hyperledger.aries.api.creddef.CredentialDefinition;
 import org.hyperledger.aries.api.creddef.CredentialDefinition.CredentialDefinitionRequest;
 import org.hyperledger.aries.api.creddef.CredentialDefinition.CredentialDefinitionResponse;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MockedCredentialTest extends MockedTestBase {
 
@@ -32,8 +29,8 @@ class MockedCredentialTest extends MockedTestBase {
 
         final Optional<CredentialDefinitionResponse> c = ac.credentialDefinitionsCreate(
                 new CredentialDefinitionRequest());
-        assertTrue(c.isPresent());
-        assertTrue(c.get().getCredentialDefinitionId().startsWith("JgLZdcogY4AksRvMomzDY8"));
+        Assertions.assertTrue(c.isPresent());
+        Assertions.assertTrue(c.get().getCredentialDefinitionId().startsWith("JgLZdcogY4AksRvMomzDY8"));
     }
 
     @Test
@@ -42,8 +39,8 @@ class MockedCredentialTest extends MockedTestBase {
         server.enqueue(new MockResponse().setBody(json));
 
         final Optional<CredentialDefinition> cd = ac.credentialDefinitionsGetById("mocked");
-        assertTrue(cd.isPresent());
-        assertEquals("108", cd.get().getSchemaId());
+        Assertions.assertTrue(cd.isPresent());
+        Assertions.assertEquals("108", cd.get().getSchemaId());
     }
 
     @Test
@@ -52,8 +49,8 @@ class MockedCredentialTest extends MockedTestBase {
         server.enqueue(new MockResponse().setBody(json));
 
         final Optional<Credential> credential = ac.credential("mock");
-        assertTrue(credential.isPresent());
-        assertTrue(credential.get().getReferent().startsWith("db439a72"));
+        Assertions.assertTrue(credential.isPresent());
+        Assertions.assertTrue(credential.get().getReferent().startsWith("db439a72"));
     }
 
     @Test
@@ -62,8 +59,8 @@ class MockedCredentialTest extends MockedTestBase {
         server.enqueue(new MockResponse().setBody(json));
 
         final Optional<List<Credential>> credentials = ac.credentials();
-        assertTrue(credentials.isPresent());
-        assertEquals(5, credentials.get().size());
+        Assertions.assertTrue(credentials.isPresent());
+        Assertions.assertEquals(5, credentials.get().size());
     }
 
     @Test
@@ -73,14 +70,14 @@ class MockedCredentialTest extends MockedTestBase {
 
         Optional<List<Credential>> credentials = ac.credentials(
                 CredentialFilter.schemaId(schemaId));
-        assertTrue(credentials.isPresent());
-        assertEquals(4, credentials.get().size());
+        Assertions.assertTrue(credentials.isPresent());
+        Assertions.assertEquals(4, credentials.get().size());
 
         server.enqueue(new MockResponse().setBody(json));
         credentials = ac.credentials(
                 CredentialFilter.schemaId(schemaId).negate());
-        assertTrue(credentials.isPresent());
-        assertEquals(1, credentials.get().size());
+        Assertions.assertTrue(credentials.isPresent());
+        Assertions.assertEquals(1, credentials.get().size());
     }
 
     @Test
@@ -90,8 +87,8 @@ class MockedCredentialTest extends MockedTestBase {
 
         final Optional<List<Credential>> credentials = ac.credentials(
                 CredentialFilter.credentialDefinitionId(credentialDefinitionId));
-        assertTrue(credentials.isPresent());
-        assertEquals(1, credentials.get().size());
+        Assertions.assertTrue(credentials.isPresent());
+        Assertions.assertEquals(1, credentials.get().size());
     }
 
     @Test
@@ -102,8 +99,8 @@ class MockedCredentialTest extends MockedTestBase {
         final List<String> credentials = ac.credentialIds(
                 CredentialFilter.credentialDefinitionId(credentialDefinitionId)
                 .and(CredentialFilter.schemaId(schemaId)));
-        Assert.assertEquals(1, credentials.size());
-        assertEquals("60591077-717b-429b-bda1-f5930d2870c7", credentials.get(0));
+        Assertions.assertEquals(1, credentials.size());
+        Assertions.assertEquals("60591077-717b-429b-bda1-f5930d2870c7", credentials.get(0));
     }
 
 }

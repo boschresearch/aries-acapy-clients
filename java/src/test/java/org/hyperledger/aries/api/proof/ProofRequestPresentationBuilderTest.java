@@ -11,15 +11,12 @@ import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest;
 import org.hyperledger.aries.api.proof.PresentProofRequest.ProofRequest.ProofAttributes.ProofRestrictions;
 import org.hyperledger.aries.api.proof.ProofRequestPresentation.PresentationAttachment;
 import org.hyperledger.aries.config.GsonConfig;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProofRequestPresentationBuilderTest extends IntegrationTestBase {
 
@@ -31,32 +28,30 @@ class ProofRequestPresentationBuilderTest extends IntegrationTestBase {
     void testBuildConnectionlessProofRequest() throws Exception {
         ProofRequestPresentationBuilder builder = new ProofRequestPresentationBuilder(ac);
 
-        PresentProofRequestConfig config = PresentProofRequestConfig.builder()
-                .connectionId(UUID.randomUUID().toString())
-                .appendAttribute(
-                        List.of("name", "email"),
-                        ProofRestrictions
-                            .builder()
-                            .schemaId("WgWxqztrNooG92RXvxSTWv:2:schema_name:1.0")
-                            .build())
-                .build();
+        PresentProofRequest presentProofRequest = PresentProofRequestHelper.buildForEachAttribute(
+                UUID.randomUUID().toString(),
+                List.of("name", "email"),
+                ProofRestrictions
+                        .builder()
+                        .schemaId("WgWxqztrNooG92RXvxSTWv:2:schema_name:1.0")
+                        .build());
 
-        Optional<String> base64 = builder.buildRequest(config);
-        assertTrue(base64.isPresent());
+        Optional<String> base64 = builder.buildRequest(presentProofRequest);
+        Assertions.assertTrue(base64.isPresent());
 
         byte[] base64Decoded = Base64.getDecoder().decode(base64.get());
         String json = new String(base64Decoded, UTF_8);
         ProofRequestPresentation presentation = gson.fromJson(json, ProofRequestPresentation.class);
 
-        assertEquals(1, presentation.getRequest().size());
+        Assertions.assertEquals(1, presentation.getRequest().size());
         final PresentationAttachment presentationAttachment = presentation.getRequest().get(0);
         final Map<String, String> data = presentationAttachment.getData();
-        assertNotNull(data);
+        Assertions.assertNotNull(data);
 
         base64Decoded = Base64.getDecoder().decode(data.get("base64"));
         json = new String(base64Decoded, UTF_8);
         ProofRequest proofRequest = gson.fromJson(json, ProofRequest.class);
-        assertEquals(2, proofRequest.getRequestedAttributes().size());
+        Assertions.assertEquals(2, proofRequest.getRequestedAttributes().size());
     }
 
 }

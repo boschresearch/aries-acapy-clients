@@ -8,13 +8,11 @@ package org.hyperledger.aries.api.server;
 import org.hyperledger.aries.AriesClient;
 import org.hyperledger.aries.IntegrationTestBase;
 import org.hyperledger.aries.api.exception.AriesException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.util.Optional;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ServerReadinessTest extends IntegrationTestBase {
 
@@ -23,14 +21,14 @@ class ServerReadinessTest extends IntegrationTestBase {
         ac.statusWaitUntilReady(Duration.ofSeconds(10));
 
         final Optional<AdminStatusReadiness> statusReady = ac.statusReady();
-        assertTrue(statusReady.isPresent());
-        assertTrue(statusReady.get().isReady());
+        Assertions.assertTrue(statusReady.isPresent());
+        Assertions.assertTrue(statusReady.get().isReady());
     }
 
     @Test
     void testReadinessFailure() {
         AriesClient broken = new AriesClient("http://localhost:12344");
-        assertThrows(AriesException.class, () -> broken.statusWaitUntilReady(Duration.ofMillis(300)));
+        Assertions.assertThrows(AriesException.class, () -> broken.statusWaitUntilReady(Duration.ofMillis(300)));
     }
 
 }
