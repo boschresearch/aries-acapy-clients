@@ -16,6 +16,7 @@ jobs:
       - name: Build and Test
         uses: qcastel/github-actions-maven-cmd@master
         with:
+          maven-project-folder: ./java
           maven-args: "clean install"
 
       - name: Release
