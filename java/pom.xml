@@ -41,10 +41,10 @@
         <maven.surefire.version>2.22.2</maven.surefire.version>
         <!-- Dependency Versions -->
         <junit.jupiter.api.version>5.7.1</junit.jupiter.api.version>
-        <kotlin.version>1.4.31</kotlin.version>
+        <kotlin.version>1.4.32</kotlin.version>
         <lombok.version>1.18.18</lombok.version>
         <okhttp.version>4.9.1</okhttp.version>
-        <pmd.version>6.32.0</pmd.version>
+        <pmd.version>6.33.0</pmd.version>
         <testcontainers.version>1.15.2</testcontainers.version>
     </properties>
 
@@ -78,7 +78,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.11</version>
+            <version>3.12</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
