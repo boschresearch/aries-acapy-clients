@@ -25,15 +25,17 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
         working-directory: java
-
       - name: Release
         uses: qcastel/github-actions-maven-release@master
         env:
           JAVA_HOME: /usr/lib/jvm/java-11-openjdk/
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          GITREPO_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           release-branch-name: "master"
           version-minor: true
           maven-project-folder: ./java
           maven-args: "-DskipTests -Dmaven.deploy.skip=false -Dspotbugs.skip=true -Dpmd.skip=true -Ddependency-check.skip=true"
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          access-token: ${{ secrets.GITHUB_TOKEN }}
+          maven-repo-server-id: github
+          maven-repo-server-password: ${{ secrets.GITHUB_TOKEN }}
