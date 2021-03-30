@@ -34,5 +34,6 @@ jobs:
           release-branch-name: "master"
           version-minor: true
           maven-project-folder: ./java
-          maven-args: "-DskipTests -Dmaven.deploy.skip=false"
+          maven-args: "-DskipTests -Dmaven.deploy.skip=false -Dspotbugs.skip=true -Dpmd.skip=true -Ddependency-check.skip=true"
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          access-token: ${{ secrets.GITHUB_TOKEN }}
