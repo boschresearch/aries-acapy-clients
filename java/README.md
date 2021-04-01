@@ -23,6 +23,7 @@ Convenience library based on okhttp and gson to interact with aries cloud agent 
 | GET    | /credential-definitions/created                       | :white_check_mark: |
 | GET    | /credential-definitions/{cred_def_id}                 | :white_check_mark: |
 |        | **issue-credential**                                  |                    |
+| GET    | /issue-credential/records                             | :white_check_mark: |
 | POST   | /issue-credential/send                                | :white_check_mark: |
 | POST   | /issue-credential/send-proposal                       | :white_check_mark: |
 | POST   | /issue-credential/records/{cred_ex_id}/store          | :white_check_mark: |

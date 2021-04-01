@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hyperledger.aries.api.connection.ConnectionRecord;
 import org.hyperledger.aries.api.credential.CredentialExchange;
+import org.hyperledger.aries.api.credential.CredentialExchangeRole;
 import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
 import org.hyperledger.aries.pojo.AttributeName;
 import org.hyperledger.aries.util.FileLoader;
@@ -38,7 +39,7 @@ public class EventParserTest {
         Optional<CredentialExchange> con = parser.parseValueSave(json, CredentialExchange.class);
         Assertions.assertTrue(con.isPresent());
         CredentialExchange cred = con.get();
-        Assertions.assertEquals("holder", cred.getRole());
+        Assertions.assertEquals(CredentialExchangeRole.holder, cred.getRole());
         Assertions.assertNotNull(cred.getCredentialDefinitionId());
         Assertions.assertNotNull(cred.getCredential());
     }

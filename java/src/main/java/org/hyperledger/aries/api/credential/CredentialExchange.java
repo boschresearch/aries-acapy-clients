@@ -25,7 +25,7 @@ public class CredentialExchange {
     private Boolean trace;
     private Boolean autoOffer;
     private String credentialId; // only set when the state is credential_acked
-    private String state;
+    private CredentialExchangeState state;
     private JsonObject credentialOffer;
     private String connectionId;
     private JsonObject credentialRequestMetadata;
@@ -43,6 +43,6 @@ public class CredentialExchange {
     private Credential credential;
     private Boolean autoRemove;
     private String revocRegId;
-    private String role;
+    private CredentialExchangeRole role;
     private Boolean autoIssue;
 }

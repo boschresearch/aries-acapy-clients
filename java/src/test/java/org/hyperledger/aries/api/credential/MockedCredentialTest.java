@@ -103,4 +103,16 @@ class MockedCredentialTest extends MockedTestBase {
         Assertions.assertEquals("60591077-717b-429b-bda1-f5930d2870c7", credentials.get(0));
     }
 
+    @Test
+    void testGetIssueCredentialRecords() throws Exception {
+        String json = loader.load("files/issueCredentialRecords");
+        server.enqueue(new MockResponse().setBody(json));
+
+        Optional<List<CredentialExchange>> exchanges = ac.issueCredentialRecords(IssueCredentialFilter.builder()
+                .state(CredentialExchangeState.proposal_received).build());
+        Assertions.assertTrue(exchanges.isPresent());
+        Assertions.assertEquals(2, exchanges.get().size());
+        Assertions.assertEquals(CredentialExchangeState.proposal_received, exchanges.get().get(0).getState());
+    }
+
 }

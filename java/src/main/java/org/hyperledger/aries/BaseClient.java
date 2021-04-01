@@ -14,6 +14,7 @@ import okhttp3.*;
 import org.apache.commons.lang3.StringUtils;
 import org.hyperledger.aries.api.connection.ConnectionRecord;
 import org.hyperledger.aries.api.credential.Credential;
+import org.hyperledger.aries.api.credential.CredentialExchange;
 import org.hyperledger.aries.api.exception.AriesException;
 import org.hyperledger.aries.api.jsonld.ErrorResponse;
 import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
@@ -34,6 +35,7 @@ abstract class BaseClient {
 
     static final Type PROOF_TYPE = new TypeToken<Collection<PresentationExchangeRecord>>(){}.getType();
     static final Type CREDENTIAL_TYPE = new TypeToken<Collection<Credential>>(){}.getType();
+    static final Type ISSUE_CREDENTIAL_TYPE = new TypeToken<Collection<CredentialExchange>>(){}.getType();
     static final Type CONNECTION_TYPE = new TypeToken<Collection<ConnectionRecord>>(){}.getType();
     static final Type WALLET_DID_TYPE = new TypeToken<Collection<WalletDidResponse>>(){}.getType();
 

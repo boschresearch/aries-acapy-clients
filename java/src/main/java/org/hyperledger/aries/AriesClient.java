@@ -20,10 +20,7 @@ import org.hyperledger.aries.api.creddef.CredentialDefinition.CredentialDefiniti
 import org.hyperledger.aries.api.creddef.CredentialDefinition.CredentialDefinitionResponse;
 import org.hyperledger.aries.api.creddef.CredentialDefinition.CredentialDefinitionsCreated;
 import org.hyperledger.aries.api.creddef.CredentialDefinitionFilter;
-import org.hyperledger.aries.api.credential.Credential;
-import org.hyperledger.aries.api.credential.CredentialExchange;
-import org.hyperledger.aries.api.credential.CredentialFilter;
-import org.hyperledger.aries.api.credential.CredentialProposalRequest;
+import org.hyperledger.aries.api.credential.*;
 import org.hyperledger.aries.api.exception.AriesException;
 import org.hyperledger.aries.api.jsonld.*;
 import org.hyperledger.aries.api.ledger.*;
@@ -290,6 +287,22 @@ public class AriesClient extends BaseClient {
     // ----------------------------------------------------
 
     /**
+     * Fetch all credential exchange records
+     * @param filter {@link IssueCredentialFilter}
+     * @return list of {@link CredentialExchange}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<List<CredentialExchange>> issueCredentialRecords(IssueCredentialFilter filter) throws IOException {
+        HttpUrl.Builder b = Objects.requireNonNull(HttpUrl.parse(url + "/issue-credential/records")).newBuilder();
+        if (filter != null) {
+            filter.buildParams(b);
+        }
+        Request req = buildGet(b.build().toString());
+        final Optional<String> resp = raw(req);
+        return getWrapped(resp, "results", ISSUE_CREDENTIAL_TYPE);
+    }
+
+    /**
      * Send holder a credential, automating the entire flow
      * @param proposalRequest {@link CredentialProposalRequest} the credential to be issued
      * @return {@link CredentialExchange}
@@ -336,7 +349,7 @@ public class AriesClient extends BaseClient {
       }
 
     // ----------------------------------------------------
-    // Issue Credential - Credential Issue v1.0
+    // Issue Credential - Credential Issue v2.0
     // ----------------------------------------------------
 
     // TODO
