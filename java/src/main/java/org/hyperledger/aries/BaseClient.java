@@ -17,6 +17,7 @@ import org.hyperledger.aries.api.credential.Credential;
 import org.hyperledger.aries.api.credential.CredentialExchange;
 import org.hyperledger.aries.api.exception.AriesException;
 import org.hyperledger.aries.api.jsonld.ErrorResponse;
+import org.hyperledger.aries.api.multitenancy.WalletRecord;
 import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
 import org.hyperledger.aries.api.wallet.WalletDidResponse;
 import org.hyperledger.aries.config.GsonConfig;
@@ -38,6 +39,7 @@ abstract class BaseClient {
     static final Type ISSUE_CREDENTIAL_TYPE = new TypeToken<Collection<CredentialExchange>>(){}.getType();
     static final Type CONNECTION_TYPE = new TypeToken<Collection<ConnectionRecord>>(){}.getType();
     static final Type WALLET_DID_TYPE = new TypeToken<Collection<WalletDidResponse>>(){}.getType();
+    static final Type WALLET_RECORD_TYPE = new TypeToken<Collection<WalletRecord>>(){}.getType();
 
     static final String X_API_KEY = "X-API-Key";
 
