@@ -5,21 +5,38 @@
  */
 package org.hyperledger.aries.api.multitenancy;
 
-import com.google.gson.JsonObject;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.google.gson.annotations.SerializedName;
+import lombok.*;
+
+import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = {"token"})
 public class WalletRecord {
     private String createdAt;
     private KeyManagementMode keyManagementMode;
-    private JsonObject settings;
+    private WalletSettings settings;
     private String state;
+    private String token;
     private String updatedAt;
     private String walletId;
+
+    @Data @NoArgsConstructor
+    public static final class WalletSettings {
+        @SerializedName("wallet.type")
+        private WalletType walletType;
+        @SerializedName("wallet.name")
+        private String walletName;
+        @SerializedName("wallet.webhook_urls")
+        private List<String> walletWebhookUrls;
+        @SerializedName("wallet.dispatch_type")
+        private WalletDispatchType walletDispatchType;
+        private String defaultLabel;
+        private String imageUrl;
+        @SerializedName("wallet.id")
+        private String walletId;
+    }
 }

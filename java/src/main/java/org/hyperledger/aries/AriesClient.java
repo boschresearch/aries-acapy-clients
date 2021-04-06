@@ -56,32 +56,21 @@ public class AriesClient extends BaseClient {
 
     private final String url;
     private final String apiKey;
+    private final String bearerToken;
 
     /**
-     * @param url The base URL without a path e.g. protocol://host:[port]
-     */
-    public AriesClient(@NonNull String url) {
-        this(url, null);
-    }
-
-    /**
-     * @param url The base URL without a path e.g. protocol://host:[port]
-     * @param apiKey The API key of the aries admin endpoint
-     */
-    public AriesClient(@NonNull String url, @Nullable String apiKey) {
-        this(url, apiKey, null);
-    }
-
-    /**
-     * @param url The base URL without a path e.g. protocol://host:[port]
-     * @param apiKey The API key of the aries admin endpoint
+     * @param url The aca-py admin api URL without a path e.g. protocol://host:[port]
+     * @param apiKey The admin api api key
+     * @param bearerToken the Bearer token used in the Authorization header when running in multi tenant mode
      * @param client {@link OkHttpClient} if null a default client is created
      */
     @Builder
-    public AriesClient(@NonNull String url, @Nullable String apiKey, @Nullable OkHttpClient client) {
+    public AriesClient(@NonNull String url, @Nullable String apiKey,
+                       @Nullable String bearerToken, @Nullable OkHttpClient client) {
         super(client);
-        this.url = url;
-        this.apiKey = apiKey != null ? apiKey : "";
+        this.url = StringUtils.trim(url);
+        this.apiKey = StringUtils.trimToEmpty(apiKey);
+        this.bearerToken = StringUtils.trimToEmpty(bearerToken);
     }
 
     // ----------------------------------------------------
@@ -966,42 +955,42 @@ public class AriesClient extends BaseClient {
     // ----------------------------------------------------
 
     private Request buildPost(String u, Object body) {
-        return new Request.Builder()
-                .url(u)
+        return request(u)
                 .post(jsonBody(gson.toJson(body)))
-                .header(X_API_KEY, apiKey)
                 .build();
     }
 
     private Request buildPut(String u, Object body) {
-        return new Request.Builder()
-                .url(u)
+        return request(u)
                 .put(jsonBody(gson.toJson(body)))
-                .header(X_API_KEY, apiKey)
                 .build();
     }
 
     private Request buildPatch(String u, Object body) {
-        return new Request.Builder()
-                .url(u)
+        return request(u)
                 .patch(jsonBody(gson.toJson(body)))
-                .header(X_API_KEY, apiKey)
                 .build();
     }
 
     private Request buildGet(String u) {
-        return new Request.Builder()
-                .url(u)
+        return request(u)
                 .get()
-                .header(X_API_KEY, apiKey)
                 .build();
     }
 
     private Request buildDelete(String u) {
-        return new Request.Builder()
-                .url(u)
+        return request(u)
                 .delete()
-                .header(X_API_KEY, apiKey)
                 .build();
+    }
+
+    private Request.Builder request(String u) {
+        Request.Builder b = new Request.Builder()
+                .url(u)
+                .header(X_API_KEY, apiKey);
+        if (StringUtils.isNotEmpty(bearerToken)) {
+            b.header(AUTHORIZATION, BEARER + bearerToken);
+        }
+        return b;
     }
 }

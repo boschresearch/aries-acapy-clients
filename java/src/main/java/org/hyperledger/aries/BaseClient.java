@@ -42,6 +42,8 @@ abstract class BaseClient {
     static final Type WALLET_RECORD_TYPE = new TypeToken<Collection<WalletRecord>>(){}.getType();
 
     static final String X_API_KEY = "X-API-Key";
+    static final String AUTHORIZATION = "Authorization";
+    static final String BEARER = "Bearer ";
 
     static final String EMPTY_JSON = "{}";
 

@@ -27,7 +27,7 @@ class ServerReadinessTest extends IntegrationTestBase {
 
     @Test
     void testReadinessFailure() {
-        AriesClient broken = new AriesClient("http://localhost:12344");
+        AriesClient broken = AriesClient.builder().url("http://localhost:12344").build();
         Assertions.assertThrows(AriesException.class, () -> broken.statusWaitUntilReady(Duration.ofMillis(300)));
     }
 

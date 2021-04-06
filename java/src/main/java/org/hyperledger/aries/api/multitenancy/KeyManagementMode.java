@@ -5,6 +5,9 @@
  */
 package org.hyperledger.aries.api.multitenancy;
 
+import com.google.gson.annotations.SerializedName;
+
 public enum KeyManagementMode {
+    @SerializedName("managed")
     MANAGED
 }

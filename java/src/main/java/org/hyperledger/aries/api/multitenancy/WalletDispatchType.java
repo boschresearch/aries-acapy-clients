@@ -5,6 +5,8 @@
  */
 package org.hyperledger.aries.api.multitenancy;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Webhook target dispatch type for this wallet.
  * default - Dispatch only to webhooks associated with this wallet.
@@ -12,7 +14,10 @@ package org.hyperledger.aries.api.multitenancy;
  * both - Dispatch to both webhook targets.
  */
 public enum WalletDispatchType {
+    @SerializedName("default")
     DEFAULT,
+    @SerializedName("both")
     BOTH,
+    @SerializedName("base")
     BASE
 }
