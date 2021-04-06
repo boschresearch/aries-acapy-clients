@@ -31,6 +31,10 @@ hs_err_pid*
 .factorypath
 .externalToolBuilders
 
+# IntelliJ
+.idea/
+*.iml
+
 .vscode
 
 # Build

@@ -6,20 +6,21 @@
 package org.hyperledger.aries;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Testcontainers
 public abstract class IntegrationTestBase {
 
-    private static final String ARIES_VERSION = "bcgovimages/aries-cloudagent:py36-1.16-0_0.6.0";
-    private static final Integer ARIES_ADMIN_PORT = 8031;
+    private final Logger log = LoggerFactory.getLogger(IntegrationTestBase.class);
+
+    public static final String ARIES_VERSION = "bcgovimages/aries-cloudagent:py36-1.16-0_0.6.0";
+    public static final Integer ARIES_ADMIN_PORT = 8031;
 
     protected AriesClient ac;
 
@@ -40,6 +41,8 @@ public abstract class IntegrationTestBase {
 
     @BeforeEach
     void setup() {
-        ac = new AriesClient("http://localhost:" + ariesContainer.getMappedPort(ARIES_ADMIN_PORT), null);
+        ac = AriesClient.builder()
+                .url("http://localhost:" + ariesContainer.getMappedPort(ARIES_ADMIN_PORT))
+                .build();
     }
 }

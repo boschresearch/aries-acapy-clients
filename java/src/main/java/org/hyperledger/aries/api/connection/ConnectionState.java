@@ -5,12 +5,33 @@
  */
 package org.hyperledger.aries.api.connection;
 
+import com.google.gson.annotations.SerializedName;
+
 public enum ConnectionState {
-    init,
-    invitation,
-    request,
-    response,
-    active,
-    error,
-    inactive
+    @SerializedName("init")
+    INIT,
+
+    @SerializedName("invitation")
+    INVITATION,
+
+    @SerializedName("request")
+    REQUEST,
+
+    @SerializedName("response")
+    RESPONSE,
+
+    @SerializedName("active")
+    ACTIVE,
+
+    @SerializedName("error")
+    ERROR,
+
+    @SerializedName("completed")
+    COMPLETED,
+
+    @SerializedName("abandoned")
+    ABANDONED,
+
+    @SerializedName("start")
+    START
 }

@@ -30,7 +30,10 @@ public abstract class MockedTestBase {
         server = new MockWebServer();
         server.start();
         final HttpUrl url = server.url("");
-        ac = new AriesClient("http://" + url.host() + ":" + url.port());
+        ac = AriesClient
+                .builder()
+                .url("http://" + url.host() + ":" + url.port())
+                .build();
     }
 
     @AfterEach

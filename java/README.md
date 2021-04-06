@@ -1,6 +1,7 @@
 # ACA-PY Java Client Library
 
-Convenience library based on okhttp and gson to interact with aries cloud agent python (aca-py) instances. It is currently work in progress and not all endpoints of the agent are present in the client.
+Convenience library based on okhttp and gson to interact with aries cloud agent python (aca-py) instances.  
+It is currently work in progress and not all endpoints of the agent are present in the client.
 
 ## Implemented Endpoints
 
@@ -13,16 +14,16 @@ Convenience library based on okhttp and gson to interact with aries cloud agent 
 | DELETE | /connections/{conn_id}                                | :white_check_mark: |
 | POST   | /connections/{conn_id}/send-message                   | :white_check_mark: |
 | POST   | /connections/{conn_id}/send-ping                      | :white_check_mark: |
+|        | **credential-definition**                             |                    |
+| POST   | /credential-definitions                               | :white_check_mark: |
+| GET    | /credential-definitions/created                       | :white_check_mark: |
+| GET    | /credential-definitions/{cred_def_id}                 | :white_check_mark: |
 |        | **credentials**                                       |                    |
 | GET    | /credential/{credential_id}                           | :white_check_mark: |
 | DELETE | /credential/{credential_id}                           | :white_check_mark: |
 | GET    | /credentials                                          | :white_check_mark: |
 | GET    | /credentials/revoked                                  | :white_check_mark: |
-|        | **credential-definition**                             |                    |
-| POST   | /credential-definitions                               | :white_check_mark: |
-| GET    | /credential-definitions/created                       | :white_check_mark: |
-| GET    | /credential-definitions/{cred_def_id}                 | :white_check_mark: |
-|        | **issue-credential**                                  |                    |
+|        | **issue-credential v1.0**                             |                    |
 | GET    | /issue-credential/records                             | :white_check_mark: |
 | POST   | /issue-credential/send                                | :white_check_mark: |
 | POST   | /issue-credential/send-proposal                       | :white_check_mark: |
@@ -36,6 +37,13 @@ Convenience library based on okhttp and gson to interact with aries cloud agent 
 | GET    | /ledger/did-endpoint                                  | :white_check_mark: |
 | GET    | /ledger/taa                                           | :white_check_mark: |
 | POST   | /ledger/taa/accept                                    | :white_check_mark: |
+|        | **multitenancy**                                      |                    |
+| POST   | /multitenancy/wallet                                  | :white_check_mark: |
+| GET    | /multitenancy/wallet/{wallet_id}                      | :white_check_mark: |
+| PUT    | /multitenancy/wallet/{wallet_id}                      | :white_check_mark: |
+| POST   | /multitenancy/wallet/{wallet_id}/remove               | :white_check_mark: |
+| POST   | /multitenancy/wallet/{wallet_id}/token                | :white_check_mark: |
+| GET    | /multitenancy/wallets                                 | :white_check_mark: |
 |        | **present-proof**                                     |                    |
 | GET    | /present-proof/records                                | :white_check_mark: |
 | GET    | /present-proof/records/{pres_ex_id}                   | :white_check_mark: |
@@ -51,7 +59,7 @@ Convenience library based on okhttp and gson to interact with aries cloud agent 
 | PATCH  | /revocation/registry/{rev_reg_id}                     | :white_check_mark: |
 | GET    | /revocation/active-registry/{cred_def_id}             | :white_check_mark: |
 | POST   | /revocation/revoke                                    | :white_check_mark: |
-|        | **schemas**                                           |                    |
+|        | **schema**                                            |                    |
 | POST   | /schemas                                              | :white_check_mark: |
 | GET    | /schemas/{schema_id}                                  | :white_check_mark: |
 |        | **server**                                            |                    |
@@ -64,9 +72,23 @@ Convenience library based on okhttp and gson to interact with aries cloud agent 
 | POST   | /wallet/set-did-endpoint                              | :white_check_mark: |
 | GET    | /wallet/get-did-endpoint                              | :white_check_mark: |
 
-## A Word on Credential Definintions
+## Create the aca-py rest client
 
-The library assumes credentials and their related credential definitions are flat Pojo's like:
+The default assumes you are running against a single wallet. In case of multi tenancy with base and sub wallets
+the bearerToken needs to be set as well.
+
+```java
+AriesClient ac = AriesClient
+        .builder()
+        .url("https://example.com")
+        .apiKey("secret") // optional admin api key
+        .bearerToken("123.456.789") // optional jwt token - only when running in multi tennant mode
+        .build();
+```
+
+## A Word on Credential Definitions
+
+The library assumes credentials, and their related credential definitions are flat Pojo's like:
 
 ```Java
 @Data @NoArgsConstructor
@@ -81,15 +103,9 @@ public final class MyCredentialDefinition {
 }
 ```
 
-How fields are serialised/deseriaised can be changed by using the @AttributeName annotation.
+How fields are serialised/deserialized can be changed by using the @AttributeName annotation.
 
-## Rest Client
-
-```java
-AriesClient ac = AriesClient.builder().url("https://example.com").apiKey("secret").build();
-```
-
-### Create connection
+### Create a connection
 
 ```java
 ac.connectionsReceiveInvitation(
@@ -102,7 +118,7 @@ ac.connectionsReceiveInvitation(
 });
 ```
 
-### Issue Credential
+### Issue a Credential
 
 ```Java
 MyCredentialDefinition myCredentialDefinition = new MyCredentialDefinition("test@myexample.com")

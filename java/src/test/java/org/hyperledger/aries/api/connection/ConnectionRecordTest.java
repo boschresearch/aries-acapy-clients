@@ -26,7 +26,7 @@ public class ConnectionRecordTest extends IntegrationTestBase {
     @Test
     void testGetConnections() throws Exception {
         final Optional<List<ConnectionRecord>> connections = ac.connections(
-                ConnectionFilter.builder().state(ConnectionState.active).build());
+                ConnectionFilter.builder().state(ConnectionState.ACTIVE).build());
         assertTrue(connections.isPresent());
         assertEquals(0, connections.get().size());
     }

@@ -27,6 +27,7 @@ import org.hyperledger.aries.api.ledger.*;
 import org.hyperledger.aries.api.message.BasicMessage;
 import org.hyperledger.aries.api.message.PingRequest;
 import org.hyperledger.aries.api.message.PingResponse;
+import org.hyperledger.aries.api.multitenancy.*;
 import org.hyperledger.aries.api.proof.*;
 import org.hyperledger.aries.api.revocation.*;
 import org.hyperledger.aries.api.schema.SchemaSendRequest;
@@ -55,32 +56,21 @@ public class AriesClient extends BaseClient {
 
     private final String url;
     private final String apiKey;
+    private final String bearerToken;
 
     /**
-     * @param url The base URL without a path e.g. protocol://host:[port]
-     */
-    public AriesClient(@NonNull String url) {
-        this(url, null);
-    }
-
-    /**
-     * @param url The base URL without a path e.g. protocol://host:[port]
-     * @param apiKey The API key of the aries admin endpoint
-     */
-    public AriesClient(@NonNull String url, @Nullable String apiKey) {
-        this(url, apiKey, null);
-    }
-
-    /**
-     * @param url The base URL without a path e.g. protocol://host:[port]
-     * @param apiKey The API key of the aries admin endpoint
+     * @param url The aca-py admin api URL without a path e.g. protocol://host:[port]
+     * @param apiKey The admin api api key
+     * @param bearerToken the Bearer token used in the Authorization header when running in multi tenant mode
      * @param client {@link OkHttpClient} if null a default client is created
      */
     @Builder
-    public AriesClient(@NonNull String url, @Nullable String apiKey, @Nullable OkHttpClient client) {
+    public AriesClient(@NonNull String url, @Nullable String apiKey,
+                       @Nullable String bearerToken, @Nullable OkHttpClient client) {
         super(client);
-        this.url = url;
-        this.apiKey = apiKey != null ? apiKey : "";
+        this.url = StringUtils.trim(url);
+        this.apiKey = StringUtils.trimToEmpty(apiKey);
+        this.bearerToken = StringUtils.trimToEmpty(bearerToken);
     }
 
     // ----------------------------------------------------
@@ -444,6 +434,89 @@ public class AriesClient extends BaseClient {
     }
 
     // ----------------------------------------------------
+    // Multitenancy - Multitenant wallet management
+    // ----------------------------------------------------
+
+    /**
+     * Create sub wallet
+     * @param request {@link CreateWalletRequest}
+     * @return {@link WalletRecord}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<WalletRecord> multitenancyWalletCreate(@NonNull CreateWalletRequest request) throws IOException {
+        Request req = buildPost(url + "/multitenancy/wallet", request);
+        return call(req, WalletRecord.class);
+    }
+
+    /**
+     * Get a singe sub wallet
+     * @param walletId sub wallet identifier
+     * @return {@link WalletRecord}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<WalletRecord> multitenancyWalletGet(@NonNull String walletId)
+            throws IOException {
+        Request req = buildGet(url + "/multitenancy/wallet/" + walletId);
+        return call(req, WalletRecord.class);
+    }
+
+    /**
+     * Update a sub wallet
+     * @param walletId sub wallet identifier
+     * @param request {@link UpdateWalletRequest}
+     * @return {@link WalletRecord}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<WalletRecord> multitenancyWalletUpdate(@NonNull String walletId,
+           @NonNull UpdateWalletRequest request) throws IOException {
+        Request req = buildPut(url + "/multitenancy/wallet/" + walletId, request);
+        return call(req, WalletRecord.class);
+    }
+
+    /**
+     * remove a sub wallet
+     * @param walletId sub wallet identifier
+     * @param request {@link RemoveWalletRequest}
+     * @return no body on success
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<Void> multitenancyWalletRemove(@NonNull String walletId,
+        @NonNull RemoveWalletRequest request) throws IOException {
+        Request req = buildPost(url + "/multitenancy/wallet/" + walletId + "/remove", request);
+        return call(req, Void.class);
+    }
+
+    /**
+     * Get auth token for a sub wallet
+     * @param walletId sub wallet identifier
+     * @param request {@link CreateWalletTokenRequest}
+     * @return {@link CreateWalletTokenResponse}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<CreateWalletTokenResponse> multitenancyWalletToken(@NonNull String walletId,
+        @NonNull CreateWalletTokenRequest request) throws IOException {
+        Request req = buildPost(url + "/multitenancy/wallet/" + walletId + "/token", request);
+        return call(req, CreateWalletTokenResponse.class);
+    }
+
+    /**
+     * Query sub wallets
+     * @param walletName optional the wallets name
+     * @return list of {@link WalletRecord}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<List<WalletRecord>> multitenancyWallets(String walletName)
+            throws IOException {
+        HttpUrl.Builder b = Objects.requireNonNull(HttpUrl.parse(url + "/multitenancy/wallets")).newBuilder();
+        if (StringUtils.isNotEmpty(walletName)) {
+            b.addQueryParameter("wallet_name", walletName);
+        }
+        Request req = buildGet(b.build().toString());
+        final Optional<String> resp = raw(req);
+        return getWrapped(resp, "results", WALLET_RECORD_TYPE);
+    }
+
+    // ----------------------------------------------------
     // Present Proof - Proof Presentation
     // ----------------------------------------------------
 
@@ -751,7 +824,7 @@ public class AriesClient extends BaseClient {
     /**
      * Creates a new revocation registry
      * Creating a new registry is a three step flow:
-     * First: create the registry {@link #revocationCreateRegistry}
+     * First: create the registry
      * Second: publish the URI of the tails file {@link #revocationRegistryUpdateUri}
      * Third: Set the registry to active {@link #revocationActiveRegistry}
      * @param revRegRequest {@link RevRegCreateRequest}
@@ -882,34 +955,42 @@ public class AriesClient extends BaseClient {
     // ----------------------------------------------------
 
     private Request buildPost(String u, Object body) {
-        return new Request.Builder()
-                .url(u)
+        return request(u)
                 .post(jsonBody(gson.toJson(body)))
-                .header(X_API_KEY, apiKey)
+                .build();
+    }
+
+    private Request buildPut(String u, Object body) {
+        return request(u)
+                .put(jsonBody(gson.toJson(body)))
                 .build();
     }
 
     private Request buildPatch(String u, Object body) {
-        return new Request.Builder()
-                .url(u)
+        return request(u)
                 .patch(jsonBody(gson.toJson(body)))
-                .header(X_API_KEY, apiKey)
                 .build();
     }
 
     private Request buildGet(String u) {
-        return new Request.Builder()
-                .url(u)
+        return request(u)
                 .get()
-                .header(X_API_KEY, apiKey)
                 .build();
     }
 
     private Request buildDelete(String u) {
-        return new Request.Builder()
-                .url(u)
+        return request(u)
                 .delete()
-                .header(X_API_KEY, apiKey)
                 .build();
+    }
+
+    private Request.Builder request(String u) {
+        Request.Builder b = new Request.Builder()
+                .url(u)
+                .header(X_API_KEY, apiKey);
+        if (StringUtils.isNotEmpty(bearerToken)) {
+            b.header(AUTHORIZATION, BEARER + bearerToken);
+        }
+        return b;
     }
 }

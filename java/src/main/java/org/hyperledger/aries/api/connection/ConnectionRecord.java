@@ -22,7 +22,7 @@ public class ConnectionRecord {
 
     private String connectionId;
 
-    private String state;
+    private ConnectionState state;
 
     private String createdAt;
 
@@ -57,6 +57,6 @@ public class ConnectionRecord {
     }
 
     public boolean isActive() {
-        return StringUtils.isNotEmpty(state) && state.equals("active");
+        return ConnectionState.ACTIVE.equals(state);
     }
 }

@@ -5,14 +5,33 @@
  */
 package org.hyperledger.aries.api.credential;
 
+import com.google.gson.annotations.SerializedName;
+
 public enum CredentialExchangeState {
-    proposal_sent,
-    proposal_received,
-    offer_sent,
-    offer_received,
-    request_sent,
-    request_received,
-    credential_issued,
-    credential_received,
-    credential_acked
+    @SerializedName("proposal_sent")
+    PROPOSAL_SENT,
+
+    @SerializedName("proposal_received")
+    PROPOSAL_RECEIVED,
+
+    @SerializedName("offer_sent")
+    OFFER_SENT,
+
+    @SerializedName("offer_received")
+    OFFER_RECEIVED,
+
+    @SerializedName("request_sent")
+    REQUEST_SENT,
+
+    @SerializedName("request_received")
+    REQUEST_RECEIVED,
+
+    @SerializedName("credential_issued")
+    CREDENTIAL_ISSUED,
+
+    @SerializedName("credential_received")
+    CREDENTIAL_RECEIVED,
+
+    @SerializedName("credential_acked")
+    CREDENTIAL_ACKED
 }
