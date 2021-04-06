@@ -5,8 +5,6 @@
  */
 package org.hyperledger.aries.api.multitenancy;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
