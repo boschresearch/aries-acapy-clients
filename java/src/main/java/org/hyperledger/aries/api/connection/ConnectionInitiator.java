@@ -5,7 +5,12 @@
  */
 package org.hyperledger.aries.api.connection;
 
+import com.google.gson.annotations.SerializedName;
+
 public enum ConnectionInitiator {
-    self,
-    external
+    @SerializedName("self")
+    SELF,
+
+    @SerializedName("external")
+    EXTERNAL
 }

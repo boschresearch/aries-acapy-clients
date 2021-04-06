@@ -13,8 +13,10 @@ import com.google.gson.annotations.SerializedName;
 public enum WalletType {
     @SerializedName("askar")
     ASKAR,
+
     @SerializedName("in_memory")
     IN_MEMORY,
+
     @SerializedName("indy")
     INDY
 }

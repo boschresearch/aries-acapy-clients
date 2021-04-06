@@ -12,6 +12,7 @@ import okhttp3.HttpUrl;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Nullable;
+import java.util.Locale;
 
 @Data @Builder
 public class IssueCredentialFilter {
@@ -29,10 +30,10 @@ public class IssueCredentialFilter {
             b.addQueryParameter("thread_id", threadId);
         }
         if (role != null) {
-            b.addQueryParameter("role", role.toString());
+            b.addQueryParameter("role", role.toString().toLowerCase(Locale.US));
         }
         if (state != null) {
-            b.addQueryParameter("state", state.toString());
+            b.addQueryParameter("state", state.toString().toLowerCase(Locale.US));
         }
         return b;
     }

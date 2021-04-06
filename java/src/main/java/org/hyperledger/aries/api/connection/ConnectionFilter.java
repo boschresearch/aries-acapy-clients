@@ -12,6 +12,7 @@ import okhttp3.HttpUrl;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Nullable;
+import java.util.Locale;
 
 @Data @Builder
 public class ConnectionFilter {
@@ -38,7 +39,7 @@ public class ConnectionFilter {
             b.addQueryParameter("my_did", myDid);
         }
         if (state != null) {
-            b.addQueryParameter("state", state.toString());
+            b.addQueryParameter("state", state.toString().toLowerCase(Locale.US));
         }
         if (StringUtils.isNotEmpty(theirDid)) {
             b.addQueryParameter("their_did", theirDid);

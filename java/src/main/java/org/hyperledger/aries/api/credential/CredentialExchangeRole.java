@@ -5,7 +5,11 @@
  */
 package org.hyperledger.aries.api.credential;
 
+import com.google.gson.annotations.SerializedName;
+
 public enum CredentialExchangeRole {
-    issuer,
-    holder
+    @SerializedName("issuer")
+    ISSUER,
+    @SerializedName("holder")
+    HOLDER
 }

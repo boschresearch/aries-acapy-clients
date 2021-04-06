@@ -5,6 +5,7 @@
  */
 package org.hyperledger.aries.api.ledger;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -17,9 +18,14 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum EndpointType {
-    Endpoint("endpoint"),
-    Profile("profile"),
-    LinkedDomains("linked_domains")
+    @SerializedName("Endpoint")
+    ENDPOINT("endpoint"),
+
+    @SerializedName("Profile")
+    PROFILE("profile"),
+
+    @SerializedName("LinkedDomains")
+    LINKED_DOMAINS("linked_domains")
     ;
 
     /**

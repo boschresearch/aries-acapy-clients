@@ -109,10 +109,10 @@ class MockedCredentialTest extends MockedTestBase {
         server.enqueue(new MockResponse().setBody(json));
 
         Optional<List<CredentialExchange>> exchanges = ac.issueCredentialRecords(IssueCredentialFilter.builder()
-                .state(CredentialExchangeState.proposal_received).build());
+                .state(CredentialExchangeState.PROPOSAL_RECEIVED).build());
         Assertions.assertTrue(exchanges.isPresent());
         Assertions.assertEquals(2, exchanges.get().size());
-        Assertions.assertEquals(CredentialExchangeState.proposal_received, exchanges.get().get(0).getState());
+        Assertions.assertEquals(CredentialExchangeState.PROPOSAL_RECEIVED, exchanges.get().get(0).getState());
     }
 
 }

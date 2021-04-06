@@ -5,11 +5,24 @@
  */
 package org.hyperledger.aries.api.revocation;
 
+import com.google.gson.annotations.SerializedName;
+
 public enum RevocationRegistryState {
-    init,
-    generated,
-    published,
-    staged,
-    active,
-    full
+    @SerializedName("init")
+    INIT,
+
+    @SerializedName("generated")
+    GENERATED,
+
+    @SerializedName("published")
+    PUBLISHED,
+
+    @SerializedName("staged")
+    STAGED,
+
+    @SerializedName("active")
+    ACTIVE,
+
+    @SerializedName("full")
+    FULL
 }

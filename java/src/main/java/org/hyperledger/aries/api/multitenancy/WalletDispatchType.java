@@ -16,8 +16,10 @@ import com.google.gson.annotations.SerializedName;
 public enum WalletDispatchType {
     @SerializedName("default")
     DEFAULT,
+
     @SerializedName("both")
     BOTH,
+
     @SerializedName("base")
     BASE
 }

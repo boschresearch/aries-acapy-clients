@@ -8,6 +8,7 @@ package org.hyperledger.aries.webhook;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hyperledger.aries.api.connection.ConnectionRecord;
+import org.hyperledger.aries.api.connection.ConnectionState;
 import org.hyperledger.aries.api.credential.CredentialExchange;
 import org.hyperledger.aries.api.credential.CredentialExchangeRole;
 import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
@@ -30,7 +31,7 @@ public class EventParserTest {
         String json = loader.load("events/connection-active.json");
         Optional<ConnectionRecord> conn = parser.parseValueSave(json, ConnectionRecord.class);
         Assertions.assertTrue(conn.isPresent());
-        Assertions.assertEquals("active", conn.get().getState());
+        Assertions.assertEquals(ConnectionState.ACTIVE, conn.get().getState());
     }
 
     @Test
@@ -39,7 +40,7 @@ public class EventParserTest {
         Optional<CredentialExchange> con = parser.parseValueSave(json, CredentialExchange.class);
         Assertions.assertTrue(con.isPresent());
         CredentialExchange cred = con.get();
-        Assertions.assertEquals(CredentialExchangeRole.holder, cred.getRole());
+        Assertions.assertEquals(CredentialExchangeRole.HOLDER, cred.getRole());
         Assertions.assertNotNull(cred.getCredentialDefinitionId());
         Assertions.assertNotNull(cred.getCredential());
     }
