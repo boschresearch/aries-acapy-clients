@@ -559,6 +559,20 @@ public class AriesClient extends BaseClient {
     }
 
     /**
+     * Fetch credentials for a presentation request from wallet
+     * @param presentationExchangeId the presentation exchange id
+     * @return {@link PresentationExchangeRecord}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<List<PresentationRequestCredential>> presentProofRecordCredentials(@NonNull String presentationExchangeId)
+            throws IOException {
+        Request req = buildGet(url + "/present-proof/records/" + presentationExchangeId + "/credentials");
+        //not sure how to expect list
+        return call(req, List<PresentationRequestCredential>.class);
+    }
+
+
+    /**
      * Sends a presentation proposal
      * @param proofProposal {@link PresentProofProposal}
      * @return {@link PresentationExchangeRecord}
