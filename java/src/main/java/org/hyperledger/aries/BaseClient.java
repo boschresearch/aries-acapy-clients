@@ -19,6 +19,7 @@ import org.hyperledger.aries.api.exception.AriesException;
 import org.hyperledger.aries.api.jsonld.ErrorResponse;
 import org.hyperledger.aries.api.multitenancy.WalletRecord;
 import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
+import org.hyperledger.aries.api.proof.PresentationRequestCredentials;
 import org.hyperledger.aries.api.wallet.WalletDidResponse;
 import org.hyperledger.aries.config.GsonConfig;
 
@@ -34,10 +35,11 @@ abstract class BaseClient {
 
     static final MediaType JSON_TYPE = MediaType.get("application/json; charset=utf-8");
 
-    static final Type PROOF_TYPE = new TypeToken<Collection<PresentationExchangeRecord>>(){}.getType();
+    static final Type CONNECTION_TYPE = new TypeToken<Collection<ConnectionRecord>>(){}.getType();
     static final Type CREDENTIAL_TYPE = new TypeToken<Collection<Credential>>(){}.getType();
     static final Type ISSUE_CREDENTIAL_TYPE = new TypeToken<Collection<CredentialExchange>>(){}.getType();
-    static final Type CONNECTION_TYPE = new TypeToken<Collection<ConnectionRecord>>(){}.getType();
+    static final Type PRESENTATION_REQUEST_CREDENTIALS = new TypeToken<Collection<PresentationRequestCredentials>>(){}.getType();
+    static final Type PROOF_TYPE = new TypeToken<Collection<PresentationExchangeRecord>>(){}.getType();
     static final Type WALLET_DID_TYPE = new TypeToken<Collection<WalletDidResponse>>(){}.getType();
     static final Type WALLET_RECORD_TYPE = new TypeToken<Collection<WalletRecord>>(){}.getType();
 

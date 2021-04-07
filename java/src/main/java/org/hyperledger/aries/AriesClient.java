@@ -521,6 +521,18 @@ public class AriesClient extends BaseClient {
     // ----------------------------------------------------
 
     /**
+     * Creates a presentation request not bound to any proposal or existing connection
+     * @param proofRequest {@link PresentProofRequest}
+     * @return {@link PresentationExchangeRecord}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<PresentationExchangeRecord> presentProofCreateRequest(@NonNull PresentProofRequest proofRequest)
+            throws IOException {
+        Request req = buildPost(url + "/present-proof/create-request", proofRequest);
+        return call(req, PresentationExchangeRecord.class);
+    }
+
+    /**
      * Fetch all present-proof exchange records
      * @return list of {@link PresentationExchangeRecord}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
@@ -559,6 +571,59 @@ public class AriesClient extends BaseClient {
     }
 
     /**
+     * Remove an existing presentation exchange record by ID
+     * @param presentationExchangeId the presentation exchange id
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public void presentProofRecordsRemove(@NonNull String presentationExchangeId) throws IOException {
+        Request req = buildDelete(url + "/present-proof/records/" + presentationExchangeId);
+        call(req);
+    }
+
+    /**
+     * Fetch credentials for a presentation request from wallet
+     * @param presentationExchangeId the presentation exchange id
+     * @return {@link PresentationExchangeRecord}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<List<PresentationRequestCredentials>> presentProofRecordsCredentials(
+            @NonNull String presentationExchangeId) throws IOException {
+        return presentProofRecordsCredentials(presentationExchangeId, null);
+    }
+
+    /**
+     * Fetch credentials for a presentation request from wallet
+     * @param presentationExchangeId the presentation exchange id
+     * @param filter {@link PresentationRequestCredentialsFilter}
+     * @return {@link PresentationExchangeRecord}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<List<PresentationRequestCredentials>> presentProofRecordsCredentials(
+            @NonNull String presentationExchangeId, @Nullable PresentationRequestCredentialsFilter filter)
+            throws IOException {
+        HttpUrl.Builder b = Objects.requireNonNull(HttpUrl
+                .parse(url + "/present-proof/records/" + presentationExchangeId + "/credentials")).newBuilder();
+        if (filter != null) {
+            filter.buildParams(b);
+        }
+        Request req = buildGet(b.build().toString());
+        return call(req, PRESENTATION_REQUEST_CREDENTIALS);
+    }
+
+    /**
+     * Sends a proof presentation
+     * @param presentationExchangeId the presentation exchange id
+     * @param presentationRequest {@link PresentationRequest}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public void presentProofRecordsSendPresentation(@NonNull String presentationExchangeId,
+        @NonNull PresentationRequest presentationRequest) throws IOException {
+        Request req = buildPost(url + "/present-proof/records/" + presentationExchangeId + "/send-presentation",
+                presentationRequest);
+        call(req);
+    }
+
+    /**
      * Sends a presentation proposal
      * @param proofProposal {@link PresentProofProposal}
      * @return {@link PresentationExchangeRecord}
@@ -567,18 +632,6 @@ public class AriesClient extends BaseClient {
     public Optional<PresentationExchangeRecord> presentProofSendProposal(@NonNull PresentProofProposal proofProposal)
             throws IOException{
         Request req = buildPost(url + "/present-proof/send-proposal", proofProposal);
-        return call(req, PresentationExchangeRecord.class);
-    }
-
-    /**
-     * Creates a presentation request not bound to any proposal or existing connection
-     * @param proofRequest {@link PresentProofRequest}
-     * @return {@link PresentationExchangeRecord}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public Optional<PresentationExchangeRecord> presentProofCreateRequest(@NonNull PresentProofRequest proofRequest)
-            throws IOException {
-        Request req = buildPost(url + "/present-proof/create-request", proofRequest);
         return call(req, PresentationExchangeRecord.class);
     }
 
@@ -606,29 +659,6 @@ public class AriesClient extends BaseClient {
         JsonObject proofRequest = gson.fromJson(proofRequestJson, JsonObject.class);
         Request req = buildPost(url + "/present-proof/send-request", proofRequest);
         return call(req, PresentationExchangeRecord.class);
-    }
-
-    /**
-     * Sends a proof presentation
-     * @param presentationExchangeId the presentation exchange id
-     * @param presentationRequest {@link PresentationRequest}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public void presentProofRecordsSendPresentation(@NonNull String presentationExchangeId,
-            @NonNull PresentationRequest presentationRequest) throws IOException {
-        Request req = buildPost(url + "/present-proof/records/" + presentationExchangeId + "/send-presentation",
-                presentationRequest);
-        call(req);
-    }
-
-    /**
-     * Remove an existing presentation exchange record by ID
-     * @param presentationExchangeId the presentation exchange id
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public void presentProofRecordsRemove(@NonNull String presentationExchangeId) throws IOException {
-        Request req = buildDelete(url + "/present-proof/records/" + presentationExchangeId);
-        call(req);
     }
 
     // ----------------------------------------------------

@@ -6,12 +6,14 @@
 package org.hyperledger.aries.api.proof;
 
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import org.hyperledger.aries.MockedTestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,7 +29,7 @@ public class MockedPresentProofTest extends MockedTestBase {
     }
 
     @Test
-    void TestGetPresentationExchangeRecords() throws Exception {
+    void testGetPresentationExchangeRecords() throws Exception {
         String json = loader.load("files/present-proof-records.json");
         server.enqueue(new MockResponse().setBody(json));
 
@@ -39,7 +41,7 @@ public class MockedPresentProofTest extends MockedTestBase {
     }
 
     @Test
-    void TestGetPresentationExchangeRecord() throws Exception {
+    void testGetPresentationExchangeRecord() throws Exception {
         String json = loader.load("files/present-proof-record.json");
         server.enqueue(new MockResponse().setBody(json));
 
@@ -48,5 +50,29 @@ public class MockedPresentProofTest extends MockedTestBase {
         Assertions.assertTrue(res.isPresent());
         Assertions.assertTrue(res.get().getConnectionId().startsWith("00598f57"));
         log.debug(pretty.toJson(res.get()));
+    }
+
+    @Test
+    void testGetPresentProofRecordsCredentials() throws Exception {
+        String json = loader.load("files/present-proof-records-credentials.json");
+        server.enqueue(new MockResponse().setBody(json));
+
+        Optional<List<PresentationRequestCredentials>> credentials = ac
+                .presentProofRecordsCredentials("mock");
+
+        Assertions.assertTrue(credentials.isPresent());
+        Assertions.assertEquals(2, credentials.get().size());
+        Assertions.assertEquals("bpa", credentials.get().get(0).getCredentialInfo().getAttrs().get("name"));
+    }
+
+    @Test
+    void testGetPresentProofRecordsCredentialsFilter() {
+        PresentationRequestCredentialsFilter filter = PresentationRequestCredentialsFilter
+                .builder()
+                .referent(List.of("foo", "bar"))
+                .build();
+        HttpUrl.Builder builder = Objects.requireNonNull(HttpUrl.parse("http://localhost/foo")).newBuilder();
+        filter.buildParams(builder);
+        Assertions.assertTrue(builder.build().toString().endsWith("referent=foo%2Cbar"));
     }
 }
