@@ -45,12 +45,13 @@ It is currently work in progress and not all endpoints of the agent are present 
 | POST   | /multitenancy/wallet/{wallet_id}/token                | :white_check_mark: |
 | GET    | /multitenancy/wallets                                 | :white_check_mark: |
 |        | **present-proof**                                     |                    |
+| POST   | /present-proof/create-request                         | :white_check_mark: |
 | GET    | /present-proof/records                                | :white_check_mark: |
 | GET    | /present-proof/records/{pres_ex_id}                   | :white_check_mark: |
 | DELETE | /present-proof/records/{pres_ex_id}                   | :white_check_mark: |
+| GET    | /present-proof/records/{pres_ex_id}/credentials       | :white_check_mark: |
 | POST   | /present-proof/records/{pres_ex_id}/send-presentation | :white_check_mark: |
 | POST   | /present-proof/send-proposal                          | :white_check_mark: |
-| POST   | /present-proof/create-request                         | :white_check_mark: |
 | POST   | /present-proof/send-request                           | :white_check_mark: |
 |        | **revocation**                                        |                    |
 | POST   | /revocation/create-registry                           | :white_check_mark: |
