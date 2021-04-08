@@ -23,8 +23,7 @@ import org.hyperledger.aries.api.creddef.CredentialDefinition.CredentialDefiniti
 import org.hyperledger.aries.api.creddef.CredentialDefinition.CredentialDefinitionsCreated;
 import org.hyperledger.aries.api.creddef.CredentialDefinitionFilter;
 import org.hyperledger.aries.api.credential.*;
-import org.hyperledger.aries.api.didexchange.DIDXRequest;
-import org.hyperledger.aries.api.didexchange.DidExchangeCreateRequestFilter;
+import org.hyperledger.aries.api.didexchange.*;
 import org.hyperledger.aries.api.exception.AriesException;
 import org.hyperledger.aries.api.jsonld.*;
 import org.hyperledger.aries.api.ledger.*;
@@ -554,6 +553,60 @@ public class AriesClient extends BaseClient {
         filter.buildParams(b);
         Request req = buildPost(b.toString(), EMPTY_JSON);
         return call(req, DIDXRequest.class);
+    }
+
+    /**
+     * Receive request against public DID's implicit invitation
+     * @param request {@link DIDXRequest}
+     * @param filter {@link DidExchangeReceiveRequestFilter}
+     * @return {link ConnectionRecord}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<ConnectionRecord> didExchangeReceiveRequest(@NonNull DIDXRequest request,
+        @Nullable DidExchangeReceiveRequestFilter filter) throws IOException {
+        HttpUrl.Builder b = Objects.requireNonNull(
+                HttpUrl.parse(url + "/didexchange/receive-request")).newBuilder();
+        if (filter != null) {
+            filter.buildParams(b);
+        }
+        Request req = buildPost(b.toString(), request);
+        return call(req, ConnectionRecord.class);
+    }
+
+    /**
+     * Accept a stored connection invitation
+     * @param connectionId the connection id
+     * @param filter {@link DidExchangeAcceptInvitationFilter}
+     * @return {@link ConnectionRecord}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<ConnectionRecord> didExchangeAcceptInvitation(@NonNull String connectionId,
+        @Nullable DidExchangeAcceptInvitationFilter filter) throws IOException {
+        HttpUrl.Builder b = Objects.requireNonNull(
+                HttpUrl.parse(url + "/didexchange/" + connectionId + "/accept-invitation")).newBuilder();
+        if (filter != null) {
+            filter.buildParams(b);
+        }
+        Request req = buildPost(b.toString(), EMPTY_JSON);
+        return call(req, ConnectionRecord.class);
+    }
+
+    /**
+     * Accept a stored connection request
+     * @param connectionId the connection id
+     * @param filter {@link DidExchangeAcceptRequestFilter}
+     * @return {@link ConnectionRecord}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<ConnectionRecord> didExchangeAcceptRequest(@NonNull String connectionId,
+        @Nullable DidExchangeAcceptRequestFilter filter) throws IOException {
+        HttpUrl.Builder b = Objects.requireNonNull(
+                HttpUrl.parse(url + "/didexchange/" + connectionId + "/accept-request")).newBuilder();
+        if (filter != null) {
+            filter.buildParams(b);
+        }
+        Request req = buildPost(b.toString(), EMPTY_JSON);
+        return call(req, ConnectionRecord.class);
     }
 
     // ----------------------------------------------------

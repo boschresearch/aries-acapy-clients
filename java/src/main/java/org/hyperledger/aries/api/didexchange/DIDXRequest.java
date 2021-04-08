@@ -6,10 +6,11 @@
 package org.hyperledger.aries.api.didexchange;
 
 import com.google.gson.annotations.SerializedName;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @NoArgsConstructor
+@Data @Builder @NoArgsConstructor
 public class DIDXRequest {
 
     @SerializedName("@id")
@@ -28,7 +29,7 @@ public class DIDXRequest {
 
     private String label;
 
-    @Data @NoArgsConstructor
+    @Data @Builder @NoArgsConstructor
     public static final class DIDXThread {
         private String thid;
         private String pthid;

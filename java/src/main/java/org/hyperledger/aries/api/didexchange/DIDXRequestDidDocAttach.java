@@ -7,12 +7,13 @@ package org.hyperledger.aries.api.didexchange;
 
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data @NoArgsConstructor
+@Data @Builder @NoArgsConstructor
 public class DIDXRequestDidDocAttach {
 
     @SerializedName("@id")
@@ -31,7 +32,7 @@ public class DIDXRequestDidDocAttach {
     @SerializedName("mime-type")
     private String mimeType;
 
-    @Data @NoArgsConstructor
+    @Data @Builder @NoArgsConstructor
     public static class AttachDecoratorData {
         private String base64;
         private JsonObject json;
@@ -41,7 +42,7 @@ public class DIDXRequestDidDocAttach {
         private String sha256;
     }
 
-    @Data @NoArgsConstructor
+    @Data @Builder @NoArgsConstructor
     public static class AttachDecoratorDataJws {
 
         private AttachDecoratorDataJwsHeader header;
@@ -54,7 +55,7 @@ public class DIDXRequestDidDocAttach {
         private List<AttachDecoratorDataJwsSignature> signatures;
     }
 
-    @Data @NoArgsConstructor
+    @Data @Builder @NoArgsConstructor
     public static class AttachDecoratorDataJwsSignature {
 
         private AttachDecoratorDataJwsHeader header;
@@ -65,7 +66,7 @@ public class DIDXRequestDidDocAttach {
         private String signature;
     }
 
-    @Data @NoArgsConstructor
+    @Data @Builder @NoArgsConstructor
     public static class AttachDecoratorDataJwsHeader {
         private String kid;
     }

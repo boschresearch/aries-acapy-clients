@@ -39,7 +39,10 @@ It is currently work in progress and not all endpoints of the agent are present 
 | DELETE | /credential/{credential_id}                           | :white_check_mark: |
 | GET    | /credentials                                          | :white_check_mark: |
 |        | **did-exchange**                                      |                    |
-| POST   | /didexchange-create-request                           | :white_check_mark: |
+| POST   | /didexchange/create-request                           | :white_check_mark: |
+| POST   | /didexchange/receive-request                          | :white_check_mark: |
+| POST   | /didexchange/{conn_id}/accept-invitation              | :white_check_mark: |
+| POST   | /didexchange/{conn_id}/accept-request                 | :white_check_mark: |
 |        | **introduction**                                      |                    |
 |        | **issue-credential v1.0**                             |                    |
 | GET    | /issue-credential/records                             | :white_check_mark: |
