@@ -46,10 +46,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -132,6 +129,21 @@ public class AriesClient extends BaseClient {
     }
 
     // ----------------------------------------------------
+    // Basic Message - Simple Messaging
+    // ----------------------------------------------------
+
+    /**
+     * Send a basic message to a connection
+     * @param connectionId the connection id
+     * @param msg the message
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public void connectionsSendMessage(@NonNull String connectionId, @NonNull BasicMessage msg) throws IOException {
+        Request req = buildPost(url + "/connections/" + connectionId + "/send-message", msg);
+        call(req);
+    }
+
+    // ----------------------------------------------------
     // Connection - Connection Management
     // ----------------------------------------------------
 
@@ -185,16 +197,6 @@ public class AriesClient extends BaseClient {
     }
 
     /**
-     * Remove an existing connection record
-     * @param connectionId the connection id
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public void connectionsRemove(@NonNull String connectionId) throws IOException {
-        Request req = buildDelete(url + "/connections/" + connectionId);
-        call(req);
-      }
-
-    /**
      * Create a new connection invitation
      * @return {@link CreateInvitationResponse}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
@@ -237,6 +239,18 @@ public class AriesClient extends BaseClient {
     }
 
     /**
+     * Create a new static connection
+     * @param request {@link ConnectionStaticRequest}
+     * @return {@link ConnectionStaticResult}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<ConnectionStaticResult> connectionsCreateStatic(@NonNull ConnectionStaticRequest request)
+            throws IOException {
+        Request req = buildPost(url + "/connections/create-static", request);
+        return call(req, ConnectionStaticResult.class);
+    }
+
+    /**
      * Receive a new connection invitation
      * @param invite {@link ReceiveInvitationRequest}
      * @param alias optional: alias for the connection
@@ -254,19 +268,125 @@ public class AriesClient extends BaseClient {
         return call(req, ConnectionRecord.class);
     }
 
-    // ----------------------------------------------------
-    // Basic Message - Simple Messaging
-    // ----------------------------------------------------
-
     /**
-     * Send a basic message to a connection
+     * Fetch a single connection record
      * @param connectionId the connection id
-     * @param msg the message
+     * @return {@link ConnectionRecord}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public void connectionsSendMessage(@NonNull String connectionId, @NonNull BasicMessage msg) throws IOException {
-        Request req = buildPost(url + "/connections/" + connectionId + "/send-message", msg);
+    public Optional<ConnectionRecord> connectionsGetById(@NonNull String connectionId) throws IOException {
+        Request req = buildGet(url + "/connections/" + connectionId);
+        return call(req, ConnectionRecord.class);
+    }
+
+    /**
+     * Remove an existing connection record
+     * @param connectionId the connection id
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public void connectionsRemove(@NonNull String connectionId) throws IOException {
+        Request req = buildDelete(url + "/connections/" + connectionId);
         call(req);
+    }
+
+    /**
+     * Accept a stored connection invitation
+     * @param connectionId the connection id
+     * @param filter optional {@link ConnectionAcceptInvitationFilter}
+     * @return {@link ConnectionRecord}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<ConnectionRecord> connectionsAcceptInvitation(@NonNull String connectionId,
+        @Nullable ConnectionAcceptInvitationFilter filter) throws IOException {
+        HttpUrl.Builder b = Objects.requireNonNull(
+            HttpUrl.parse(url + "/connections/" + connectionId + "/accept-invitation")).newBuilder();
+        if (filter != null) {
+            filter.buildParams(b);
+        }
+        Request req = buildPost(b.toString(), EMPTY_JSON);
+        return call(req, ConnectionRecord.class);
+    }
+
+    /**
+     * Accept a stored connection request
+     * @param connectionId the connection id
+     * @param filter optional {@link ConnectionAcceptRequestFilter}
+     * @return {@link ConnectionRecord}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<ConnectionRecord> connectionsAcceptRequest(@NonNull String connectionId,
+        @Nullable ConnectionAcceptRequestFilter filter) throws IOException {
+        HttpUrl.Builder b = Objects.requireNonNull(
+                HttpUrl.parse(url + "/connections/" + connectionId + "/accept-request")).newBuilder();
+        if (filter != null) {
+            filter.buildParams(b);
+        }
+        Request req = buildPost(b.toString(), EMPTY_JSON);
+        return call(req, ConnectionRecord.class);
+    }
+
+    /**
+     * Fetch a connection remote endpoint
+     * @param connectionId the connection id
+     * @return {@link EndpointResult}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<EndpointResult> connectionsGetEndpoints(@NonNull String connectionId) throws IOException {
+        Request req = buildGet(url + "/connections/" + connectionId + "/endpoints");
+        return call(req, EndpointResult.class);
+    }
+
+    /**
+     * Assign another connection as the inbound connection
+     * @param connectionId the connection identifier
+     * @param inboundConnectionId inbound connection identifier
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public void connectionsEstablishInbound(
+            @NonNull String connectionId, @NonNull String inboundConnectionId) throws IOException {
+        Request req = buildPost(
+                url + "/connections/" + connectionId + "/establish-inbound/" + inboundConnectionId, EMPTY_JSON);
+        call(req);
+    }
+
+    /**
+     * Fetch connection metadata
+     * @param connectionId the connection id
+     * @return {@link Map} metadata map
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<Map<String, String>> connectionsGetMetadata(@NonNull String connectionId) throws IOException {
+        Request req = buildGet(url + "/connections/" + connectionId + "/metadata");
+        return call(req, MAP_TYPE);
+    }
+
+    /**
+     * Fetch connection metadata
+     * @param connectionId the connection id
+     * @param key Key to retrieve
+     * @return single value string
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<String> connectionsGetMetadata(@NonNull String connectionId, @NonNull String key)
+            throws IOException {
+        HttpUrl.Builder b = Objects.requireNonNull(
+                HttpUrl.parse(url + "/connections/" + connectionId + "/metadata")).newBuilder();
+        b.addQueryParameter("key", key);
+        Request req = buildGet(b.toString());
+        return call(req, String.class);
+    }
+
+    /**
+     * Set connection metadata
+     * @param connectionId the connection id
+     * @param request {@link ConnectionSetMetaDataRequest}
+     * @return {@link Map} metadata map
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<Map<String, String>> connectionsSetMetadata(@NonNull String connectionId,
+        @NonNull ConnectionSetMetaDataRequest request) throws IOException {
+        Request req = buildPost(url + "/connections/" + connectionId + "/metadata", request);
+        return call(req, MAP_TYPE);
     }
 
     // ----------------------------------------------------

@@ -14,39 +14,26 @@ import lombok.experimental.Accessors;
 @Data @NoArgsConstructor @Accessors(chain = true)
 public class ConnectionRecord {
 
-    private String theirLabel;
-
-    private String theirDid;
-
-    private String myDid;
-
-    private String connectionId;
-
-    private ConnectionState state;
-
-    private String createdAt;
-
-    private String updatedAt;
-
-    private String alias;
-
-    private String initiator;
-
-    private String invitationKey;
-
-    private String invitationMode;
-
-    private String routingState;
-
     private String accept;
-
+    private String alias;
+    private String connectionId;
+    private String createdAt;
     private String errorMsg;
-
     private String inboundConnectionId;
-
+    @Deprecated private String initiator;
+    private String invitationKey;
+    private String invitationMode;
+    private String invitationMsgId;
+    private String myDid;
     private String requestId;
-
+    private String rfc23Sate;
+    private String routingState;
+    private ConnectionState state;
+    private String theirDid;
+    private String theirLabel;
+    private String theirPublicDid;
     private String theirRole;
+    private String updatedAt;
 
     /**
      * The request id is only set if the connection was initated by this agent.

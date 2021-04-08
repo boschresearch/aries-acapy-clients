@@ -17,25 +17,29 @@ public class ReceiveInvitationRequest {
     @SerializedName("@id")
     private String id;
 
+    @SerializedName("@type")
+    private String type;
+
     @Nullable
-    @SerializedName("routingKeys")
-    private List<String> routingKeys;
+    private String did;
 
     @Nullable
     @SerializedName("imageUrl")
     private String imageUrl;
 
     @Nullable
+    private String label;
+
+    @Nullable
     @SerializedName("recipientKeys")
     private List<String> recipientKeys;
 
     @Nullable
-    private String did;
+    @SerializedName("routingKeys")
+    private List<String> routingKeys;
 
     @Nullable
     @SerializedName("serviceEndpoint")
     private String serviceEndpoint;
 
-    @Nullable
-    private String label;
 }

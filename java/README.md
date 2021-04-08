@@ -13,13 +13,21 @@ It is currently work in progress and not all endpoints of the agent are present 
 | POST   | /action-menu/{conn_id}/perform                        | :white_check_mark: |
 | POST   | /action-menu/{conn_id}/request                        | :white_check_mark: |
 | POST   | /action-menu/{conn_id}/send-menu                      | :white_check_mark: |
+|        | **basicmessage**                                      |                    |
+| POST   | /connections/{conn_id}/send-message                   | :white_check_mark: |
 |        | **connection**                                        |                    |
 | GET    | /connections                                          | :white_check_mark: |
 | POST   | /connections/create-invitation                        | :white_check_mark: |
+| POST   | /connections/create-static                            | :white_check_mark: |
 | POST   | /connections/receive-invitation                       | :white_check_mark: |
+| GET    | /connections/{conn_id}}                               | :white_check_mark: |
 | DELETE | /connections/{conn_id}                                | :white_check_mark: |
-| POST   | /connections/{conn_id}/send-message                   | :white_check_mark: |
-| POST   | /connections/{conn_id}/send-ping                      | :white_check_mark: |
+| POST   | /connections/{conn_id}/accept-invitation              | :white_check_mark: |
+| POST   | /connections/{conn_id}/accept-request                 | :white_check_mark: |
+| GET    | /connections/{conn_id}/endpoints                      | :white_check_mark: |
+| POST   | /connections/{conn_id}/establish-inbound/{ref_id}     | :white_check_mark: |
+| GET    | /connections/{conn_id}/metadata                       | :white_check_mark: |
+| POST   | /connections/{conn_id}/metadata                       | :white_check_mark: |
 |        | **credential-definition**                             |                    |
 | POST   | /credential-definitions                               | :white_check_mark: |
 | GET    | /credential-definitions/created                       | :white_check_mark: |
@@ -72,6 +80,8 @@ It is currently work in progress and not all endpoints of the agent are present 
 |        | **server**                                            |                    |
 | GET    | /status/live                                          | :white_check_mark: |
 | GET    | /status/ready                                         | :white_check_mark: |
+|        | **trustping**                                         |                    |
+| POST   | /connections/{conn_id}/send-ping                      | :white_check_mark: |
 |        | **wallet**                                            |                    |
 | GET    | /wallet/did                                           | :white_check_mark: |
 | POST   | /wallet/did/create                                    | :white_check_mark: |
