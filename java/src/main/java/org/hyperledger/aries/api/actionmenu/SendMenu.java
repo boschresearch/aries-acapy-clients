@@ -5,6 +5,7 @@
  */
 package org.hyperledger.aries.api.actionmenu;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.*;
 
 import java.util.List;
@@ -17,7 +18,8 @@ public class SendMenu {
     @Data @Builder @NoArgsConstructor @AllArgsConstructor
     public static class Menu {
         private String description;
-        private String errormsg;
+        @SerializedName("errormsg")
+        private String errorMsg;
         private List<MenuOption> options;
         private String title;
     }
