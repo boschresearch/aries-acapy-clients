@@ -7,6 +7,12 @@ It is currently work in progress and not all endpoints of the agent are present 
 
 | Method | Endpoint                                              | Implemented        |
 |--------|-------------------------------------------------------|--------------------|
+|        | **action-menu**                                       |                    |
+| POST   | /action-menu/{conn_id}/close                          | :white_check_mark: |
+| POST   | /action-menu/{conn_id}/fetch                          | :white_check_mark: |
+| POST   | /action-menu/{conn_id}/perform                        | :white_check_mark: |
+| POST   | /action-menu/{conn_id}/request                        | :white_check_mark: |
+| POST   | /action-menu/{conn_id}/send-menu                      | :white_check_mark: |
 |        | **connection**                                        |                    |
 | GET    | /connections                                          | :white_check_mark: |
 | POST   | /connections/create-invitation                        | :white_check_mark: |

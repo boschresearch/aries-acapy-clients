@@ -14,6 +14,8 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.apache.commons.lang3.StringUtils;
+import org.hyperledger.aries.api.actionmenu.PerformRequest;
+import org.hyperledger.aries.api.actionmenu.SendMenu;
 import org.hyperledger.aries.api.connection.*;
 import org.hyperledger.aries.api.creddef.CredentialDefinition;
 import org.hyperledger.aries.api.creddef.CredentialDefinition.CredentialDefinitionRequest;
@@ -71,6 +73,62 @@ public class AriesClient extends BaseClient {
         this.url = StringUtils.trim(url);
         this.apiKey = StringUtils.trimToEmpty(apiKey);
         this.bearerToken = StringUtils.trimToEmpty(bearerToken);
+    }
+
+    // ----------------------------------------------------
+    // Action Menu - Menu interaction over connection
+    // ----------------------------------------------------
+
+    /**
+     * Close the active menu associated with a connection
+     * @param connectionId the connection id
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public void actionMenuClose(@NonNull String connectionId) throws IOException {
+        Request req = buildPost(url + "/action-menu/" + connectionId + "/close", EMPTY_JSON);
+        call(req);
+    }
+
+    /**
+     * Fetch the active menu
+     * @param connectionId the connection id
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public void actionMenuFetch(@NonNull String connectionId) throws IOException {
+        Request req = buildPost(url + "/action-menu/" + connectionId + "/fetch", EMPTY_JSON);
+        call(req);
+    }
+
+    /**
+     * Perform an action associated with the active menu
+     * @param connectionId the connection id
+     * @param request {@link PerformRequest}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public void actionMenuPerform(@NonNull String connectionId, @NonNull PerformRequest request) throws IOException {
+        Request req = buildPost(url + "/action-menu/" + connectionId + "/perform", request);
+        call(req);
+    }
+
+    /**
+     * Request the active menu
+     * @param connectionId the connection id
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public void actionMenuRequest(@NonNull String connectionId) throws IOException {
+        Request req = buildPost(url + "/action-menu/" + connectionId + "/request", EMPTY_JSON);
+        call(req);
+    }
+
+    /**
+     * Send an action menu to a connection
+     * @param connectionId the connection id
+     * @param request {@link SendMenu}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public void actionMenuSendMenu(@NonNull String connectionId, @NonNull SendMenu request) throws IOException {
+        Request req = buildPost(url + "/action-menu/" + connectionId + "/send-menu", request);
+        call(req);
     }
 
     // ----------------------------------------------------
@@ -975,7 +1033,7 @@ public class AriesClient extends BaseClient {
                 log.error("Interrupted while waiting for aca-py", e);
             }
         }
-        String msg = "Timeout exceeded, aca-py not ready after: " + timeout.toString();
+        String msg = "Timeout exceeded, aca-py not ready after: " + timeout;
         log.error(msg);
         throw new AriesException(0, msg);
     }
