@@ -23,6 +23,8 @@ import org.hyperledger.aries.api.creddef.CredentialDefinition.CredentialDefiniti
 import org.hyperledger.aries.api.creddef.CredentialDefinition.CredentialDefinitionsCreated;
 import org.hyperledger.aries.api.creddef.CredentialDefinitionFilter;
 import org.hyperledger.aries.api.credential.*;
+import org.hyperledger.aries.api.didexchange.DIDXRequest;
+import org.hyperledger.aries.api.didexchange.DidExchangeCreateRequestFilter;
 import org.hyperledger.aries.api.exception.AriesException;
 import org.hyperledger.aries.api.jsonld.*;
 import org.hyperledger.aries.api.ledger.*;
@@ -390,23 +392,6 @@ public class AriesClient extends BaseClient {
     }
 
     // ----------------------------------------------------
-    // Trust Ping - Trust-ping Over Connection
-    // ----------------------------------------------------
-
-    /**
-     * Send a trust ping to a connection
-     * @param connectionId the connection id
-     * @param comment comment for the ping message
-     * @return {@link PingResponse}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public Optional<PingResponse> connectionsSendPing(@NonNull String connectionId, @NonNull PingRequest comment)
-            throws IOException {
-        Request req = buildPost(url + "/connections/" + connectionId + "/send-ping", comment);
-        return call(req, PingResponse.class);
-    }
-
-    // ----------------------------------------------------
     // Credential Definition - Credential Definition Operations
     // ----------------------------------------------------
 
@@ -449,6 +434,131 @@ public class AriesClient extends BaseClient {
         final Optional<String> resp = raw(req);
         return getWrapped(resp, "credential_definition", CredentialDefinition.class);
     }
+
+    // ----------------------------------------------------
+    // Credentials- Holder Credential Management
+    // ----------------------------------------------------
+
+    // TODO no model, create a couple of credentials with mime types and see what happens
+    /**
+     * Get attribute MIME types from wallet
+     * @param credentialId credential id
+     * @return ???
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<Object> credentialMimeTypes(@NonNull String credentialId)
+            throws IOException {
+        Request req = buildGet(url + "/credential/mime-types/" + credentialId);
+        return call(req, Object.class);
+    }
+
+    /**
+     * Query credential revocation status by id
+     * @param credentialId credentialId
+     * @return {@link Credential.CredentialRevokedResult}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<Credential.CredentialRevokedResult> credentialRevoked(@NonNull String credentialId)
+            throws IOException {
+        Request req = buildGet(url + "/credential/revoked/" + credentialId);
+        return call(req, Credential.CredentialRevokedResult.class);
+    }
+
+    /**
+     * Fetch a credential from wallet by id
+     * @param credentialId credentialId
+     * @return {@link Credential}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<Credential> credential(@NonNull String credentialId) throws IOException {
+        Request req = buildGet(url + "/credential/" + credentialId);
+        return call(req, Credential.class);
+    }
+
+    /**
+     * Remove a credential from the wallet by id (credentialId)
+     * @param credentialId credentialId
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public void credentialRemove(@NonNull String credentialId) throws IOException {
+        Request req = buildDelete(url + "/credential/" + credentialId);
+        call(req);
+    }
+
+    /**
+     * Fetch credentials from wallet
+     * @return list of credentials {@link Credential}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<List<Credential>> credentials() throws IOException {
+        return credentials(null);
+    }
+
+    /**
+     * Fetch credentials from wallet
+     * @param filter see {@link CredentialFilter} for prepared filters
+     * @return Credentials that match the filter criteria
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<List<Credential>> credentials(@Nullable Predicate<Credential> filter) throws IOException {
+        Optional<List<Credential>> result = Optional.empty();
+        Request req = buildGet(url + "/credentials");
+        final Optional<String> resp = raw(req);
+        if (resp.isPresent()) {
+            result = getWrapped(resp, "results", CREDENTIAL_TYPE);
+            if (result.isPresent() && filter != null) {
+                result = Optional.of(result.get().stream().filter(filter).collect(Collectors.toList()));
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Fetch credentials ids from wallet
+     * @return only the credential IDs
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public List<String> credentialIds() throws IOException {
+        return credentialIds(null);
+    }
+
+    /**
+     * Fetch credentials ids from wallet
+     * @param filter see {@link CredentialFilter} for prepared filters
+     * @return only the credential IDs based on the filter criteria
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public List<String> credentialIds(@Nullable Predicate<Credential> filter) throws IOException {
+        List<String> result = new ArrayList<>();
+        final Optional<List<Credential>> c = credentials(filter);
+        if (c.isPresent()) {
+            result = c.get().stream().map(Credential::getReferent).collect(Collectors.toList());
+        }
+        return result;
+    }
+
+    // ----------------------------------------------------
+    // DID Exchange - Connection management via DID exchange
+    // ----------------------------------------------------
+
+    /**
+     * Create request against public DID's implicit invitation
+     * @param filter {@link DidExchangeCreateRequestFilter}
+     * @return {@link DIDXRequest}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<DIDXRequest> didExchangeCreateRequest(@NonNull DidExchangeCreateRequestFilter filter)
+            throws IOException {
+        HttpUrl.Builder b = Objects.requireNonNull(
+                HttpUrl.parse(url + "/didexchange/create-request")).newBuilder();
+        filter.buildParams(b);
+        Request req = buildPost(b.toString(), EMPTY_JSON);
+        return call(req, DIDXRequest.class);
+    }
+
+    // ----------------------------------------------------
+    // Introduction - introduction of known parties
+    // ----------------------------------------------------
 
     // ----------------------------------------------------
     // Issue Credential - Credential Issue v1.0
@@ -521,95 +631,6 @@ public class AriesClient extends BaseClient {
     // ----------------------------------------------------
 
     // TODO
-
-    // ----------------------------------------------------
-    // Credentials- Holder Credential Management
-    // ----------------------------------------------------
-
-    /**
-     * Fetch credentials from wallet
-     * @return list of credentials {@link Credential}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public Optional<List<Credential>> credentials() throws IOException {
-        return credentials(null);
-    }
-
-    /**
-     * Fetch credentials from wallet
-     * @param filter see {@link CredentialFilter} for prepared filters
-     * @return Credentials that match the filter criteria
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public Optional<List<Credential>> credentials(@Nullable Predicate<Credential> filter) throws IOException {
-        Optional<List<Credential>> result = Optional.empty();
-        Request req = buildGet(url + "/credentials");
-        final Optional<String> resp = raw(req);
-        if (resp.isPresent()) {
-            result = getWrapped(resp, "results", CREDENTIAL_TYPE);
-            if (result.isPresent() && filter != null) {
-                result = Optional.of(result.get().stream().filter(filter).collect(Collectors.toList()));
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Fetch credentials ids from wallet
-     * @return only the credential IDs
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public List<String> credentialIds() throws IOException {
-        return credentialIds(null);
-    }
-
-    /**
-     * Fetch credentials ids from wallet
-     * @param filter see {@link CredentialFilter} for prepared filters
-     * @return only the credential IDs based on the filter criteria
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public List<String> credentialIds(@Nullable Predicate<Credential> filter) throws IOException {
-        List<String> result = new ArrayList<>();
-        final Optional<List<Credential>> c = credentials(filter);
-        if (c.isPresent()) {
-            result = c.get().stream().map(Credential::getReferent).collect(Collectors.toList());
-        }
-        return result;
-    }
-
-    /**
-     * Fetch a credential from wallet by id
-     * @param credentialId credentialId
-     * @return {@link Credential}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public Optional<Credential> credential(@NonNull String credentialId) throws IOException {
-        Request req = buildGet(url + "/credential/" + credentialId);
-        return call(req, Credential.class);
-    }
-
-    /**
-     * Remove a credential from the wallet by id (credentialId)
-     * @param credentialId credentialId
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public void credentialRemove(@NonNull String credentialId) throws IOException {
-        Request req = buildDelete(url + "/credential/" + credentialId);
-        call(req);
-    }
-
-    /**
-     * Query credential revocation status by id
-     * @param credentialId credentialId
-     * @return {@link Credential.CredentialRevokedResult}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public Optional<Credential.CredentialRevokedResult> credentialRevoked(@NonNull String credentialId)
-            throws IOException {
-        Request req = buildGet(url + "/credential/revoked/" + credentialId);
-        return call(req, Credential.CredentialRevokedResult.class);
-    }
 
     // ----------------------------------------------------
     // Multitenancy - Multitenant wallet management
@@ -1156,6 +1177,23 @@ public class AriesClient extends BaseClient {
         String msg = "Timeout exceeded, aca-py not ready after: " + timeout;
         log.error(msg);
         throw new AriesException(0, msg);
+    }
+
+    // ----------------------------------------------------
+    // Trust Ping - Trust-ping Over Connection
+    // ----------------------------------------------------
+
+    /**
+     * Send a trust ping to a connection
+     * @param connectionId the connection id
+     * @param comment comment for the ping message
+     * @return {@link PingResponse}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<PingResponse> connectionsSendPing(@NonNull String connectionId, @NonNull PingRequest comment)
+            throws IOException {
+        Request req = buildPost(url + "/connections/" + connectionId + "/send-ping", comment);
+        return call(req, PingResponse.class);
     }
 
     // ----------------------------------------------------

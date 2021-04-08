@@ -33,10 +33,14 @@ It is currently work in progress and not all endpoints of the agent are present 
 | GET    | /credential-definitions/created                       | :white_check_mark: |
 | GET    | /credential-definitions/{cred_def_id}                 | :white_check_mark: |
 |        | **credentials**                                       |                    |
+| GET    | /credentials/mime-types/{credential_id}               | :white_check_mark: |
+| GET    | /credentials/revoked/{credential_id}                  | :white_check_mark: |
 | GET    | /credential/{credential_id}                           | :white_check_mark: |
 | DELETE | /credential/{credential_id}                           | :white_check_mark: |
 | GET    | /credentials                                          | :white_check_mark: |
-| GET    | /credentials/revoked                                  | :white_check_mark: |
+|        | **did-exchange**                                      |                    |
+| POST   | /didexchange-create-request                           | :white_check_mark: |
+|        | **introduction**                                      |                    |
 |        | **issue-credential v1.0**                             |                    |
 | GET    | /issue-credential/records                             | :white_check_mark: |
 | POST   | /issue-credential/send                                | :white_check_mark: |
