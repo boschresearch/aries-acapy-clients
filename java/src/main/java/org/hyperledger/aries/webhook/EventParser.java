@@ -143,10 +143,13 @@ public class EventParser {
         JsonObject attrGroup = attr.getAsJsonObject();
         final Set<String> childs = attrGroup.keySet();
         childs.forEach(c -> {
-                final Set<Entry<String, JsonElement>> attrs = attrGroup.get(c)
-                        .getAsJsonObject().get("values").getAsJsonObject().entrySet();
-                result.addAll(attrs);
-            }
+                    final Set<Entry<String, JsonElement>> attrs = attrGroup.get(c).getAsJsonObject().get("values").getAsJsonObject().entrySet();
+                    attrs.forEach(a -> {
+                        if(!result.contains(a)) {
+                            result.add(a);
+                        }
+                    });
+                }
         );
         return result;
     }

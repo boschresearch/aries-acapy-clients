@@ -33,6 +33,9 @@ import org.hyperledger.aries.api.message.BasicMessage;
 import org.hyperledger.aries.api.message.PingRequest;
 import org.hyperledger.aries.api.message.PingResponse;
 import org.hyperledger.aries.api.multitenancy.*;
+import org.hyperledger.aries.api.out_of_band.CreateInvitationFilter;
+import org.hyperledger.aries.api.out_of_band.InvitationCreateRequest;
+import org.hyperledger.aries.api.out_of_band.InvitationRecord;
 import org.hyperledger.aries.api.present_proof.*;
 import org.hyperledger.aries.api.revocation.*;
 import org.hyperledger.aries.api.schema.SchemaSendRequest;
@@ -966,7 +969,22 @@ public class AriesClient extends BaseClient {
     // Out Of Band - Out-of-band connection
     // ----------------------------------------------------
 
-    // TODO
+    /**
+     * Create a new connection invitation
+     * @param request {@link InvitationCreateRequest}
+     * @param filter optional {@link CreateInvitationFilter}
+     * @return {@link InvitationRecord}
+     * @throws IOException
+     */
+    public Optional<InvitationRecord> outOfBandCreateInvitation(
+            @NonNull InvitationCreateRequest request, CreateInvitationFilter filter) throws IOException {
+        HttpUrl.Builder b = Objects.requireNonNull(HttpUrl.parse(url + "/out-of-band/vreate-invitation")).newBuilder();
+        if (filter != null) {
+            filter.buildParams(b);
+        }
+        Request req = buildPost(b.build().toString(), request);
+        return call(req, InvitationRecord.class);
+    }
 
     // ----------------------------------------------------
     // Present Proof - Proof Presentation
