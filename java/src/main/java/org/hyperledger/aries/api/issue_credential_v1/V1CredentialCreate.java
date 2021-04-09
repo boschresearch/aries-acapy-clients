@@ -7,7 +7,7 @@ package org.hyperledger.aries.api.issue_credential_v1;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hyperledger.aries.api.credential.CredentialPreview;
+import org.hyperledger.aries.api.credentials.CredentialPreview;
 
 @Data @NoArgsConstructor
 public class V1CredentialCreate {

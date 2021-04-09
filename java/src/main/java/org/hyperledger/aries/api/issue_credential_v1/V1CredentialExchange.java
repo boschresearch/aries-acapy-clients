@@ -5,7 +5,7 @@
  */
 package org.hyperledger.aries.api.issue_credential_v1;
 
-import org.hyperledger.aries.api.credential.Credential;
+import org.hyperledger.aries.api.credentials.Credential;
 import org.hyperledger.aries.config.CredDefId;
 
 import com.google.gson.JsonObject;

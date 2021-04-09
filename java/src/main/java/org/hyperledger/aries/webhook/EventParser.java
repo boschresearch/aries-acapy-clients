@@ -9,8 +9,8 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
-import org.hyperledger.aries.api.proof.PresentationExchangeRecord.Identifier;
+import org.hyperledger.aries.api.present_proof.PresentationExchangeRecord;
+import org.hyperledger.aries.api.present_proof.PresentationExchangeRecord.Identifier;
 import org.hyperledger.aries.config.GsonConfig;
 import org.hyperledger.aries.pojo.PojoProcessor;
 

@@ -30,7 +30,7 @@
     </Match>
 
     <Match>
-       <Class name="org.hyperledger.aries.api.proof.PresentationRequest" />
+       <Class name="org.hyperledger.aries.api.present_proof.PresentationRequest" />
        <Bug pattern="UPM_UNCALLED_PRIVATE_METHOD" />
     </Match>
 

@@ -7,8 +7,8 @@ package org.hyperledger.aries.api.issue_credential_v1;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.*;
-import org.hyperledger.aries.api.credential.CredentialAttributes;
-import org.hyperledger.aries.api.credential.CredentialPreview;
+import org.hyperledger.aries.api.credentials.CredentialAttributes;
+import org.hyperledger.aries.api.credentials.CredentialPreview;
 import org.hyperledger.aries.config.CredDefId;
 
 import javax.annotation.Nullable;
