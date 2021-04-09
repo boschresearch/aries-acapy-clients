@@ -62,8 +62,8 @@ It is currently work in progress and not all endpoints of the agent are present 
 | POST   | /jsonld/sign                                            | :white_check_mark: |
 | POST   | /jsonld/verify                                          | :white_check_mark: |
 |        | **ledger**                                              |                    |
-| GET    | /ledger/did-verkey                                      | :white_check_mark: |
 | GET    | /ledger/did-endpoint                                    | :white_check_mark: |
+| GET    | /ledger/did-verkey                                      | :white_check_mark: |
 | GET    | /ledger/taa                                             | :white_check_mark: |
 | POST   | /ledger/taa/accept                                      | :white_check_mark: |
 |        | **mediation**                                           |                    |
@@ -74,6 +74,7 @@ It is currently work in progress and not all endpoints of the agent are present 
 | POST   | /multitenancy/wallet/{wallet_id}/remove                 | :white_check_mark: |
 | POST   | /multitenancy/wallet/{wallet_id}/token                  | :white_check_mark: |
 | GET    | /multitenancy/wallets                                   | :white_check_mark: |
+|        | **out-of-band**                                         |                    |
 |        | **present-proof**                                       |                    |
 | POST   | /present-proof/create-request                           | :white_check_mark: |
 | GET    | /present-proof/records                                  | :white_check_mark: |
@@ -87,11 +88,11 @@ It is currently work in progress and not all endpoints of the agent are present 
 | POST   | /present-proof/send-proposal                            | :white_check_mark: |
 | POST   | /present-proof/send-request                             | :white_check_mark: |
 |        | **revocation**                                          |                    |
+| GET    | /revocation/active-registry/{cred_def_id}               | :white_check_mark: |
 | POST   | /revocation/create-registry                             | :white_check_mark: |
 | GET    | /revocation/registries/created                          | :white_check_mark: |
 | GET    | /revocation/registry/{rev_reg_id}                       | :white_check_mark: |
 | PATCH  | /revocation/registry/{rev_reg_id}                       | :white_check_mark: |
-| GET    | /revocation/active-registry/{cred_def_id}               | :white_check_mark: |
 | POST   | /revocation/revoke                                      | :white_check_mark: |
 |        | **schema**                                              |                    |
 | POST   | /schemas                                                | :white_check_mark: |
@@ -105,8 +106,8 @@ It is currently work in progress and not all endpoints of the agent are present 
 | GET    | /wallet/did                                             | :white_check_mark: |
 | POST   | /wallet/did/create                                      | :white_check_mark: |
 | GET    | /wallet/did/public                                      | :white_check_mark: |
-| POST   | /wallet/set-did-endpoint                                | :white_check_mark: |
 | GET    | /wallet/get-did-endpoint                                | :white_check_mark: |
+| POST   | /wallet/set-did-endpoint                                | :white_check_mark: |
 
 ## Create the aca-py rest client
 

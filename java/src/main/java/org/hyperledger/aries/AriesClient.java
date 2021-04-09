@@ -781,6 +781,105 @@ public class AriesClient extends BaseClient {
     // TODO
 
     // ----------------------------------------------------
+    // JSON-LD
+    // ----------------------------------------------------
+
+    /**
+     * Sign a JSON-LD structure and return it
+     * @since aca-py 0.5.2
+     * @param <T> class type either {@link VerifiableCredential} or {@link VerifiablePresentation}
+     * @param signRequest {@link SignRequest}
+     * @param t class type either {@link VerifiableCredential} or {@link VerifiablePresentation}
+     * @return either {@link VerifiableCredential} or {@link VerifiablePresentation} with {@link Proof}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public <T> Optional<T> jsonldSign(@NonNull SignRequest signRequest, @NonNull Type t) throws IOException {
+        Request req = buildPost(url + "/jsonld/sign", signRequest);
+        final Optional<String> raw = raw(req);
+        checkForError(raw);
+        return getWrapped(raw, "signed_doc", t);
+    }
+
+    /**
+     * Verify a JSON-LD structure
+     * @since aca-py 0.5.2
+     * @param verkey the verkey
+     * @param t instance to verify either {@link VerifiableCredential} or {@link VerifiablePresentation}
+     * @return {@link VerifyResponse}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<VerifyResponse> jsonldVerify(@NonNull String verkey, @NonNull Object t) throws IOException {
+        if (t instanceof VerifiableCredential || t instanceof VerifiablePresentation) {
+            final JsonElement jsonTree = gson.toJsonTree(t, t.getClass());
+            Request req = buildPost(url + "/jsonld/verify", new VerifyRequest(verkey, jsonTree.getAsJsonObject()));
+            return call(req, VerifyResponse.class);
+        }
+        throw new IllegalStateException("Expecting either VerifiableCredential or VerifiablePresentation");
+    }
+
+    // ----------------------------------------------------
+    // Ledger
+    // ----------------------------------------------------
+
+    /**
+     * Get the endpoint for a DID from the ledger.
+     * @param did the DID of interest
+     * @param type optional, endpoint type of interest (defaults to 'endpoint')
+     * @return {@link EndpointResponse}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<EndpointResponse> ledgerDidEndpoint(@NonNull String did, @Nullable EndpointType type)
+            throws IOException{
+        HttpUrl.Builder b = Objects.requireNonNull(HttpUrl.parse(url + "/ledger/did-endpoint")).newBuilder();
+        b.addQueryParameter("did", did);
+        if (type != null) {
+            b.addQueryParameter("endpoint_type", type.toString());
+        }
+        Request req = buildGet(b.build().toString());
+        return call(req, EndpointResponse.class);
+    }
+
+    /**
+     * Get the verkey for a did from the ledger
+     * @param did the DID of interest
+     * @return {@link EndpointResponse}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<DidVerkeyResponse> ledgerDidVerkey(@NonNull String did)  throws IOException{
+        HttpUrl.Builder b = Objects.requireNonNull(HttpUrl.parse(url + "/ledger/did-verkey")).newBuilder();
+        b.addQueryParameter("did", did);
+        Request req = buildGet(b.build().toString());
+        return call(req, DidVerkeyResponse.class);
+    }
+
+    /**
+     * Fetch the current transaction author agreement, if any
+     * @return the current transaction author agreement, if any
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<TAAInfo> ledgerTaa() throws IOException {
+        Request req = buildGet(url + "/ledger/taa");
+        return getWrapped(raw(req), "result", TAAInfo.class);
+    }
+
+    /**
+     * Accept the transaction author agreement
+     * @param taaAccept {@link TAAAccept}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     * Or AriesException if TAA is not available
+     */
+    public void ledgerTaaAccept(@NonNull TAAAccept taaAccept) throws IOException {
+        Request req = buildPost(url + "/ledger/taa/accept", taaAccept);
+        call(req);
+    }
+
+    // ----------------------------------------------------
+    // Mediation - Mediation management
+    // ----------------------------------------------------
+
+    // TODO
+
+    // ----------------------------------------------------
     // Multitenancy - Multitenant wallet management
     // ----------------------------------------------------
 
@@ -862,6 +961,12 @@ public class AriesClient extends BaseClient {
         final Optional<String> resp = raw(req);
         return getWrapped(resp, "results", WALLET_RECORD_TYPE);
     }
+
+    // ----------------------------------------------------
+    // Out Of Band - Out-of-band connection
+    // ----------------------------------------------------
+
+    // TODO
 
     // ----------------------------------------------------
     // Present Proof - Proof Presentation
@@ -1049,180 +1154,6 @@ public class AriesClient extends BaseClient {
     }
 
     // ----------------------------------------------------
-    // Schemas
-    // ----------------------------------------------------
-
-    /**
-     * Sends a schema to the ledger
-     * @param schema {@link SchemaSendRequest}
-     * @return {@link SchemaSendResponse}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public Optional<SchemaSendResponse> schemas(@NonNull SchemaSendRequest schema) throws IOException {
-        Request req = buildPost(url + "/schemas", schema);
-        return call(req, SchemaSendResponse.class);
-    }
-
-    /**
-     * Gets a schema from the ledger
-     * @param schemaId the schemas id or sequence number
-     * @return {@link Schema}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public Optional<Schema> schemasGetById(@NonNull String schemaId) throws IOException {
-        Request req = buildGet(url + "/schemas/" + schemaId);
-        return getWrapped(raw(req), "schema", Schema.class);
-    }
-
-    // ----------------------------------------------------
-    // Wallet
-    // ----------------------------------------------------
-
-    /**
-     * List wallet DIDs
-     * @return list of {@link WalletDidResponse}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public Optional<List<WalletDidResponse>> walletDid() throws IOException {
-        Request req = buildGet(url + "/wallet/did");
-        return getWrapped(raw(req), "results", WALLET_DID_TYPE);
-    }
-
-    /**
-     * Create local DID
-     * @return {@link WalletDidResponse}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public Optional<WalletDidResponse> walletDidCreate() throws IOException {
-        Request req = buildPost(url + "/wallet/did/create", EMPTY_JSON);
-        return getWrapped(raw(req), "result", WalletDidResponse.class);
-    }
-
-    /**
-     * Fetch the current public DID
-     * @return {@link WalletDidResponse}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public Optional<WalletDidResponse> walletDidPublic() throws IOException {
-        Request req = buildGet(url + "/wallet/did/public");
-        return getWrapped(raw(req), "result", WalletDidResponse.class);
-    }
-
-    /**
-     * Update end point in wallet and, if public, on ledger
-     * @param endpointRequest {@link SetDidEndpointRequest}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public void walletSetDidEndpoint(@NonNull SetDidEndpointRequest endpointRequest) throws IOException {
-        Request req = buildPost(url + "/wallet/set-did-endpoint", endpointRequest);
-        call(req);
-    }
-
-    /**
-     * Query DID end point in wallet
-     * @param did the did
-     * @return {@link GetDidEndpointResponse}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public Optional<GetDidEndpointResponse> walletGetDidEndpoint(@NonNull String did) throws IOException {
-        Request req = buildGet(url + "/wallet/get-did-endpoint" + "?did=" + did);
-        return call(req, GetDidEndpointResponse.class);
-    }
-
-    // ----------------------------------------------------
-    // JSON-LD
-    // ----------------------------------------------------
-
-    /**
-     * Sign a JSON-LD structure and return it
-     * @since aca-py 0.5.2
-     * @param <T> class type either {@link VerifiableCredential} or {@link VerifiablePresentation}
-     * @param signRequest {@link SignRequest}
-     * @param t class type either {@link VerifiableCredential} or {@link VerifiablePresentation}
-     * @return either {@link VerifiableCredential} or {@link VerifiablePresentation} with {@link Proof}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public <T> Optional<T> jsonldSign(@NonNull SignRequest signRequest, @NonNull Type t) throws IOException {
-        Request req = buildPost(url + "/jsonld/sign", signRequest);
-        final Optional<String> raw = raw(req);
-        checkForError(raw);
-        return getWrapped(raw, "signed_doc", t);
-    }
-
-    /**
-     * Verify a JSON-LD structure
-     * @since aca-py 0.5.2
-     * @param verkey the verkey
-     * @param t instance to verify either {@link VerifiableCredential} or {@link VerifiablePresentation}
-     * @return {@link VerifyResponse}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public Optional<VerifyResponse> jsonldVerify(@NonNull String verkey, @NonNull Object t) throws IOException {
-        if (t instanceof VerifiableCredential || t instanceof VerifiablePresentation) {
-            final JsonElement jsonTree = gson.toJsonTree(t, t.getClass());
-            Request req = buildPost(url + "/jsonld/verify", new VerifyRequest(verkey, jsonTree.getAsJsonObject()));
-            return call(req, VerifyResponse.class);
-        }
-        throw new IllegalStateException("Expecting either VerifiableCredential or VerifiablePresentation");
-    }
-
-    // ----------------------------------------------------
-    // Ledger
-    // ----------------------------------------------------
-
-    /**
-     * Get the verkey for a did from the ledger
-     * @param did the DID of interest
-     * @return {@link EndpointResponse}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public Optional<DidVerkeyResponse> ledgerDidVerkey(@NonNull String did)  throws IOException{
-        HttpUrl.Builder b = Objects.requireNonNull(HttpUrl.parse(url + "/ledger/did-verkey")).newBuilder();
-        b.addQueryParameter("did", did);
-        Request req = buildGet(b.build().toString());
-        return call(req, DidVerkeyResponse.class);
-    }
-
-    /**
-     * Get the endpoint for a DID from the ledger.
-     * @param did the DID of interest
-     * @param type optional, endpoint type of interest (defaults to 'endpoint')
-     * @return {@link EndpointResponse}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public Optional<EndpointResponse> ledgerDidEndpoint(@NonNull String did, @Nullable EndpointType type)
-            throws IOException{
-        HttpUrl.Builder b = Objects.requireNonNull(HttpUrl.parse(url + "/ledger/did-endpoint")).newBuilder();
-        b.addQueryParameter("did", did);
-        if (type != null) {
-            b.addQueryParameter("endpoint_type", type.toString());
-        }
-        Request req = buildGet(b.build().toString());
-        return call(req, EndpointResponse.class);
-    }
-
-    /**
-     * Fetch the current transaction author agreement, if any
-     * @return the current transaction author agreement, if any
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     */
-    public Optional<TAAInfo> ledgerTaa() throws IOException {
-        Request req = buildGet(url + "/ledger/taa");
-        return getWrapped(raw(req), "result", TAAInfo.class);
-    }
-
-    /**
-     * Accept the transaction author agreement
-     * @param taaAccept {@link TAAAccept}
-     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
-     * Or AriesException if TAA is not available
-     */
-    public void ledgerTaaAccept(@NonNull TAAAccept taaAccept) throws IOException {
-        Request req = buildPost(url + "/ledger/taa/accept", taaAccept);
-        call(req);
-    }
-
-    // ----------------------------------------------------
     // Revocation
     // ----------------------------------------------------
 
@@ -1314,6 +1245,32 @@ public class AriesClient extends BaseClient {
     }
 
     // ----------------------------------------------------
+    // Schema - Schema operations
+    // ----------------------------------------------------
+
+    /**
+     * Sends a schema to the ledger
+     * @param schema {@link SchemaSendRequest}
+     * @return {@link SchemaSendResponse}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<SchemaSendResponse> schemas(@NonNull SchemaSendRequest schema) throws IOException {
+        Request req = buildPost(url + "/schemas", schema);
+        return call(req, SchemaSendResponse.class);
+    }
+
+    /**
+     * Gets a schema from the ledger
+     * @param schemaId the schemas id or sequence number
+     * @return {@link Schema}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<Schema> schemasGetById(@NonNull String schemaId) throws IOException {
+        Request req = buildGet(url + "/schemas/" + schemaId);
+        return getWrapped(raw(req), "schema", Schema.class);
+    }
+
+    // ----------------------------------------------------
     // Server
     // ----------------------------------------------------
 
@@ -1382,6 +1339,61 @@ public class AriesClient extends BaseClient {
             throws IOException {
         Request req = buildPost(url + "/connections/" + connectionId + "/send-ping", comment);
         return call(req, PingResponse.class);
+    }
+
+    // ----------------------------------------------------
+    // Wallet
+    // ----------------------------------------------------
+
+    /**
+     * List wallet DIDs
+     * @return list of {@link WalletDidResponse}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<List<WalletDidResponse>> walletDid() throws IOException {
+        Request req = buildGet(url + "/wallet/did");
+        return getWrapped(raw(req), "results", WALLET_DID_TYPE);
+    }
+
+    /**
+     * Create local DID
+     * @return {@link WalletDidResponse}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<WalletDidResponse> walletDidCreate() throws IOException {
+        Request req = buildPost(url + "/wallet/did/create", EMPTY_JSON);
+        return getWrapped(raw(req), "result", WalletDidResponse.class);
+    }
+
+    /**
+     * Fetch the current public DID
+     * @return {@link WalletDidResponse}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<WalletDidResponse> walletDidPublic() throws IOException {
+        Request req = buildGet(url + "/wallet/did/public");
+        return getWrapped(raw(req), "result", WalletDidResponse.class);
+    }
+
+    /**
+     * Query DID end point in wallet
+     * @param did the did
+     * @return {@link GetDidEndpointResponse}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<GetDidEndpointResponse> walletGetDidEndpoint(@NonNull String did) throws IOException {
+        Request req = buildGet(url + "/wallet/get-did-endpoint" + "?did=" + did);
+        return call(req, GetDidEndpointResponse.class);
+    }
+
+    /**
+     * Update end point in wallet and, if public, on ledger
+     * @param endpointRequest {@link SetDidEndpointRequest}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public void walletSetDidEndpoint(@NonNull SetDidEndpointRequest endpointRequest) throws IOException {
+        Request req = buildPost(url + "/wallet/set-did-endpoint", endpointRequest);
+        call(req);
     }
 
     // ----------------------------------------------------
