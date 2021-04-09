@@ -22,37 +22,25 @@ import java.util.Set;
 @Data @NoArgsConstructor @AllArgsConstructor
 public class PresentationExchangeRecord {
 
+    private Boolean autoPresent;
     private String connectionId;
-
-    private String presentationExchangeId;
-
-    private boolean verified;
-
-    private String state;
-
-    private String errorMsg;
-
-    private String role;
-
-    private String initiator;
-
     private String createdAt;
-
-    private String updatedAt;
-
-    private boolean autoPresent;
-
-    private String threadId;
-
-    private List<Identifier> identifiers;
-
+    private String errorMsg;
+    private PresentationExchangeInitiator initiator;
     private JsonObject presentation;
-
-    private ProofRequest presentationRequest;
-
+    private String presentationExchangeId;
     private JsonObject presentationProposalDict;
-
+    private ProofRequest presentationRequest;
     private JsonObject presentationRequestDict;
+    private PresentationExchangeRole role;
+    private PresentationExchangeState state;
+    private String threadId;
+    private Boolean trace;
+    private String updatedAt;
+    private Boolean verified;
+
+    // part of the websocket message
+    private List<Identifier> identifiers;
 
     public boolean hasCredentialDefinitionId(@NonNull String credentialDefinitionId) {
         if (identifiers != null) {

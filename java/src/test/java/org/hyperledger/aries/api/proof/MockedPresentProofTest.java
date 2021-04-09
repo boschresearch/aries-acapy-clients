@@ -45,7 +45,7 @@ public class MockedPresentProofTest extends MockedTestBase {
         String json = loader.load("files/present-proof-record.json");
         server.enqueue(new MockResponse().setBody(json));
 
-        final Optional<PresentationExchangeRecord> res = ac.presentProofRecord("mock");
+        final Optional<PresentationExchangeRecord> res = ac.presentProofRecordsGetById("mock");
 
         Assertions.assertTrue(res.isPresent());
         Assertions.assertTrue(res.get().getConnectionId().startsWith("00598f57"));

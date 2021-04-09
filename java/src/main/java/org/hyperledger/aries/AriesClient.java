@@ -909,7 +909,7 @@ public class AriesClient extends BaseClient {
      * @return {@link PresentationExchangeRecord}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public Optional<PresentationExchangeRecord> presentProofRecord(@NonNull String presentationExchangeId)
+    public Optional<PresentationExchangeRecord> presentProofRecordsGetById(@NonNull String presentationExchangeId)
             throws IOException {
         Request req = buildGet(url + "/present-proof/records/" + presentationExchangeId);
         return call(req, PresentationExchangeRecord.class);
@@ -956,6 +956,19 @@ public class AriesClient extends BaseClient {
     }
 
     /**
+     * Send a problem report for presentation exchange
+     * @param presentationExchangeId presentation exchange identifier
+     * @param request {@link PresentationProblemReportRequest}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public void presentProofRecordsProblemReport(@NonNull String presentationExchangeId,
+        @NonNull PresentationProblemReportRequest request) throws IOException {
+        Request req = buildPost(url + "/present-proof/records/" + presentationExchangeId + "/problem-report",
+                request);
+        call(req);
+    }
+
+    /**
      * Sends a proof presentation
      * @param presentationExchangeId the presentation exchange id
      * @param presentationRequest {@link PresentationRequest}
@@ -966,6 +979,33 @@ public class AriesClient extends BaseClient {
         Request req = buildPost(url + "/present-proof/records/" + presentationExchangeId + "/send-presentation",
                 presentationRequest);
         call(req);
+    }
+
+    /**
+     * Sends presentation request in reference to a proposal
+     * @param presentationExchangeId presentation exchange identifier
+     * @param request {@link AdminAPIMessageTracing}
+     * @return {@link PresentationExchangeRecord}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<PresentationExchangeRecord> presentProofRecordsSendRequest(
+            @NonNull String presentationExchangeId, @NonNull AdminAPIMessageTracing request) throws IOException{
+        Request req = buildPost(url + "/present-proof/records/" + presentationExchangeId + "/send-request",
+                request);
+        return call(req, PresentationExchangeRecord.class);
+    }
+
+    /**
+     * Verify a received presentation
+     * @param presentationExchangeId presentation exchange identifier
+     * @return {@link PresentationExchangeRecord}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<PresentationExchangeRecord> presentProofRecordsVerifyPresentation(
+            @NonNull String presentationExchangeId) throws IOException{
+        Request req = buildPost(url + "/present-proof/records/" + presentationExchangeId + "/verify-presentation",
+                EMPTY_JSON);
+        return call(req, PresentationExchangeRecord.class);
     }
 
     /**
