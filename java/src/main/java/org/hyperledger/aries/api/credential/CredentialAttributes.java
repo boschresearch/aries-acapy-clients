@@ -25,10 +25,10 @@ import java.util.Map;
 @Data @NoArgsConstructor @AllArgsConstructor
 public class CredentialAttributes {
 
-    private String name;
-    private String value;
     @SerializedName(value = "mime-type")
     private String mimeType;
+    private String name;
+    private String value;
 
     public CredentialAttributes(String name, String value) {
         super();

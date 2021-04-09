@@ -3,7 +3,7 @@
 
   SPDX-License-Identifier: Apache-2.0
  */
-package org.hyperledger.aries.api.credential;
+package org.hyperledger.aries.api.issue_credential_v1;
 
 import com.google.gson.annotations.SerializedName;
 

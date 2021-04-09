@@ -9,8 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hyperledger.aries.api.connection.ConnectionRecord;
 import org.hyperledger.aries.api.connection.ConnectionState;
-import org.hyperledger.aries.api.credential.CredentialExchange;
-import org.hyperledger.aries.api.credential.CredentialExchangeRole;
+import org.hyperledger.aries.api.issue_credential_v1.V1CredentialExchange;
+import org.hyperledger.aries.api.issue_credential_v1.CredentialExchangeRole;
 import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
 import org.hyperledger.aries.pojo.AttributeName;
 import org.hyperledger.aries.util.FileLoader;
@@ -37,9 +37,9 @@ public class EventParserTest {
     @Test
     void testParseIssuedCredential() {
         String json = loader.load("events/issue-credential.json");
-        Optional<CredentialExchange> con = parser.parseValueSave(json, CredentialExchange.class);
+        Optional<V1CredentialExchange> con = parser.parseValueSave(json, V1CredentialExchange.class);
         Assertions.assertTrue(con.isPresent());
-        CredentialExchange cred = con.get();
+        V1CredentialExchange cred = con.get();
         Assertions.assertEquals(CredentialExchangeRole.HOLDER, cred.getRole());
         Assertions.assertNotNull(cred.getCredentialDefinitionId());
         Assertions.assertNotNull(cred.getCredential());

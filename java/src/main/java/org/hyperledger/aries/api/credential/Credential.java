@@ -24,19 +24,19 @@ import java.util.Map;
 @Data @NoArgsConstructor @AllArgsConstructor
 public class Credential {
 
-    private String referent;
-
     private Map<String, String> attrs;
-
-    private String schemaId;
 
     @SerializedName(value = CredDefId.CREDENTIAL_DEFINITION_ID,
             alternate = {CredDefId.CRED_DEF_ID, CredDefId.CREDENTIALDEFINITIONID})
     private String credentialDefinitionId;
 
+    private String credRevId;
+
+    private String referent;
+
     private String revRegId;
 
-    private String credRevId;
+    private String schemaId;
 
     /**
      * Maps the credential attributes into an instance of the provided class type.

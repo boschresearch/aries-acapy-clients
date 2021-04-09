@@ -10,6 +10,9 @@ import org.hyperledger.aries.MockedTestBase;
 import org.hyperledger.aries.api.creddef.CredentialDefinition;
 import org.hyperledger.aries.api.creddef.CredentialDefinition.CredentialDefinitionRequest;
 import org.hyperledger.aries.api.creddef.CredentialDefinition.CredentialDefinitionResponse;
+import org.hyperledger.aries.api.issue_credential_v1.CredentialExchangeState;
+import org.hyperledger.aries.api.issue_credential_v1.IssueCredentialRecordsFilter;
+import org.hyperledger.aries.api.issue_credential_v1.V1CredentialExchange;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -108,7 +111,7 @@ class MockedCredentialTest extends MockedTestBase {
         String json = loader.load("files/issueCredentialRecords");
         server.enqueue(new MockResponse().setBody(json));
 
-        Optional<List<CredentialExchange>> exchanges = ac.issueCredentialRecords(IssueCredentialFilter.builder()
+        Optional<List<V1CredentialExchange>> exchanges = ac.issueCredentialRecords(IssueCredentialRecordsFilter.builder()
                 .state(CredentialExchangeState.PROPOSAL_RECEIVED).build());
         Assertions.assertTrue(exchanges.isPresent());
         Assertions.assertEquals(2, exchanges.get().size());

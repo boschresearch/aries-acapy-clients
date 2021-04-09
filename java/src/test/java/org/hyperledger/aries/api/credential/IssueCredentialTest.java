@@ -7,6 +7,7 @@ package org.hyperledger.aries.api.credential;
 
 import org.hyperledger.aries.IntegrationTestBase;
 import org.hyperledger.aries.api.exception.AriesException;
+import org.hyperledger.aries.api.issue_credential_v1.V1CredentialProposalRequest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +19,7 @@ class IssueCredentialTest extends IntegrationTestBase {
 
     @Test
     void testIssueCredential() {
-        CredentialProposalRequest ic = new CredentialProposalRequest();
+        V1CredentialProposalRequest ic = new V1CredentialProposalRequest();
         assertThrows(AriesException.class, () -> ac.issueCredentialSend(ic));
     }
 

@@ -45,11 +45,18 @@ It is currently work in progress and not all endpoints of the agent are present 
 | POST   | /didexchange/{conn_id}/accept-request                 | :white_check_mark: |
 |        | **introduction**                                      |                    |
 |        | **issue-credential v1.0**                             |                    |
+| POST   | /issue-credential/create                              | :white_check_mark: |
 | GET    | /issue-credential/records                             | :white_check_mark: |
-| POST   | /issue-credential/send                                | :white_check_mark: |
-| POST   | /issue-credential/send-proposal                       | :white_check_mark: |
-| POST   | /issue-credential/records/{cred_ex_id}/store          | :white_check_mark: |
+| GET    | /issue-credential/records/{cred_ex_id}                | :white_check_mark: |
 | DELETE | /issue-credential/records/{cred_ex_id}                | :white_check_mark: |
+| POST   | /issue-credential/records/{cred_ex_id}/issue          | :white_check_mark: |
+| POST   | /issue-credential/records/{cred_ex_id}/problem-report | :white_check_mark: |
+| POST   | /issue-credential/records/{cred_ex_id}/send-offer     | :white_check_mark: |
+| POST   | /issue-credential/records/{cred_ex_id}/send-request   | :white_check_mark: |
+| POST   | /issue-credential/records/{cred_ex_id}/store          | :white_check_mark: |
+| POST   | /issue-credential/send                                | :white_check_mark: |
+| POST   | /issue-credential/send-offer                          | :white_check_mark: |
+| POST   | /issue-credential/send-proposal                       | :white_check_mark: |
 |        | **jsonld**                                            |                    |
 | POST   | /jsonld/sign                                          | :white_check_mark: |
 | POST   | /jsonld/verify                                        | :white_check_mark: |
