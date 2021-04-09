@@ -7,13 +7,12 @@ package org.hyperledger.aries.api.wallet;
 
 import lombok.extern.slf4j.Slf4j;
 import org.hyperledger.aries.IntegrationTestBase;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
@@ -24,26 +23,26 @@ public class WalletTest extends IntegrationTestBase {
 
         // as the wallet is empty by default create local did first
         final Optional<WalletDidResponse> localDid = ac.walletDidCreate();
-        assertTrue(localDid.isPresent());
-        assertNotNull(localDid.get().getVerkey());
+        Assertions.assertTrue(localDid.isPresent());
+        Assertions.assertNotNull(localDid.get().getVerkey());
 
         // list all dids
         final Optional<List<WalletDidResponse>> walletDid = ac.walletDid();
-        assertTrue(walletDid.isPresent());
-        assertEquals(1, walletDid.get().size());
+        Assertions.assertTrue(walletDid.isPresent());
+        Assertions.assertEquals(1, walletDid.get().size());
         walletDid.get().forEach(did -> log.debug("{}", did));
     }
 
     @Test
     void testGetPublicDid() throws Exception {
         final Optional<WalletDidResponse> publicDid = ac.walletDidPublic();
-        assertTrue(publicDid.isEmpty());
+        Assertions.assertTrue(publicDid.isEmpty());
     }
 
     @Test
     void testSetGetDidEndpoint() throws Exception {
         final Optional<WalletDidResponse> localDid = ac.walletDidCreate();
-        assertTrue(localDid.isPresent());
+        Assertions.assertTrue(localDid.isPresent());
 
         final String url = "http://localhost:8031";
         SetDidEndpointRequest req = SetDidEndpointRequest
@@ -54,7 +53,7 @@ public class WalletTest extends IntegrationTestBase {
         ac.walletSetDidEndpoint(req);
 
         final Optional<GetDidEndpointResponse> endp = ac.walletGetDidEndpoint(localDid.get().getDid());
-        assertTrue(endp.isPresent());
-        assertEquals(url, endp.get().getEndpoint());
+        Assertions.assertTrue(endp.isPresent());
+        Assertions.assertEquals(url, endp.get().getEndpoint());
     }
 }

@@ -10,8 +10,6 @@ import org.hyperledger.aries.MockedTestBase;
 import org.hyperledger.aries.api.credential_definition.CredentialDefinition;
 import org.hyperledger.aries.api.credential_definition.CredentialDefinition.CredentialDefinitionRequest;
 import org.hyperledger.aries.api.credential_definition.CredentialDefinition.CredentialDefinitionResponse;
-import org.hyperledger.aries.api.credentials.Credential;
-import org.hyperledger.aries.api.credentials.CredentialFilter;
 import org.hyperledger.aries.api.issue_credential_v1.CredentialExchangeState;
 import org.hyperledger.aries.api.issue_credential_v1.IssueCredentialRecordsFilter;
 import org.hyperledger.aries.api.issue_credential_v1.V1CredentialExchange;

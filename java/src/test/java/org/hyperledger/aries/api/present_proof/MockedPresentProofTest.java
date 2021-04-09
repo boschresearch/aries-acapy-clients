@@ -9,9 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import org.hyperledger.aries.MockedTestBase;
-import org.hyperledger.aries.api.present_proof.PresentationExchangeRecord;
-import org.hyperledger.aries.api.present_proof.PresentationRequestCredentials;
-import org.hyperledger.aries.api.present_proof.PresentationRequestCredentialsFilter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -8,7 +8,6 @@ package org.hyperledger.aries.api.credentials;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hyperledger.aries.api.credentials.CredentialAttributes;
 import org.hyperledger.aries.pojo.AttributeName;
 import org.junit.jupiter.api.Test;
 

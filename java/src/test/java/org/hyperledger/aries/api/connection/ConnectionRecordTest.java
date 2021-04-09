@@ -57,7 +57,7 @@ public class ConnectionRecordTest extends IntegrationTestBase {
 
     @Test
     void testMetadata() throws Exception {
-        final Optional<CreateInvitationResponse> inv = ac.connectionsCreateInvitation(
+        ac.connectionsCreateInvitation(
                 CreateInvitationRequest
                         .builder()
                         .recipientKeys(List.of())

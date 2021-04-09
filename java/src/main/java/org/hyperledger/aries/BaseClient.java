@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -56,16 +57,12 @@ abstract class BaseClient {
     final OkHttpClient client;
 
     BaseClient(@Nullable OkHttpClient client) {
-        if (client == null) {
-            this.client = new OkHttpClient.Builder()
-                    .writeTimeout(60, TimeUnit.SECONDS)
-                    .readTimeout(60, TimeUnit.SECONDS)
-                    .connectTimeout(60, TimeUnit.SECONDS)
-                    .callTimeout(60, TimeUnit.SECONDS)
-                    .build();
-        } else {
-            this.client = client;
-        }
+        this.client = Objects.requireNonNullElseGet(client, () -> new OkHttpClient.Builder()
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .callTimeout(60, TimeUnit.SECONDS)
+                .build());
     }
 
     static RequestBody jsonBody(String json) {

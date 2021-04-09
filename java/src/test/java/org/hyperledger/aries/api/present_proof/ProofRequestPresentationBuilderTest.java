@@ -7,13 +7,9 @@ package org.hyperledger.aries.api.present_proof;
 
 import com.google.gson.Gson;
 import org.hyperledger.aries.IntegrationTestBase;
-import org.hyperledger.aries.api.present_proof.PresentProofRequest;
 import org.hyperledger.aries.api.present_proof.PresentProofRequest.ProofRequest;
 import org.hyperledger.aries.api.present_proof.PresentProofRequest.ProofRequest.ProofAttributes.ProofRestrictions;
-import org.hyperledger.aries.api.present_proof.PresentProofRequestHelper;
-import org.hyperledger.aries.api.present_proof.ProofRequestPresentation;
 import org.hyperledger.aries.api.present_proof.ProofRequestPresentation.PresentationAttachment;
-import org.hyperledger.aries.api.present_proof.ProofRequestPresentationBuilder;
 import org.hyperledger.aries.config.GsonConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
