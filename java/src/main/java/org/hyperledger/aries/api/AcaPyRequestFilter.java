@@ -32,6 +32,8 @@ public interface AcaPyRequestFilter {
                         value = (String) o;
                     } else if (f.getType().isEnum()) {
                         value = o.toString().toLowerCase(Locale.US);
+                    } else if (f.getType().isAssignableFrom(Boolean.class)) {
+                        value = ((Boolean) o).toString().toLowerCase(Locale.US);
                     }
                     if (value != null) {
                         b.addQueryParameter(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES.translateName(f), value);

@@ -3,7 +3,7 @@
 
   SPDX-License-Identifier: Apache-2.0
  */
-package org.hyperledger.aries.api.proof;
+package org.hyperledger.aries.api.present_proof;
 
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.HttpUrl;

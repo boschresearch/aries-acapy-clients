@@ -10,12 +10,13 @@ import lombok.Data;
 import lombok.NonNull;
 import okhttp3.HttpUrl;
 import org.apache.commons.lang3.StringUtils;
+import org.hyperledger.aries.api.AcaPyRequestFilter;
 
 import java.util.Iterator;
 import java.util.List;
 
 @Data @Builder
-public class PresentationRequestCredentialsFilter {
+public class PresentationRequestCredentialsFilter implements AcaPyRequestFilter {
 
     /** Maximum number to retrieve */
     private String count;
@@ -29,6 +30,7 @@ public class PresentationRequestCredentialsFilter {
     /** start index */
     private String start;
 
+    @Override
     public HttpUrl.Builder buildParams(@NonNull HttpUrl.Builder b) {
         if (StringUtils.isNotEmpty(count)) {
             b.addQueryParameter("count", count);

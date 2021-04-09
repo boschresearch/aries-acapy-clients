@@ -12,6 +12,7 @@ import org.hyperledger.aries.api.connection.ConnectionState;
 import org.hyperledger.aries.api.issue_credential_v1.V1CredentialExchange;
 import org.hyperledger.aries.api.issue_credential_v1.CredentialExchangeRole;
 import org.hyperledger.aries.api.present_proof.PresentationExchangeRecord;
+import org.hyperledger.aries.api.present_proof.PresentationExchangeRole;
 import org.hyperledger.aries.pojo.AttributeName;
 import org.hyperledger.aries.util.FileLoader;
 import org.junit.jupiter.api.Assertions;
@@ -50,7 +51,7 @@ public class EventParserTest {
         String json = loader.load("events/proof-valid-verifier.json");
         Optional<PresentationExchangeRecord> p = parser.parsePresentProof(json);
         Assertions.assertTrue(p.isPresent());
-        Assertions.assertEquals("verifier", p.get().getRole());
+        Assertions.assertEquals(PresentationExchangeRole.VERIFIER, p.get().getRole());
         Masterdata md = p.get().from(Masterdata.class);
         Assertions.assertEquals("4", md.getStreetNumber());
         Assertions.assertEquals("8000", md.getPostalCode());
@@ -75,7 +76,7 @@ public class EventParserTest {
         String json = loader.load("events/proof-valid-prover.json");
         Optional<PresentationExchangeRecord> p = parser.parsePresentProof(json);
         Assertions.assertTrue(p.isPresent());
-        Assertions.assertEquals("prover", p.get().getRole());
+        Assertions.assertEquals(PresentationExchangeRole.PROVER, p.get().getRole());
         final BankAccount ba = p.get().from(BankAccount.class);
         Assertions.assertNotNull(ba);
         Assertions.assertEquals("GB33BUKB20201555555555", ba.getIban());

@@ -22,7 +22,6 @@ import org.hyperledger.aries.api.credential_definition.CredentialDefinition.Cred
 import org.hyperledger.aries.api.credential_definition.CredentialDefinition.CredentialDefinitionResponse;
 import org.hyperledger.aries.api.credential_definition.CredentialDefinition.CredentialDefinitionsCreated;
 import org.hyperledger.aries.api.credential_definition.CredentialDefinitionFilter;
-import org.hyperledger.aries.api.credential.*;
 import org.hyperledger.aries.api.credentials.Credential;
 import org.hyperledger.aries.api.credentials.CredentialFilter;
 import org.hyperledger.aries.api.did_exchange.*;
@@ -35,7 +34,6 @@ import org.hyperledger.aries.api.message.PingRequest;
 import org.hyperledger.aries.api.message.PingResponse;
 import org.hyperledger.aries.api.multitenancy.*;
 import org.hyperledger.aries.api.present_proof.*;
-import org.hyperledger.aries.api.proof.*;
 import org.hyperledger.aries.api.revocation.*;
 import org.hyperledger.aries.api.schema.SchemaSendRequest;
 import org.hyperledger.aries.api.schema.SchemaSendResponse;
@@ -733,9 +731,10 @@ public class AriesClient extends BaseClient {
      * @return {@link V1CredentialExchange}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public Optional<V1CredentialExchange> issueCredentialRecordsStore(@NonNull String credentialExchangeId)
-            throws IOException {
-        Request req = buildPost(url + "/issue-credential/records/" + credentialExchangeId + "/store", EMPTY_JSON);
+    public Optional<V1CredentialExchange> issueCredentialRecordsStore(@NonNull String credentialExchangeId,
+            @Nullable V1CredentialStoreRequest request) throws IOException {
+        Request req = buildPost(url + "/issue-credential/records/" + credentialExchangeId + "/store",
+                request != null ? request : "");
         return call(req, V1CredentialExchange.class);
     }
 

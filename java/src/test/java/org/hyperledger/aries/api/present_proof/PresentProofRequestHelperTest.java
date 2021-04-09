@@ -3,7 +3,7 @@
 
   SPDX-License-Identifier: Apache-2.0
  */
-package org.hyperledger.aries.api.proof;
+package org.hyperledger.aries.api.present_proof;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

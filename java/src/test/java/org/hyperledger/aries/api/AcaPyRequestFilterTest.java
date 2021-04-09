@@ -28,8 +28,9 @@ public class AcaPyRequestFilterTest {
     @Test
     void testFilter() {
         HttpUrl.Builder b = Objects.requireNonNull(base).newBuilder();
-        Dummy d = Dummy.builder().testMyData("abc").test(DummyEnum.VALUE1).build();
-        Assertions.assertEquals(url + "?test_my_data=abc&test=value1", d.buildParams(b).toString());
+        Dummy d = Dummy.builder().testMyData("abc").test(DummyEnum.VALUE1).myBool(Boolean.TRUE).build();
+        Assertions.assertEquals(url + "?test_my_data=abc&test=value1&my_bool=true",
+                d.buildParams(b).toString());
     }
 
     @Test
@@ -44,6 +45,7 @@ public class AcaPyRequestFilterTest {
         private String testMyData;
         public String publicValue;
         private DummyEnum test;
+        private Boolean myBool;
     }
 
     private enum DummyEnum {
