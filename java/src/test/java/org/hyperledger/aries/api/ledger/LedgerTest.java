@@ -10,7 +10,7 @@ import org.hyperledger.aries.api.exception.AriesException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class LedgeTest extends IntegrationTestBase {
+class LedgerTest extends IntegrationTestBase {
 
     @Test
     void testGetTaa() {
@@ -25,6 +25,13 @@ class LedgeTest extends IntegrationTestBase {
     @Test
     void testDidVerkey() {
         Assertions.assertThrows(AriesException.class, ()-> ac.ledgerDidVerkey("5mwQSWnRePrZ3oF67C4Kqe"));
+    }
+
+    @Test
+    void testSetEndpoint() {
+        AriesException e = Assertions.assertThrows(AriesException.class,
+                () -> ac.ledgerDidEndpoint("DYqpVuxKRgiKvc5Bz8FWuZ", EndpointType.PROFILE));
+        Assertions.assertTrue(e.getMessage().startsWith("No Indy"));
     }
 
 }

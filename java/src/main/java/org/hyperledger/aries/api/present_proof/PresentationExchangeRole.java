@@ -5,12 +5,15 @@
  */
 package org.hyperledger.aries.api.present_proof;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 
 public enum PresentationExchangeRole {
+    @JsonProperty("prover")
     @SerializedName("prover")
     PROVER,
 
+    @JsonProperty("verifier")
     @SerializedName("verifier")
     VERIFIER,
 }

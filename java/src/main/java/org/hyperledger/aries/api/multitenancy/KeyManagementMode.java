@@ -5,9 +5,11 @@
  */
 package org.hyperledger.aries.api.multitenancy;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 
 public enum KeyManagementMode {
+    @JsonProperty("managed")
     @SerializedName("managed")
     MANAGED
 }

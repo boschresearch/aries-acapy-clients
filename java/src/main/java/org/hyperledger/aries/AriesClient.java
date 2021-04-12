@@ -836,7 +836,7 @@ public class AriesClient extends BaseClient {
         HttpUrl.Builder b = Objects.requireNonNull(HttpUrl.parse(url + "/ledger/did-endpoint")).newBuilder();
         b.addQueryParameter("did", did);
         if (type != null) {
-            b.addQueryParameter("endpoint_type", type.toString());
+            b.addQueryParameter("endpoint_type", type.getAcaPyName());
         }
         Request req = buildGet(b.build().toString());
         return call(req, EndpointResponse.class);

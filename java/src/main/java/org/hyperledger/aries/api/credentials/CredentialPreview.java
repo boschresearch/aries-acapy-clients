@@ -6,12 +6,14 @@
 package org.hyperledger.aries.api.credentials;
 
 import com.google.gson.annotations.SerializedName;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data @NoArgsConstructor
+@Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class CredentialPreview {
 
     @SerializedName("@type")

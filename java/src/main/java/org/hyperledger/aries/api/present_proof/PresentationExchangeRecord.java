@@ -41,6 +41,10 @@ public class PresentationExchangeRecord {
     // part of the websocket message
     private List<Identifier> identifiers;
 
+    public boolean isVerified() {
+        return verified != null && verified;
+    }
+
     public boolean hasCredentialDefinitionId(@NonNull String credentialDefinitionId) {
         if (identifiers != null) {
             return identifiers.stream().anyMatch(i -> credentialDefinitionId.equals(i.getCredentialDefinitionId()));

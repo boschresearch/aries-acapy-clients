@@ -5,12 +5,15 @@
  */
 package org.hyperledger.aries.api.present_proof;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 
 public enum PresentationExchangeInitiator {
+    @JsonProperty("self")
     @SerializedName("self")
     SELF,
 
+    @JsonProperty("external")
     @SerializedName("external")
     EXTERNAL,
 }

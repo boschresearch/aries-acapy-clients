@@ -5,6 +5,7 @@
  */
 package org.hyperledger.aries.api.multitenancy;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -14,12 +15,15 @@ import com.google.gson.annotations.SerializedName;
  * both - Dispatch to both webhook targets.
  */
 public enum WalletDispatchType {
+    @JsonProperty("default")
     @SerializedName("default")
     DEFAULT,
 
+    @JsonProperty("both")
     @SerializedName("both")
     BOTH,
 
+    @JsonProperty("base")
     @SerializedName("base")
     BASE
 }

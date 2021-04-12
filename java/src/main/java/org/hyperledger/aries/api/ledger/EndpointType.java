@@ -19,17 +19,22 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum EndpointType {
     @SerializedName("Endpoint")
-    ENDPOINT("endpoint"),
+    ENDPOINT("endpoint", "Endpoint"),
 
     @SerializedName("Profile")
-    PROFILE("profile"),
+    PROFILE("profile", "Profile"),
 
     @SerializedName("LinkedDomains")
-    LINKED_DOMAINS("linked_domains")
+    LINKED_DOMAINS("linked_domains", "LinkedDomains")
     ;
 
     /**
      * The name of the endpoint how its written to the ledger
      */
     private final String ledgerName;
+
+    /**
+     * The name of the endpoint as it is used in aca-py, same as @SerializedName
+     */
+    private final String acaPyName;
 }
