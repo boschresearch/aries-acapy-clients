@@ -6,10 +6,10 @@
 package org.hyperledger.aries.webhook;
 
 import org.hyperledger.aries.api.connection.ConnectionRecord;
-import org.hyperledger.aries.api.credential.CredentialExchange;
+import org.hyperledger.aries.api.issue_credential_v1.V1CredentialExchange;
 import org.hyperledger.aries.api.message.BasicMessage;
 import org.hyperledger.aries.api.message.PingEvent;
-import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
+import org.hyperledger.aries.api.present_proof.PresentationExchangeRecord;
 
 import lombok.extern.slf4j.Slf4j;
 import org.hyperledger.aries.api.revocation.RevocationEvent;
@@ -29,7 +29,7 @@ public abstract class EventHandler {
             } else if ("present_proof".equals(eventType)) {
                 parser.parsePresentProof(json).ifPresent(this::handleProof);
             } else if ("issue_credential".equals(eventType)) {
-                parser.parseValueSave(json, CredentialExchange.class).ifPresent(this::handleCredential);
+                parser.parseValueSave(json, V1CredentialExchange.class).ifPresent(this::handleCredential);
             } else if ("basicmessages".equals(eventType)) {
                 parser.parseValueSave(json, BasicMessage.class).ifPresent(this::handleBasicMessage);
             } else if ("ping".equals(eventType)) {
@@ -50,7 +50,7 @@ public abstract class EventHandler {
         log.debug("Present Proof Event: {}", proof);
     }
 
-    public void handleCredential(CredentialExchange credential) {
+    public void handleCredential(V1CredentialExchange credential) {
         log.debug("Issue Credential Event: {}", credential);
     }
 

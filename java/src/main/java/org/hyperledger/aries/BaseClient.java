@@ -13,13 +13,13 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.apache.commons.lang3.StringUtils;
 import org.hyperledger.aries.api.connection.ConnectionRecord;
-import org.hyperledger.aries.api.credential.Credential;
-import org.hyperledger.aries.api.credential.CredentialExchange;
+import org.hyperledger.aries.api.credentials.Credential;
+import org.hyperledger.aries.api.issue_credential_v1.V1CredentialExchange;
 import org.hyperledger.aries.api.exception.AriesException;
 import org.hyperledger.aries.api.jsonld.ErrorResponse;
 import org.hyperledger.aries.api.multitenancy.WalletRecord;
-import org.hyperledger.aries.api.proof.PresentationExchangeRecord;
-import org.hyperledger.aries.api.proof.PresentationRequestCredentials;
+import org.hyperledger.aries.api.present_proof.PresentationExchangeRecord;
+import org.hyperledger.aries.api.present_proof.PresentationRequestCredentials;
 import org.hyperledger.aries.api.wallet.WalletDidResponse;
 import org.hyperledger.aries.config.GsonConfig;
 
@@ -27,6 +27,8 @@ import javax.annotation.Nullable;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -37,11 +39,12 @@ abstract class BaseClient {
 
     static final Type CONNECTION_TYPE = new TypeToken<Collection<ConnectionRecord>>(){}.getType();
     static final Type CREDENTIAL_TYPE = new TypeToken<Collection<Credential>>(){}.getType();
-    static final Type ISSUE_CREDENTIAL_TYPE = new TypeToken<Collection<CredentialExchange>>(){}.getType();
+    static final Type ISSUE_CREDENTIAL_TYPE = new TypeToken<Collection<V1CredentialExchange>>(){}.getType();
     static final Type PRESENTATION_REQUEST_CREDENTIALS = new TypeToken<Collection<PresentationRequestCredentials>>(){}.getType();
     static final Type PROOF_TYPE = new TypeToken<Collection<PresentationExchangeRecord>>(){}.getType();
     static final Type WALLET_DID_TYPE = new TypeToken<Collection<WalletDidResponse>>(){}.getType();
     static final Type WALLET_RECORD_TYPE = new TypeToken<Collection<WalletRecord>>(){}.getType();
+    static final Type MAP_TYPE = new TypeToken<Map<String, String>>(){}.getType();
 
     static final String X_API_KEY = "X-API-Key";
     static final String AUTHORIZATION = "Authorization";
@@ -54,16 +57,12 @@ abstract class BaseClient {
     final OkHttpClient client;
 
     BaseClient(@Nullable OkHttpClient client) {
-        if (client == null) {
-            this.client = new OkHttpClient.Builder()
-                    .writeTimeout(60, TimeUnit.SECONDS)
-                    .readTimeout(60, TimeUnit.SECONDS)
-                    .connectTimeout(60, TimeUnit.SECONDS)
-                    .callTimeout(60, TimeUnit.SECONDS)
-                    .build();
-        } else {
-            this.client = client;
-        }
+        this.client = Objects.requireNonNullElseGet(client, () -> new OkHttpClient.Builder()
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .callTimeout(60, TimeUnit.SECONDS)
+                .build());
     }
 
     static RequestBody jsonBody(String json) {
