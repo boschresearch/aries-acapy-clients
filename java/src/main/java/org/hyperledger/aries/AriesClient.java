@@ -259,16 +259,16 @@ public class AriesClient extends BaseClient {
     /**
      * Receive a new connection invitation
      * @param invite {@link ReceiveInvitationRequest}
-     * @param alias optional: alias for the connection
+     * @param filter optional: {@link ConnectionReceiveInvitationFilter}
      * @return {@link ConnectionRecord}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
     public Optional<ConnectionRecord> connectionsReceiveInvitation(
-            @NonNull ReceiveInvitationRequest invite, @Nullable String alias)
+            @NonNull ReceiveInvitationRequest invite, @Nullable ConnectionReceiveInvitationFilter filter)
             throws IOException{
         HttpUrl.Builder b = Objects.requireNonNull(HttpUrl.parse(url + "/connections/receive-invitation")).newBuilder();
-        if (StringUtils.isNotEmpty(alias)) {
-            b.addQueryParameter("alias", alias);
+        if (filter != null) {
+            filter.buildParams(b);
         }
         Request req = buildPost(b.build().toString(), invite);
         return call(req, ConnectionRecord.class);

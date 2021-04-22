@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
 @Data @NoArgsConstructor @Accessors(chain = true)
 public class ConnectionRecord {
 
-    private String accept;
+    private ConnectionAcceptance accept;
     private String alias;
     private String connectionId;
     private String createdAt;
@@ -32,7 +32,7 @@ public class ConnectionRecord {
     private String theirDid;
     private String theirLabel;
     private String theirPublicDid;
-    private String theirRole;
+    private ConnectionTheirRole theirRole;
     private String updatedAt;
 
     /**
