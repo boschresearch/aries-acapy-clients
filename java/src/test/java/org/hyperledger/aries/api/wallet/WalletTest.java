@@ -1,7 +1,7 @@
 /*
-  Copyright (c) 2020 Robert Bosch GmbH. All Rights Reserved.
-
-  SPDX-License-Identifier: Apache-2.0
+ * Copyright (c) 2021 Robert Bosch GmbH. All Rights Reserved.
+ *
+ * SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.wallet;
 
@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Slf4j
 public class WalletTest extends IntegrationTestBase {

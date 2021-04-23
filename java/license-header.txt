@@ -1,0 +1,3 @@
+Copyright (c) ${licenseYear} Robert Bosch GmbH. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0
