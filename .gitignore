@@ -39,3 +39,6 @@ hs_err_pid*
 
 # Build
 **/target/**
+
+# Generator
+java/.openapi-generator
