@@ -324,6 +324,9 @@
                     <targetJdk>${jdk.version}</targetJdk>
                     <printFailingErrors>true</printFailingErrors>
                     <analysisCache>true</analysisCache>
+                    <excludes>
+                        <exclude>**/generated/model/*.java</exclude>
+                    </excludes>
                 </configuration>
                 <executions>
                     <execution>
@@ -340,7 +343,7 @@
                 <version>6.1.6</version>
                 <configuration>
                     <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability>
-                    <skip>true</skip>
+                    <skip>false</skip>
                 </configuration>
                 <executions>
                     <execution>
