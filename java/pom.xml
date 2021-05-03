@@ -191,7 +191,7 @@
                             <modelPackage>org.hyperledger.acy_py.generated.model</modelPackage>
                             <withXml>false</withXml>
                             <library>native</library>
-                            <templateResourcePath>src/test/resources/custom_templates</templateResourcePath>
+                            <templateResourcePath>${project.basedir}/swagger/custom_templates</templateResourcePath>
                             <configOptions>
                                 <sourceFolder>src/main/java</sourceFolder>
                                 <hideGenerationTimestamp>true</hideGenerationTimestamp>
