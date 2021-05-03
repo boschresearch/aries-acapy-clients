@@ -53,6 +53,7 @@
         <jdk.version>11</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Plugin Versions -->
+        <license-maven-plugin.version>4.1</license-maven-plugin.version>
         <maven-release-plugin.version>3.0.0-M1</maven-release-plugin.version>
         <maven.surefire.version>2.22.2</maven.surefire.version>
         <!-- Dependency Versions -->
@@ -116,6 +117,11 @@
             <artifactId>jackson-annotations</artifactId>
             <version>2.12.3</version>
         </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.6.2</version>
+        </dependency>
         <!-- Scope Test -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -158,11 +164,6 @@
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>1.6.2</version>
         </dependency>
     </dependencies>
 
@@ -336,7 +337,7 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>6.1.5</version>
+                <version>6.1.6</version>
                 <configuration>
                     <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability>
                     <skip>true</skip>
@@ -396,20 +397,30 @@
             <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
-                <version>4.0</version>
+                <version>${license-maven-plugin.version}</version>
                 <configuration>
                     <licenseSets>
                         <licenseSet>
                             <header>license-header.txt</header>
+                            <excludes>
+                                <exclude>src/*/java/**/generated/**/*.java</exclude>
+                            </excludes>
                             <includes>
                                 <include>src/*/java/**/*.java</include>
                             </includes>
                         </licenseSet>
                     </licenseSets>
                     <properties>
-                        <licenseYear>2021</licenseYear>
+                        <project.inceptionYear>2020</project.inceptionYear>
                     </properties>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.mycila</groupId>
+                        <artifactId>license-maven-plugin-git</artifactId>
+                        <version>${license-maven-plugin.version}</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <goals>
