@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,12 +24,15 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* PingRequest
-*/
+ * PingRequest
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class PingRequest {
-        public static final String SERIALIZED_NAME_COMMENT = "comment";
-        @SerializedName(SERIALIZED_NAME_COMMENT)
-        private String comment;
+    public static final String SERIALIZED_NAME_COMMENT = "comment";
+    @SerializedName(SERIALIZED_NAME_COMMENT)
+    private String comment;
 }

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -29,33 +28,36 @@ import org.hyperledger.acy_py.generated.model.AttachDecorator;
 import org.hyperledger.acy_py.generated.model.Service;
 
 /**
-* InvitationReceiveRequest
-*/
+ * InvitationReceiveRequest
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class InvitationReceiveRequest {
-        public static final String SERIALIZED_NAME_AT_ID = "@id";
-        @SerializedName(SERIALIZED_NAME_AT_ID)
-        private String atId;
-        public static final String SERIALIZED_NAME_AT_TYPE = "@type";
-        @SerializedName(SERIALIZED_NAME_AT_TYPE)
-        private String atType;
-        public static final String SERIALIZED_NAME_HANDSHAKE_PROTOCOLS = "handshake_protocols";
-        @SerializedName(SERIALIZED_NAME_HANDSHAKE_PROTOCOLS)
-        private List<String> handshakeProtocols = null;
-        public static final String SERIALIZED_NAME_LABEL = "label";
-        @SerializedName(SERIALIZED_NAME_LABEL)
-        private String label;
-        public static final String SERIALIZED_NAME_REQUESTS_TILDE_ATTACH = "requests~attach";
-        @SerializedName(SERIALIZED_NAME_REQUESTS_TILDE_ATTACH)
-        private List<AttachDecorator> requestsTildeAttach = null;
-        public static final String SERIALIZED_NAME_SERVICE_BLOCKS = "service_blocks";
-        @SerializedName(SERIALIZED_NAME_SERVICE_BLOCKS)
-        private List<Service> serviceBlocks = null;
-        public static final String SERIALIZED_NAME_SERVICE_DIDS = "service_dids";
-        @SerializedName(SERIALIZED_NAME_SERVICE_DIDS)
-        private List<String> serviceDids = null;
-        public static final String SERIALIZED_NAME_SERVICES = "services";
-        @SerializedName(SERIALIZED_NAME_SERVICES)
-        private Object services;
+    public static final String SERIALIZED_NAME_AT_ID = "@id";
+    @SerializedName(SERIALIZED_NAME_AT_ID)
+    private String atId;
+    public static final String SERIALIZED_NAME_AT_TYPE = "@type";
+    @SerializedName(SERIALIZED_NAME_AT_TYPE)
+    private String atType;
+    public static final String SERIALIZED_NAME_HANDSHAKE_PROTOCOLS = "handshake_protocols";
+    @SerializedName(SERIALIZED_NAME_HANDSHAKE_PROTOCOLS)
+    private List<String> handshakeProtocols = null;
+    public static final String SERIALIZED_NAME_LABEL = "label";
+    @SerializedName(SERIALIZED_NAME_LABEL)
+    private String label;
+    public static final String SERIALIZED_NAME_REQUESTS_TILDE_ATTACH = "requests~attach";
+    @SerializedName(SERIALIZED_NAME_REQUESTS_TILDE_ATTACH)
+    private List<AttachDecorator> requestsTildeAttach = null;
+    public static final String SERIALIZED_NAME_SERVICE_BLOCKS = "service_blocks";
+    @SerializedName(SERIALIZED_NAME_SERVICE_BLOCKS)
+    private List<Service> serviceBlocks = null;
+    public static final String SERIALIZED_NAME_SERVICE_DIDS = "service_dids";
+    @SerializedName(SERIALIZED_NAME_SERVICE_DIDS)
+    private List<String> serviceDids = null;
+    public static final String SERIALIZED_NAME_SERVICES = "services";
+    @SerializedName(SERIALIZED_NAME_SERVICES)
+    private Object services;
 }

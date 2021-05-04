@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -28,12 +27,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* PublishRevocations
-*/
+ * PublishRevocations
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class PublishRevocations {
-        public static final String SERIALIZED_NAME_RRID2CRID = "rrid2crid";
-        @SerializedName(SERIALIZED_NAME_RRID2CRID)
-        private Map<String, List<String>> rrid2crid = null;
+    public static final String SERIALIZED_NAME_RRID2CRID = "rrid2crid";
+    @SerializedName(SERIALIZED_NAME_RRID2CRID)
+    private Map<String, List<String>> rrid2crid = null;
 }

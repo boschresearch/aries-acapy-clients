@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -27,15 +26,18 @@ import org.hyperledger.acy_py.generated.model.DIFPresProposal;
 import org.hyperledger.acy_py.generated.model.IndyProofRequest;
 
 /**
-* V20PresProposalByFormat
-*/
+ * V20PresProposalByFormat
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class V20PresProposalByFormat {
-        public static final String SERIALIZED_NAME_DIF = "dif";
-        @SerializedName(SERIALIZED_NAME_DIF)
-        private DIFPresProposal dif;
-        public static final String SERIALIZED_NAME_INDY = "indy";
-        @SerializedName(SERIALIZED_NAME_INDY)
-        private IndyProofRequest indy;
+    public static final String SERIALIZED_NAME_DIF = "dif";
+    @SerializedName(SERIALIZED_NAME_DIF)
+    private DIFPresProposal dif;
+    public static final String SERIALIZED_NAME_INDY = "indy";
+    @SerializedName(SERIALIZED_NAME_INDY)
+    private IndyProofRequest indy;
 }

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,12 +24,15 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* ConnectionMetadata
-*/
+ * ConnectionMetadata
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class ConnectionMetadata {
-        public static final String SERIALIZED_NAME_RESULTS = "results";
-        @SerializedName(SERIALIZED_NAME_RESULTS)
-        private Object results;
+    public static final String SERIALIZED_NAME_RESULTS = "results";
+    @SerializedName(SERIALIZED_NAME_RESULTS)
+    private Object results;
 }

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -27,15 +26,18 @@ import org.hyperledger.acy_py.generated.model.V20CredFilter;
 import org.hyperledger.acy_py.generated.model.V20CredPreview;
 
 /**
-* V20CredBoundOfferRequest
-*/
+ * V20CredBoundOfferRequest
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class V20CredBoundOfferRequest {
-        public static final String SERIALIZED_NAME_COUNTER_PREVIEW = "counter_preview";
-        @SerializedName(SERIALIZED_NAME_COUNTER_PREVIEW)
-        private V20CredPreview counterPreview;
-        public static final String SERIALIZED_NAME_FILTER = "filter";
-        @SerializedName(SERIALIZED_NAME_FILTER)
-        private V20CredFilter filter;
+    public static final String SERIALIZED_NAME_COUNTER_PREVIEW = "counter_preview";
+    @SerializedName(SERIALIZED_NAME_COUNTER_PREVIEW)
+    private V20CredPreview counterPreview;
+    public static final String SERIALIZED_NAME_FILTER = "filter";
+    @SerializedName(SERIALIZED_NAME_FILTER)
+    private V20CredFilter filter;
 }

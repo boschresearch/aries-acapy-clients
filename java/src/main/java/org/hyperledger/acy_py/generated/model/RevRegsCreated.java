@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -27,12 +26,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* RevRegsCreated
-*/
+ * RevRegsCreated
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class RevRegsCreated {
-        public static final String SERIALIZED_NAME_REV_REG_IDS = "rev_reg_ids";
-        @SerializedName(SERIALIZED_NAME_REV_REG_IDS)
-        private List<String> revRegIds = null;
+    public static final String SERIALIZED_NAME_REV_REG_IDS = "rev_reg_ids";
+    @SerializedName(SERIALIZED_NAME_REV_REG_IDS)
+    private List<String> revRegIds = null;
 }

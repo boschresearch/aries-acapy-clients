@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,12 +24,15 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* V20CredFilterDIF
-*/
+ * V20CredFilterDIF
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class V20CredFilterDIF {
-        public static final String SERIALIZED_NAME_SOME_DIF_CRITERION = "some_dif_criterion";
-        @SerializedName(SERIALIZED_NAME_SOME_DIF_CRITERION)
-        private String someDifCriterion;
+    public static final String SERIALIZED_NAME_SOME_DIF_CRITERION = "some_dif_criterion";
+    @SerializedName(SERIALIZED_NAME_SOME_DIF_CRITERION)
+    private String someDifCriterion;
 }

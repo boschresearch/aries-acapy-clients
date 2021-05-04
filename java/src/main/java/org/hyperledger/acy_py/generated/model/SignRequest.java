@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -26,15 +25,18 @@ import java.io.IOException;
 import org.hyperledger.acy_py.generated.model.Generated;
 
 /**
-* SignRequest
-*/
+ * SignRequest
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class SignRequest {
-        public static final String SERIALIZED_NAME_DOC = "doc";
-        @SerializedName(SERIALIZED_NAME_DOC)
-        private Generated doc;
-        public static final String SERIALIZED_NAME_VERKEY = "verkey";
-        @SerializedName(SERIALIZED_NAME_VERKEY)
-        private String verkey;
+    public static final String SERIALIZED_NAME_DOC = "doc";
+    @SerializedName(SERIALIZED_NAME_DOC)
+    private Generated doc;
+    public static final String SERIALIZED_NAME_VERKEY = "verkey";
+    @SerializedName(SERIALIZED_NAME_VERKEY)
+    private String verkey;
 }

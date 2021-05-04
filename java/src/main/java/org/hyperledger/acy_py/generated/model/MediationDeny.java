@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -27,21 +26,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* MediationDeny
-*/
+ * MediationDeny
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class MediationDeny {
-        public static final String SERIALIZED_NAME_AT_ID = "@id";
-        @SerializedName(SERIALIZED_NAME_AT_ID)
-        private String atId;
-        public static final String SERIALIZED_NAME_AT_TYPE = "@type";
-        @SerializedName(SERIALIZED_NAME_AT_TYPE)
-        private String atType;
-        public static final String SERIALIZED_NAME_MEDIATOR_TERMS = "mediator_terms";
-        @SerializedName(SERIALIZED_NAME_MEDIATOR_TERMS)
-        private List<String> mediatorTerms = null;
-        public static final String SERIALIZED_NAME_RECIPIENT_TERMS = "recipient_terms";
-        @SerializedName(SERIALIZED_NAME_RECIPIENT_TERMS)
-        private List<String> recipientTerms = null;
+    public static final String SERIALIZED_NAME_AT_ID = "@id";
+    @SerializedName(SERIALIZED_NAME_AT_ID)
+    private String atId;
+    public static final String SERIALIZED_NAME_AT_TYPE = "@type";
+    @SerializedName(SERIALIZED_NAME_AT_TYPE)
+    private String atType;
+    public static final String SERIALIZED_NAME_MEDIATOR_TERMS = "mediator_terms";
+    @SerializedName(SERIALIZED_NAME_MEDIATOR_TERMS)
+    private List<String> mediatorTerms = null;
+    public static final String SERIALIZED_NAME_RECIPIENT_TERMS = "recipient_terms";
+    @SerializedName(SERIALIZED_NAME_RECIPIENT_TERMS)
+    private List<String> recipientTerms = null;
 }

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,15 +24,18 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* SignResponse
-*/
+ * SignResponse
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class SignResponse {
-        public static final String SERIALIZED_NAME_ERROR = "error";
-        @SerializedName(SERIALIZED_NAME_ERROR)
-        private String error;
-        public static final String SERIALIZED_NAME_SIGNED_DOC = "signed_doc";
-        @SerializedName(SERIALIZED_NAME_SIGNED_DOC)
-        private Object signedDoc;
+    public static final String SERIALIZED_NAME_ERROR = "error";
+    @SerializedName(SERIALIZED_NAME_ERROR)
+    private String error;
+    public static final String SERIALIZED_NAME_SIGNED_DOC = "signed_doc";
+    @SerializedName(SERIALIZED_NAME_SIGNED_DOC)
+    private Object signedDoc;
 }

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -28,30 +27,33 @@ import java.util.List;
 import org.hyperledger.acy_py.generated.model.AttachmentDef;
 
 /**
-* InvitationCreateRequest
-*/
+ * InvitationCreateRequest
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class InvitationCreateRequest {
-        public static final String SERIALIZED_NAME_ALIAS = "alias";
-        @SerializedName(SERIALIZED_NAME_ALIAS)
-        private String alias;
-        public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
-        @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
-        private List<AttachmentDef> attachments = null;
-        public static final String SERIALIZED_NAME_HANDSHAKE_PROTOCOLS = "handshake_protocols";
-        @SerializedName(SERIALIZED_NAME_HANDSHAKE_PROTOCOLS)
-        private List<String> handshakeProtocols = null;
-        public static final String SERIALIZED_NAME_MEDIATION_ID = "mediation_id";
-        @SerializedName(SERIALIZED_NAME_MEDIATION_ID)
-        private String mediationId;
-        public static final String SERIALIZED_NAME_METADATA = "metadata";
-        @SerializedName(SERIALIZED_NAME_METADATA)
-        private Object metadata;
-        public static final String SERIALIZED_NAME_MY_LABEL = "my_label";
-        @SerializedName(SERIALIZED_NAME_MY_LABEL)
-        private String myLabel;
-        public static final String SERIALIZED_NAME_USE_PUBLIC_DID = "use_public_did";
-        @SerializedName(SERIALIZED_NAME_USE_PUBLIC_DID)
-        private Boolean usePublicDid;
+    public static final String SERIALIZED_NAME_ALIAS = "alias";
+    @SerializedName(SERIALIZED_NAME_ALIAS)
+    private String alias;
+    public static final String SERIALIZED_NAME_ATTACHMENTS = "attachments";
+    @SerializedName(SERIALIZED_NAME_ATTACHMENTS)
+    private List<AttachmentDef> attachments = null;
+    public static final String SERIALIZED_NAME_HANDSHAKE_PROTOCOLS = "handshake_protocols";
+    @SerializedName(SERIALIZED_NAME_HANDSHAKE_PROTOCOLS)
+    private List<String> handshakeProtocols = null;
+    public static final String SERIALIZED_NAME_MEDIATION_ID = "mediation_id";
+    @SerializedName(SERIALIZED_NAME_MEDIATION_ID)
+    private String mediationId;
+    public static final String SERIALIZED_NAME_METADATA = "metadata";
+    @SerializedName(SERIALIZED_NAME_METADATA)
+    private Object metadata;
+    public static final String SERIALIZED_NAME_MY_LABEL = "my_label";
+    @SerializedName(SERIALIZED_NAME_MY_LABEL)
+    private String myLabel;
+    public static final String SERIALIZED_NAME_USE_PUBLIC_DID = "use_public_did";
+    @SerializedName(SERIALIZED_NAME_USE_PUBLIC_DID)
+    private Boolean usePublicDid;
 }

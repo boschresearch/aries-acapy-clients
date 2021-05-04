@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -28,12 +27,15 @@ import java.util.List;
 import org.hyperledger.acy_py.generated.model.KeylistUpdateRule;
 
 /**
-* KeylistUpdateRequest
-*/
+ * KeylistUpdateRequest
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class KeylistUpdateRequest {
-        public static final String SERIALIZED_NAME_UPDATES = "updates";
-        @SerializedName(SERIALIZED_NAME_UPDATES)
-        private List<KeylistUpdateRule> updates = null;
+    public static final String SERIALIZED_NAME_UPDATES = "updates";
+    @SerializedName(SERIALIZED_NAME_UPDATES)
+    private List<KeylistUpdateRule> updates = null;
 }

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,33 +24,36 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* RouteRecord
-*/
+ * RouteRecord
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class RouteRecord {
-        public static final String SERIALIZED_NAME_CONNECTION_ID = "connection_id";
-        @SerializedName(SERIALIZED_NAME_CONNECTION_ID)
-        private String connectionId;
-        public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
-        @SerializedName(SERIALIZED_NAME_CREATED_AT)
-        private String createdAt;
-        public static final String SERIALIZED_NAME_RECIPIENT_KEY = "recipient_key";
-        @SerializedName(SERIALIZED_NAME_RECIPIENT_KEY)
-        private String recipientKey;
-        public static final String SERIALIZED_NAME_RECORD_ID = "record_id";
-        @SerializedName(SERIALIZED_NAME_RECORD_ID)
-        private String recordId;
-        public static final String SERIALIZED_NAME_ROLE = "role";
-        @SerializedName(SERIALIZED_NAME_ROLE)
-        private String role;
-        public static final String SERIALIZED_NAME_STATE = "state";
-        @SerializedName(SERIALIZED_NAME_STATE)
-        private String state;
-        public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
-        @SerializedName(SERIALIZED_NAME_UPDATED_AT)
-        private String updatedAt;
-        public static final String SERIALIZED_NAME_WALLET_ID = "wallet_id";
-        @SerializedName(SERIALIZED_NAME_WALLET_ID)
-        private String walletId;
+    public static final String SERIALIZED_NAME_CONNECTION_ID = "connection_id";
+    @SerializedName(SERIALIZED_NAME_CONNECTION_ID)
+    private String connectionId;
+    public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
+    @SerializedName(SERIALIZED_NAME_CREATED_AT)
+    private String createdAt;
+    public static final String SERIALIZED_NAME_RECIPIENT_KEY = "recipient_key";
+    @SerializedName(SERIALIZED_NAME_RECIPIENT_KEY)
+    private String recipientKey;
+    public static final String SERIALIZED_NAME_RECORD_ID = "record_id";
+    @SerializedName(SERIALIZED_NAME_RECORD_ID)
+    private String recordId;
+    public static final String SERIALIZED_NAME_ROLE = "role";
+    @SerializedName(SERIALIZED_NAME_ROLE)
+    private String role;
+    public static final String SERIALIZED_NAME_STATE = "state";
+    @SerializedName(SERIALIZED_NAME_STATE)
+    private String state;
+    public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
+    @SerializedName(SERIALIZED_NAME_UPDATED_AT)
+    private String updatedAt;
+    public static final String SERIALIZED_NAME_WALLET_ID = "wallet_id";
+    @SerializedName(SERIALIZED_NAME_WALLET_ID)
+    private String walletId;
 }

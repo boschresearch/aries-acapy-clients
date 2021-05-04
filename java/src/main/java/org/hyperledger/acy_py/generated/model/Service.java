@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -27,27 +26,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* Service
-*/
+ * Service
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class Service {
-        public static final String SERIALIZED_NAME_DID = "did";
-        @SerializedName(SERIALIZED_NAME_DID)
-        private String did;
-        public static final String SERIALIZED_NAME_ID = "id";
-        @SerializedName(SERIALIZED_NAME_ID)
-        private String id;
-        public static final String SERIALIZED_NAME_RECIPIENT_KEYS = "recipientKeys";
-        @SerializedName(SERIALIZED_NAME_RECIPIENT_KEYS)
-        private List<String> recipientKeys = null;
-        public static final String SERIALIZED_NAME_ROUTING_KEYS = "routingKeys";
-        @SerializedName(SERIALIZED_NAME_ROUTING_KEYS)
-        private List<String> routingKeys = null;
-        public static final String SERIALIZED_NAME_SERVICE_ENDPOINT = "serviceEndpoint";
-        @SerializedName(SERIALIZED_NAME_SERVICE_ENDPOINT)
-        private String serviceEndpoint;
-        public static final String SERIALIZED_NAME_TYPE = "type";
-        @SerializedName(SERIALIZED_NAME_TYPE)
-        private String type;
+    public static final String SERIALIZED_NAME_DID = "did";
+    @SerializedName(SERIALIZED_NAME_DID)
+    private String did;
+    public static final String SERIALIZED_NAME_ID = "id";
+    @SerializedName(SERIALIZED_NAME_ID)
+    private String id;
+    public static final String SERIALIZED_NAME_RECIPIENT_KEYS = "recipientKeys";
+    @SerializedName(SERIALIZED_NAME_RECIPIENT_KEYS)
+    private List<String> recipientKeys = null;
+    public static final String SERIALIZED_NAME_ROUTING_KEYS = "routingKeys";
+    @SerializedName(SERIALIZED_NAME_ROUTING_KEYS)
+    private List<String> routingKeys = null;
+    public static final String SERIALIZED_NAME_SERVICE_ENDPOINT = "serviceEndpoint";
+    @SerializedName(SERIALIZED_NAME_SERVICE_ENDPOINT)
+    private String serviceEndpoint;
+    public static final String SERIALIZED_NAME_TYPE = "type";
+    @SerializedName(SERIALIZED_NAME_TYPE)
+    private String type;
 }

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,27 +24,30 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* V20CredFilterIndy
-*/
+ * V20CredFilterIndy
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class V20CredFilterIndy {
-        public static final String SERIALIZED_NAME_CRED_DEF_ID = "cred_def_id";
-        @SerializedName(SERIALIZED_NAME_CRED_DEF_ID)
-        private String credDefId;
-        public static final String SERIALIZED_NAME_ISSUER_DID = "issuer_did";
-        @SerializedName(SERIALIZED_NAME_ISSUER_DID)
-        private String issuerDid;
-        public static final String SERIALIZED_NAME_SCHEMA_ID = "schema_id";
-        @SerializedName(SERIALIZED_NAME_SCHEMA_ID)
-        private String schemaId;
-        public static final String SERIALIZED_NAME_SCHEMA_ISSUER_DID = "schema_issuer_did";
-        @SerializedName(SERIALIZED_NAME_SCHEMA_ISSUER_DID)
-        private String schemaIssuerDid;
-        public static final String SERIALIZED_NAME_SCHEMA_NAME = "schema_name";
-        @SerializedName(SERIALIZED_NAME_SCHEMA_NAME)
-        private String schemaName;
-        public static final String SERIALIZED_NAME_SCHEMA_VERSION = "schema_version";
-        @SerializedName(SERIALIZED_NAME_SCHEMA_VERSION)
-        private String schemaVersion;
+    public static final String SERIALIZED_NAME_CRED_DEF_ID = "cred_def_id";
+    @SerializedName(SERIALIZED_NAME_CRED_DEF_ID)
+    private String credDefId;
+    public static final String SERIALIZED_NAME_ISSUER_DID = "issuer_did";
+    @SerializedName(SERIALIZED_NAME_ISSUER_DID)
+    private String issuerDid;
+    public static final String SERIALIZED_NAME_SCHEMA_ID = "schema_id";
+    @SerializedName(SERIALIZED_NAME_SCHEMA_ID)
+    private String schemaId;
+    public static final String SERIALIZED_NAME_SCHEMA_ISSUER_DID = "schema_issuer_did";
+    @SerializedName(SERIALIZED_NAME_SCHEMA_ISSUER_DID)
+    private String schemaIssuerDid;
+    public static final String SERIALIZED_NAME_SCHEMA_NAME = "schema_name";
+    @SerializedName(SERIALIZED_NAME_SCHEMA_NAME)
+    private String schemaName;
+    public static final String SERIALIZED_NAME_SCHEMA_VERSION = "schema_version";
+    @SerializedName(SERIALIZED_NAME_SCHEMA_VERSION)
+    private String schemaVersion;
 }

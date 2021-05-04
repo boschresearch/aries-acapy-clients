@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,15 +24,18 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* EndpointsResult
-*/
+ * EndpointsResult
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class EndpointsResult {
-        public static final String SERIALIZED_NAME_MY_ENDPOINT = "my_endpoint";
-        @SerializedName(SERIALIZED_NAME_MY_ENDPOINT)
-        private String myEndpoint;
-        public static final String SERIALIZED_NAME_THEIR_ENDPOINT = "their_endpoint";
-        @SerializedName(SERIALIZED_NAME_THEIR_ENDPOINT)
-        private String theirEndpoint;
+    public static final String SERIALIZED_NAME_MY_ENDPOINT = "my_endpoint";
+    @SerializedName(SERIALIZED_NAME_MY_ENDPOINT)
+    private String myEndpoint;
+    public static final String SERIALIZED_NAME_THEIR_ENDPOINT = "their_endpoint";
+    @SerializedName(SERIALIZED_NAME_THEIR_ENDPOINT)
+    private String theirEndpoint;
 }

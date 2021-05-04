@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,15 +24,18 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* RevRegCreateRequest
-*/
+ * RevRegCreateRequest
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class RevRegCreateRequest {
-        public static final String SERIALIZED_NAME_CREDENTIAL_DEFINITION_ID = "credential_definition_id";
-        @SerializedName(SERIALIZED_NAME_CREDENTIAL_DEFINITION_ID)
-        private String credentialDefinitionId;
-        public static final String SERIALIZED_NAME_MAX_CRED_NUM = "max_cred_num";
-        @SerializedName(SERIALIZED_NAME_MAX_CRED_NUM)
-        private Integer maxCredNum;
+    public static final String SERIALIZED_NAME_CREDENTIAL_DEFINITION_ID = "credential_definition_id";
+    @SerializedName(SERIALIZED_NAME_CREDENTIAL_DEFINITION_ID)
+    private String credentialDefinitionId;
+    public static final String SERIALIZED_NAME_MAX_CRED_NUM = "max_cred_num";
+    @SerializedName(SERIALIZED_NAME_MAX_CRED_NUM)
+    private Integer maxCredNum;
 }

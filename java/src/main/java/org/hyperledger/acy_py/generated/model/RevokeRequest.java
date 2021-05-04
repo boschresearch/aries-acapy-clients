@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,21 +24,24 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* RevokeRequest
-*/
+ * RevokeRequest
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class RevokeRequest {
-        public static final String SERIALIZED_NAME_CRED_EX_ID = "cred_ex_id";
-        @SerializedName(SERIALIZED_NAME_CRED_EX_ID)
-        private String credExId;
-        public static final String SERIALIZED_NAME_CRED_REV_ID = "cred_rev_id";
-        @SerializedName(SERIALIZED_NAME_CRED_REV_ID)
-        private String credRevId;
-        public static final String SERIALIZED_NAME_PUBLISH = "publish";
-        @SerializedName(SERIALIZED_NAME_PUBLISH)
-        private Boolean publish;
-        public static final String SERIALIZED_NAME_REV_REG_ID = "rev_reg_id";
-        @SerializedName(SERIALIZED_NAME_REV_REG_ID)
-        private String revRegId;
+    public static final String SERIALIZED_NAME_CRED_EX_ID = "cred_ex_id";
+    @SerializedName(SERIALIZED_NAME_CRED_EX_ID)
+    private String credExId;
+    public static final String SERIALIZED_NAME_CRED_REV_ID = "cred_rev_id";
+    @SerializedName(SERIALIZED_NAME_CRED_REV_ID)
+    private String credRevId;
+    public static final String SERIALIZED_NAME_PUBLISH = "publish";
+    @SerializedName(SERIALIZED_NAME_PUBLISH)
+    private Boolean publish;
+    public static final String SERIALIZED_NAME_REV_REG_ID = "rev_reg_id";
+    @SerializedName(SERIALIZED_NAME_REV_REG_ID)
+    private String revRegId;
 }

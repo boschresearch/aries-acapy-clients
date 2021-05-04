@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,72 +24,76 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* PresPredSpec
-*/
+ * PresPredSpec
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class PresPredSpec {
-        public static final String SERIALIZED_NAME_CRED_DEF_ID = "cred_def_id";
-        @SerializedName(SERIALIZED_NAME_CRED_DEF_ID)
-        private String credDefId;
-        public static final String SERIALIZED_NAME_NAME = "name";
-        @SerializedName(SERIALIZED_NAME_NAME)
-        private String name;
-              /**
-   * Predicate type (&#39;&lt;&#39;, &#39;&lt;&#x3D;&#39;, &#39;&gt;&#x3D;&#39;, or &#39;&gt;&#39;)
-   */
-  @JsonAdapter(PredicateEnum.Adapter.class)
-  public enum PredicateEnum {
-    LESS_THAN("<"),
-    
-    LESS_THAN_OR_EQUAL_TO("<="),
-    
-    GREATER_THAN_OR_EQUAL_TO(">="),
-    
-    GREATER_THAN(">");
+    public static final String SERIALIZED_NAME_CRED_DEF_ID = "cred_def_id";
+    @SerializedName(SERIALIZED_NAME_CRED_DEF_ID)
+    private String credDefId;
+    public static final String SERIALIZED_NAME_NAME = "name";
+    @SerializedName(SERIALIZED_NAME_NAME)
+    private String name;
 
-    private String value;
+    /**
+     * Predicate type (&#39;&lt;&#39;, &#39;&lt;&#x3D;&#39;, &#39;&gt;&#x3D;&#39;, or &#39;&gt;&#39;)
+     */
+    @JsonAdapter(PredicateEnum.Adapter.class)
+    public enum PredicateEnum {
+        LESS_THAN("<"),
 
-    PredicateEnum(String value) {
-      this.value = value;
-    }
+        LESS_THAN_OR_EQUAL_TO("<="),
 
-    public String getValue() {
-      return value;
-    }
+        GREATER_THAN_OR_EQUAL_TO(">="),
 
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
+        GREATER_THAN(">");
 
-    public static PredicateEnum fromValue(String value) {
-      for (PredicateEnum b : PredicateEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+        private String value;
+
+        PredicateEnum(String value) {
+            this.value = value;
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static PredicateEnum fromValue(String value) {
+            for (PredicateEnum b : PredicateEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+
+        public static class Adapter extends TypeAdapter<PredicateEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final PredicateEnum enumeration) throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public PredicateEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return PredicateEnum.fromValue(value);
+            }
+        }
     }
 
-    public static class Adapter extends TypeAdapter<PredicateEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final PredicateEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public PredicateEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return PredicateEnum.fromValue(value);
-      }
-    }
-  }
-
-        public static final String SERIALIZED_NAME_PREDICATE = "predicate";
-        @SerializedName(SERIALIZED_NAME_PREDICATE)
-        private PredicateEnum predicate;
-        public static final String SERIALIZED_NAME_THRESHOLD = "threshold";
-        @SerializedName(SERIALIZED_NAME_THRESHOLD)
-        private Integer threshold;
+    public static final String SERIALIZED_NAME_PREDICATE = "predicate";
+    @SerializedName(SERIALIZED_NAME_PREDICATE)
+    private PredicateEnum predicate;
+    public static final String SERIALIZED_NAME_THRESHOLD = "threshold";
+    @SerializedName(SERIALIZED_NAME_THRESHOLD)
+    private Integer threshold;
 }

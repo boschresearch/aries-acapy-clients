@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,15 +24,18 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* VerifyRequest
-*/
+ * VerifyRequest
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class VerifyRequest {
-        public static final String SERIALIZED_NAME_DOC = "doc";
-        @SerializedName(SERIALIZED_NAME_DOC)
-        private Object doc;
-        public static final String SERIALIZED_NAME_VERKEY = "verkey";
-        @SerializedName(SERIALIZED_NAME_VERKEY)
-        private String verkey;
+    public static final String SERIALIZED_NAME_DOC = "doc";
+    @SerializedName(SERIALIZED_NAME_DOC)
+    private Object doc;
+    public static final String SERIALIZED_NAME_VERKEY = "verkey";
+    @SerializedName(SERIALIZED_NAME_VERKEY)
+    private String verkey;
 }

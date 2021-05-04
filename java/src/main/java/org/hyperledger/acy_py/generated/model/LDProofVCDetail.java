@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -27,15 +26,18 @@ import org.hyperledger.acy_py.generated.model.Credential;
 import org.hyperledger.acy_py.generated.model.LDProofVCDetailOptions;
 
 /**
-* LDProofVCDetail
-*/
+ * LDProofVCDetail
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class LDProofVCDetail {
-        public static final String SERIALIZED_NAME_CREDENTIAL = "credential";
-        @SerializedName(SERIALIZED_NAME_CREDENTIAL)
-        private Credential credential;
-        public static final String SERIALIZED_NAME_OPTIONS = "options";
-        @SerializedName(SERIALIZED_NAME_OPTIONS)
-        private LDProofVCDetailOptions options;
+    public static final String SERIALIZED_NAME_CREDENTIAL = "credential";
+    @SerializedName(SERIALIZED_NAME_CREDENTIAL)
+    private Credential credential;
+    public static final String SERIALIZED_NAME_OPTIONS = "options";
+    @SerializedName(SERIALIZED_NAME_OPTIONS)
+    private LDProofVCDetailOptions options;
 }

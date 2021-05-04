@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,12 +24,15 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* RevRegUpdateTailsFileUri
-*/
+ * RevRegUpdateTailsFileUri
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class RevRegUpdateTailsFileUri {
-        public static final String SERIALIZED_NAME_TAILS_PUBLIC_URI = "tails_public_uri";
-        @SerializedName(SERIALIZED_NAME_TAILS_PUBLIC_URI)
-        private String tailsPublicUri;
+    public static final String SERIALIZED_NAME_TAILS_PUBLIC_URI = "tails_public_uri";
+    @SerializedName(SERIALIZED_NAME_TAILS_PUBLIC_URI)
+    private String tailsPublicUri;
 }

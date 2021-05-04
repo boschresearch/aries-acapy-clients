@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,62 +24,66 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* AttachmentDef
-*/
+ * AttachmentDef
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class AttachmentDef {
-        public static final String SERIALIZED_NAME_ID = "id";
-        @SerializedName(SERIALIZED_NAME_ID)
-        private String id;
-              /**
-   * Attachment type
-   */
-  @JsonAdapter(TypeEnum.Adapter.class)
-  public enum TypeEnum {
-    CREDENTIAL_OFFER("credential-offer"),
-    
-    PRESENT_PROOF("present-proof");
+    public static final String SERIALIZED_NAME_ID = "id";
+    @SerializedName(SERIALIZED_NAME_ID)
+    private String id;
 
-    private String value;
+    /**
+     * Attachment type
+     */
+    @JsonAdapter(TypeEnum.Adapter.class)
+    public enum TypeEnum {
+        CREDENTIAL_OFFER("credential-offer"),
 
-    TypeEnum(String value) {
-      this.value = value;
-    }
+        PRESENT_PROOF("present-proof");
 
-    public String getValue() {
-      return value;
-    }
+        private String value;
 
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static TypeEnum fromValue(String value) {
-      for (TypeEnum b : TypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+        TypeEnum(String value) {
+            this.value = value;
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static TypeEnum fromValue(String value) {
+            for (TypeEnum b : TypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+
+        public static class Adapter extends TypeAdapter<TypeEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public TypeEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return TypeEnum.fromValue(value);
+            }
+        }
     }
 
-    public static class Adapter extends TypeAdapter<TypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public TypeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return TypeEnum.fromValue(value);
-      }
-    }
-  }
-
-        public static final String SERIALIZED_NAME_TYPE = "type";
-        @SerializedName(SERIALIZED_NAME_TYPE)
-        private TypeEnum type;
+    public static final String SERIALIZED_NAME_TYPE = "type";
+    @SerializedName(SERIALIZED_NAME_TYPE)
+    private TypeEnum type;
 }

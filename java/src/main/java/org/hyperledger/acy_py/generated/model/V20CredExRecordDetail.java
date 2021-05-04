@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -28,18 +27,21 @@ import org.hyperledger.acy_py.generated.model.V20CredExRecordIndy;
 import org.hyperledger.acy_py.generated.model.V20CredExRecordLDProof;
 
 /**
-* V20CredExRecordDetail
-*/
+ * V20CredExRecordDetail
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class V20CredExRecordDetail {
-        public static final String SERIALIZED_NAME_CRED_EX_RECORD = "cred_ex_record";
-        @SerializedName(SERIALIZED_NAME_CRED_EX_RECORD)
-        private V20CredExRecord credExRecord;
-        public static final String SERIALIZED_NAME_INDY = "indy";
-        @SerializedName(SERIALIZED_NAME_INDY)
-        private V20CredExRecordIndy indy;
-        public static final String SERIALIZED_NAME_LD_PROOF = "ld_proof";
-        @SerializedName(SERIALIZED_NAME_LD_PROOF)
-        private V20CredExRecordLDProof ldProof;
+    public static final String SERIALIZED_NAME_CRED_EX_RECORD = "cred_ex_record";
+    @SerializedName(SERIALIZED_NAME_CRED_EX_RECORD)
+    private V20CredExRecord credExRecord;
+    public static final String SERIALIZED_NAME_INDY = "indy";
+    @SerializedName(SERIALIZED_NAME_INDY)
+    private V20CredExRecordIndy indy;
+    public static final String SERIALIZED_NAME_LD_PROOF = "ld_proof";
+    @SerializedName(SERIALIZED_NAME_LD_PROOF)
+    private V20CredExRecordLDProof ldProof;
 }

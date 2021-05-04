@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -29,18 +28,21 @@ import org.hyperledger.acy_py.generated.model.IndyCredInfo;
 import org.hyperledger.acy_py.generated.model.IndyProofReqNonRevoked;
 
 /**
-* IndyCredPrecis
-*/
+ * IndyCredPrecis
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class IndyCredPrecis {
-        public static final String SERIALIZED_NAME_CRED_INFO = "cred_info";
-        @SerializedName(SERIALIZED_NAME_CRED_INFO)
-        private IndyCredInfo credInfo;
-        public static final String SERIALIZED_NAME_INTERVAL = "interval";
-        @SerializedName(SERIALIZED_NAME_INTERVAL)
-        private IndyProofReqNonRevoked interval;
-        public static final String SERIALIZED_NAME_PRES_REFERENTS = "pres_referents";
-        @SerializedName(SERIALIZED_NAME_PRES_REFERENTS)
-        private List<String> presReferents = null;
+    public static final String SERIALIZED_NAME_CRED_INFO = "cred_info";
+    @SerializedName(SERIALIZED_NAME_CRED_INFO)
+    private IndyCredInfo credInfo;
+    public static final String SERIALIZED_NAME_INTERVAL = "interval";
+    @SerializedName(SERIALIZED_NAME_INTERVAL)
+    private IndyProofReqNonRevoked interval;
+    public static final String SERIALIZED_NAME_PRES_REFERENTS = "pres_referents";
+    @SerializedName(SERIALIZED_NAME_PRES_REFERENTS)
+    private List<String> presReferents = null;
 }

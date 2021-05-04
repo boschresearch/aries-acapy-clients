@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -28,21 +27,24 @@ import java.util.List;
 import org.hyperledger.acy_py.generated.model.MenuFormParam;
 
 /**
-* MenuForm
-*/
+ * MenuForm
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class MenuForm {
-        public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-        @SerializedName(SERIALIZED_NAME_DESCRIPTION)
-        private String description;
-        public static final String SERIALIZED_NAME_PARAMS = "params";
-        @SerializedName(SERIALIZED_NAME_PARAMS)
-        private List<MenuFormParam> params = null;
-        public static final String SERIALIZED_NAME_SUBMIT_LABEL = "submit-label";
-        @SerializedName(SERIALIZED_NAME_SUBMIT_LABEL)
-        private String submitLabel;
-        public static final String SERIALIZED_NAME_TITLE = "title";
-        @SerializedName(SERIALIZED_NAME_TITLE)
-        private String title;
+    public static final String SERIALIZED_NAME_DESCRIPTION = "description";
+    @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+    private String description;
+    public static final String SERIALIZED_NAME_PARAMS = "params";
+    @SerializedName(SERIALIZED_NAME_PARAMS)
+    private List<MenuFormParam> params = null;
+    public static final String SERIALIZED_NAME_SUBMIT_LABEL = "submit-label";
+    @SerializedName(SERIALIZED_NAME_SUBMIT_LABEL)
+    private String submitLabel;
+    public static final String SERIALIZED_NAME_TITLE = "title";
+    @SerializedName(SERIALIZED_NAME_TITLE)
+    private String title;
 }

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,18 +24,21 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* TAAAccept
-*/
+ * TAAAccept
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class TAAAccept {
-        public static final String SERIALIZED_NAME_MECHANISM = "mechanism";
-        @SerializedName(SERIALIZED_NAME_MECHANISM)
-        private String mechanism;
-        public static final String SERIALIZED_NAME_TEXT = "text";
-        @SerializedName(SERIALIZED_NAME_TEXT)
-        private String text;
-        public static final String SERIALIZED_NAME_VERSION = "version";
-        @SerializedName(SERIALIZED_NAME_VERSION)
-        private String version;
+    public static final String SERIALIZED_NAME_MECHANISM = "mechanism";
+    @SerializedName(SERIALIZED_NAME_MECHANISM)
+    private String mechanism;
+    public static final String SERIALIZED_NAME_TEXT = "text";
+    @SerializedName(SERIALIZED_NAME_TEXT)
+    private String text;
+    public static final String SERIALIZED_NAME_VERSION = "version";
+    @SerializedName(SERIALIZED_NAME_VERSION)
+    private String version;
 }

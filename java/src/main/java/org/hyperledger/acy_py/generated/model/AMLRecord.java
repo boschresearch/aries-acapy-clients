@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -28,18 +27,21 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* AMLRecord
-*/
+ * AMLRecord
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class AMLRecord {
-        public static final String SERIALIZED_NAME_AML = "aml";
-        @SerializedName(SERIALIZED_NAME_AML)
-        private Map<String, String> aml = null;
-        public static final String SERIALIZED_NAME_AML_CONTEXT = "amlContext";
-        @SerializedName(SERIALIZED_NAME_AML_CONTEXT)
-        private String amlContext;
-        public static final String SERIALIZED_NAME_VERSION = "version";
-        @SerializedName(SERIALIZED_NAME_VERSION)
-        private String version;
+    public static final String SERIALIZED_NAME_AML = "aml";
+    @SerializedName(SERIALIZED_NAME_AML)
+    private Map<String, String> aml = null;
+    public static final String SERIALIZED_NAME_AML_CONTEXT = "amlContext";
+    @SerializedName(SERIALIZED_NAME_AML_CONTEXT)
+    private String amlContext;
+    public static final String SERIALIZED_NAME_VERSION = "version";
+    @SerializedName(SERIALIZED_NAME_VERSION)
+    private String version;
 }

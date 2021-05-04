@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -26,12 +25,15 @@ import java.io.IOException;
 import org.hyperledger.acy_py.generated.model.CredentialDefinition;
 
 /**
-* CredentialDefinitionGetResult
-*/
+ * CredentialDefinitionGetResult
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class CredentialDefinitionGetResult {
-        public static final String SERIALIZED_NAME_CREDENTIAL_DEFINITION = "credential_definition";
-        @SerializedName(SERIALIZED_NAME_CREDENTIAL_DEFINITION)
-        private CredentialDefinition credentialDefinition;
+    public static final String SERIALIZED_NAME_CREDENTIAL_DEFINITION = "credential_definition";
+    @SerializedName(SERIALIZED_NAME_CREDENTIAL_DEFINITION)
+    private CredentialDefinition credentialDefinition;
 }

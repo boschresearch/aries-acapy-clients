@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,18 +24,21 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* CredAttrSpec
-*/
+ * CredAttrSpec
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class CredAttrSpec {
-        public static final String SERIALIZED_NAME_MIME_TYPE = "mime-type";
-        @SerializedName(SERIALIZED_NAME_MIME_TYPE)
-        private String mimeType;
-        public static final String SERIALIZED_NAME_NAME = "name";
-        @SerializedName(SERIALIZED_NAME_NAME)
-        private String name;
-        public static final String SERIALIZED_NAME_VALUE = "value";
-        @SerializedName(SERIALIZED_NAME_VALUE)
-        private String value;
+    public static final String SERIALIZED_NAME_MIME_TYPE = "mime-type";
+    @SerializedName(SERIALIZED_NAME_MIME_TYPE)
+    private String mimeType;
+    public static final String SERIALIZED_NAME_NAME = "name";
+    @SerializedName(SERIALIZED_NAME_NAME)
+    private String name;
+    public static final String SERIALIZED_NAME_VALUE = "value";
+    @SerializedName(SERIALIZED_NAME_VALUE)
+    private String value;
 }

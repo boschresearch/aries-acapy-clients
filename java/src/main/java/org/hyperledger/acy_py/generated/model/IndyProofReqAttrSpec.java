@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -29,21 +28,24 @@ import java.util.Map;
 import org.hyperledger.acy_py.generated.model.IndyProofReqNonRevoked;
 
 /**
-* IndyProofReqAttrSpec
-*/
+ * IndyProofReqAttrSpec
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class IndyProofReqAttrSpec {
-        public static final String SERIALIZED_NAME_NAME = "name";
-        @SerializedName(SERIALIZED_NAME_NAME)
-        private String name;
-        public static final String SERIALIZED_NAME_NAMES = "names";
-        @SerializedName(SERIALIZED_NAME_NAMES)
-        private List<String> names = null;
-        public static final String SERIALIZED_NAME_NON_REVOKED = "non_revoked";
-        @SerializedName(SERIALIZED_NAME_NON_REVOKED)
-        private IndyProofReqNonRevoked nonRevoked;
-        public static final String SERIALIZED_NAME_RESTRICTIONS = "restrictions";
-        @SerializedName(SERIALIZED_NAME_RESTRICTIONS)
-        private List<Map<String, String>> restrictions = null;
+    public static final String SERIALIZED_NAME_NAME = "name";
+    @SerializedName(SERIALIZED_NAME_NAME)
+    private String name;
+    public static final String SERIALIZED_NAME_NAMES = "names";
+    @SerializedName(SERIALIZED_NAME_NAMES)
+    private List<String> names = null;
+    public static final String SERIALIZED_NAME_NON_REVOKED = "non_revoked";
+    @SerializedName(SERIALIZED_NAME_NON_REVOKED)
+    private IndyProofReqNonRevoked nonRevoked;
+    public static final String SERIALIZED_NAME_RESTRICTIONS = "restrictions";
+    @SerializedName(SERIALIZED_NAME_RESTRICTIONS)
+    private List<Map<String, String>> restrictions = null;
 }

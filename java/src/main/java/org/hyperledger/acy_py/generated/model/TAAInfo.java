@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -28,21 +27,24 @@ import org.hyperledger.acy_py.generated.model.TAAAcceptance;
 import org.hyperledger.acy_py.generated.model.TAARecord;
 
 /**
-* TAAInfo
-*/
+ * TAAInfo
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class TAAInfo {
-        public static final String SERIALIZED_NAME_AML_RECORD = "aml_record";
-        @SerializedName(SERIALIZED_NAME_AML_RECORD)
-        private AMLRecord amlRecord;
-        public static final String SERIALIZED_NAME_TAA_ACCEPTED = "taa_accepted";
-        @SerializedName(SERIALIZED_NAME_TAA_ACCEPTED)
-        private TAAAcceptance taaAccepted;
-        public static final String SERIALIZED_NAME_TAA_RECORD = "taa_record";
-        @SerializedName(SERIALIZED_NAME_TAA_RECORD)
-        private TAARecord taaRecord;
-        public static final String SERIALIZED_NAME_TAA_REQUIRED = "taa_required";
-        @SerializedName(SERIALIZED_NAME_TAA_REQUIRED)
-        private Boolean taaRequired;
+    public static final String SERIALIZED_NAME_AML_RECORD = "aml_record";
+    @SerializedName(SERIALIZED_NAME_AML_RECORD)
+    private AMLRecord amlRecord;
+    public static final String SERIALIZED_NAME_TAA_ACCEPTED = "taa_accepted";
+    @SerializedName(SERIALIZED_NAME_TAA_ACCEPTED)
+    private TAAAcceptance taaAccepted;
+    public static final String SERIALIZED_NAME_TAA_RECORD = "taa_record";
+    @SerializedName(SERIALIZED_NAME_TAA_RECORD)
+    private TAARecord taaRecord;
+    public static final String SERIALIZED_NAME_TAA_REQUIRED = "taa_required";
+    @SerializedName(SERIALIZED_NAME_TAA_REQUIRED)
+    private Boolean taaRequired;
 }

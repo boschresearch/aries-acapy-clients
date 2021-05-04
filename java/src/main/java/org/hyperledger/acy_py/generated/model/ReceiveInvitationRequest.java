@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -27,33 +26,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* ReceiveInvitationRequest
-*/
+ * ReceiveInvitationRequest
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class ReceiveInvitationRequest {
-        public static final String SERIALIZED_NAME_AT_ID = "@id";
-        @SerializedName(SERIALIZED_NAME_AT_ID)
-        private String atId;
-        public static final String SERIALIZED_NAME_AT_TYPE = "@type";
-        @SerializedName(SERIALIZED_NAME_AT_TYPE)
-        private String atType;
-        public static final String SERIALIZED_NAME_DID = "did";
-        @SerializedName(SERIALIZED_NAME_DID)
-        private String did;
-        public static final String SERIALIZED_NAME_IMAGE_URL = "imageUrl";
-        @SerializedName(SERIALIZED_NAME_IMAGE_URL)
-        private String imageUrl;
-        public static final String SERIALIZED_NAME_LABEL = "label";
-        @SerializedName(SERIALIZED_NAME_LABEL)
-        private String label;
-        public static final String SERIALIZED_NAME_RECIPIENT_KEYS = "recipientKeys";
-        @SerializedName(SERIALIZED_NAME_RECIPIENT_KEYS)
-        private List<String> recipientKeys = null;
-        public static final String SERIALIZED_NAME_ROUTING_KEYS = "routingKeys";
-        @SerializedName(SERIALIZED_NAME_ROUTING_KEYS)
-        private List<String> routingKeys = null;
-        public static final String SERIALIZED_NAME_SERVICE_ENDPOINT = "serviceEndpoint";
-        @SerializedName(SERIALIZED_NAME_SERVICE_ENDPOINT)
-        private String serviceEndpoint;
+    public static final String SERIALIZED_NAME_AT_ID = "@id";
+    @SerializedName(SERIALIZED_NAME_AT_ID)
+    private String atId;
+    public static final String SERIALIZED_NAME_AT_TYPE = "@type";
+    @SerializedName(SERIALIZED_NAME_AT_TYPE)
+    private String atType;
+    public static final String SERIALIZED_NAME_DID = "did";
+    @SerializedName(SERIALIZED_NAME_DID)
+    private String did;
+    public static final String SERIALIZED_NAME_IMAGE_URL = "imageUrl";
+    @SerializedName(SERIALIZED_NAME_IMAGE_URL)
+    private String imageUrl;
+    public static final String SERIALIZED_NAME_LABEL = "label";
+    @SerializedName(SERIALIZED_NAME_LABEL)
+    private String label;
+    public static final String SERIALIZED_NAME_RECIPIENT_KEYS = "recipientKeys";
+    @SerializedName(SERIALIZED_NAME_RECIPIENT_KEYS)
+    private List<String> recipientKeys = null;
+    public static final String SERIALIZED_NAME_ROUTING_KEYS = "routingKeys";
+    @SerializedName(SERIALIZED_NAME_ROUTING_KEYS)
+    private List<String> routingKeys = null;
+    public static final String SERIALIZED_NAME_SERVICE_ENDPOINT = "serviceEndpoint";
+    @SerializedName(SERIALIZED_NAME_SERVICE_ENDPOINT)
+    private String serviceEndpoint;
 }

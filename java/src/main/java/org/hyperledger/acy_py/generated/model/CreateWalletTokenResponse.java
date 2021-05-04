@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,12 +24,15 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* CreateWalletTokenResponse
-*/
+ * CreateWalletTokenResponse
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class CreateWalletTokenResponse {
-        public static final String SERIALIZED_NAME_TOKEN = "token";
-        @SerializedName(SERIALIZED_NAME_TOKEN)
-        private String token;
+    public static final String SERIALIZED_NAME_TOKEN = "token";
+    @SerializedName(SERIALIZED_NAME_TOKEN)
+    private String token;
 }

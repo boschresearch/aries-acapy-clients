@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,12 +24,15 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* RegisterLedgerNymResponse
-*/
+ * RegisterLedgerNymResponse
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class RegisterLedgerNymResponse {
-        public static final String SERIALIZED_NAME_SUCCESS = "success";
-        @SerializedName(SERIALIZED_NAME_SUCCESS)
-        private Boolean success;
+    public static final String SERIALIZED_NAME_SUCCESS = "success";
+    @SerializedName(SERIALIZED_NAME_SUCCESS)
+    private Boolean success;
 }

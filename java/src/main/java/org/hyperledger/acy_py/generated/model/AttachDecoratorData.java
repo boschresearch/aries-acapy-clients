@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -28,24 +27,27 @@ import java.util.List;
 import org.hyperledger.acy_py.generated.model.AttachDecoratorDataJWS;
 
 /**
-* AttachDecoratorData
-*/
+ * AttachDecoratorData
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class AttachDecoratorData {
-        public static final String SERIALIZED_NAME_BASE64 = "base64";
-        @SerializedName(SERIALIZED_NAME_BASE64)
-        private String base64;
-        public static final String SERIALIZED_NAME_JSON = "json";
-        @SerializedName(SERIALIZED_NAME_JSON)
-        private Object json;
-        public static final String SERIALIZED_NAME_JWS = "jws";
-        @SerializedName(SERIALIZED_NAME_JWS)
-        private AttachDecoratorDataJWS jws;
-        public static final String SERIALIZED_NAME_LINKS = "links";
-        @SerializedName(SERIALIZED_NAME_LINKS)
-        private List<String> links = null;
-        public static final String SERIALIZED_NAME_SHA256 = "sha256";
-        @SerializedName(SERIALIZED_NAME_SHA256)
-        private String sha256;
+    public static final String SERIALIZED_NAME_BASE64 = "base64";
+    @SerializedName(SERIALIZED_NAME_BASE64)
+    private String base64;
+    public static final String SERIALIZED_NAME_JSON = "json";
+    @SerializedName(SERIALIZED_NAME_JSON)
+    private Object json;
+    public static final String SERIALIZED_NAME_JWS = "jws";
+    @SerializedName(SERIALIZED_NAME_JWS)
+    private AttachDecoratorDataJWS jws;
+    public static final String SERIALIZED_NAME_LINKS = "links";
+    @SerializedName(SERIALIZED_NAME_LINKS)
+    private List<String> links = null;
+    public static final String SERIALIZED_NAME_SHA256 = "sha256";
+    @SerializedName(SERIALIZED_NAME_SHA256)
+    private String sha256;
 }

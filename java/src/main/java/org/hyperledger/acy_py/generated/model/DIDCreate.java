@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -26,62 +25,65 @@ import java.io.IOException;
 import org.hyperledger.acy_py.generated.model.DIDCreateOptions;
 
 /**
-* DIDCreate
-*/
+ * DIDCreate
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class DIDCreate {
-              /**
-   * Gets or Sets method
-   */
-  @JsonAdapter(MethodEnum.Adapter.class)
-  public enum MethodEnum {
-    KEY("key"),
-    
-    SOV("sov");
+    /**
+     * Gets or Sets method
+     */
+    @JsonAdapter(MethodEnum.Adapter.class)
+    public enum MethodEnum {
+        KEY("key"),
 
-    private String value;
+        SOV("sov");
 
-    MethodEnum(String value) {
-      this.value = value;
-    }
+        private String value;
 
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static MethodEnum fromValue(String value) {
-      for (MethodEnum b : MethodEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+        MethodEnum(String value) {
+            this.value = value;
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static MethodEnum fromValue(String value) {
+            for (MethodEnum b : MethodEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+
+        public static class Adapter extends TypeAdapter<MethodEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final MethodEnum enumeration) throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public MethodEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return MethodEnum.fromValue(value);
+            }
+        }
     }
 
-    public static class Adapter extends TypeAdapter<MethodEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final MethodEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public MethodEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return MethodEnum.fromValue(value);
-      }
-    }
-  }
-
-        public static final String SERIALIZED_NAME_METHOD = "method";
-        @SerializedName(SERIALIZED_NAME_METHOD)
-        private MethodEnum method;
-        public static final String SERIALIZED_NAME_OPTIONS = "options";
-        @SerializedName(SERIALIZED_NAME_OPTIONS)
-        private DIDCreateOptions options;
+    public static final String SERIALIZED_NAME_METHOD = "method";
+    @SerializedName(SERIALIZED_NAME_METHOD)
+    private MethodEnum method;
+    public static final String SERIALIZED_NAME_OPTIONS = "options";
+    @SerializedName(SERIALIZED_NAME_OPTIONS)
+    private DIDCreateOptions options;
 }

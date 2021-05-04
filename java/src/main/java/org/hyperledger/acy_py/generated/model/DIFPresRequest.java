@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,12 +24,15 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* DIFPresRequest
-*/
+ * DIFPresRequest
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class DIFPresRequest {
-        public static final String SERIALIZED_NAME_SOME_DIF = "some_dif";
-        @SerializedName(SERIALIZED_NAME_SOME_DIF)
-        private String someDif;
+    public static final String SERIALIZED_NAME_SOME_DIF = "some_dif";
+    @SerializedName(SERIALIZED_NAME_SOME_DIF)
+    private String someDif;
 }

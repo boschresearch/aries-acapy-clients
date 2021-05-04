@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,12 +24,15 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* AdminAPIMessageTracing
-*/
+ * AdminAPIMessageTracing
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class AdminAPIMessageTracing {
-        public static final String SERIALIZED_NAME_TRACE = "trace";
-        @SerializedName(SERIALIZED_NAME_TRACE)
-        private Boolean trace;
+    public static final String SERIALIZED_NAME_TRACE = "trace";
+    @SerializedName(SERIALIZED_NAME_TRACE)
+    private Boolean trace;
 }

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -26,18 +25,21 @@ import java.io.IOException;
 import org.hyperledger.acy_py.generated.model.ConnectionInvitation;
 
 /**
-* InvitationResult
-*/
+ * InvitationResult
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class InvitationResult {
-        public static final String SERIALIZED_NAME_CONNECTION_ID = "connection_id";
-        @SerializedName(SERIALIZED_NAME_CONNECTION_ID)
-        private String connectionId;
-        public static final String SERIALIZED_NAME_INVITATION = "invitation";
-        @SerializedName(SERIALIZED_NAME_INVITATION)
-        private ConnectionInvitation invitation;
-        public static final String SERIALIZED_NAME_INVITATION_URL = "invitation_url";
-        @SerializedName(SERIALIZED_NAME_INVITATION_URL)
-        private String invitationUrl;
+    public static final String SERIALIZED_NAME_CONNECTION_ID = "connection_id";
+    @SerializedName(SERIALIZED_NAME_CONNECTION_ID)
+    private String connectionId;
+    public static final String SERIALIZED_NAME_INVITATION = "invitation";
+    @SerializedName(SERIALIZED_NAME_INVITATION)
+    private ConnectionInvitation invitation;
+    public static final String SERIALIZED_NAME_INVITATION_URL = "invitation_url";
+    @SerializedName(SERIALIZED_NAME_INVITATION_URL)
+    private String invitationUrl;
 }

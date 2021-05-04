@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,15 +24,18 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* IndyRequestedCredsRequestedPred
-*/
+ * IndyRequestedCredsRequestedPred
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class IndyRequestedCredsRequestedPred {
-        public static final String SERIALIZED_NAME_CRED_ID = "cred_id";
-        @SerializedName(SERIALIZED_NAME_CRED_ID)
-        private String credId;
-        public static final String SERIALIZED_NAME_TIMESTAMP = "timestamp";
-        @SerializedName(SERIALIZED_NAME_TIMESTAMP)
-        private Integer timestamp;
+    public static final String SERIALIZED_NAME_CRED_ID = "cred_id";
+    @SerializedName(SERIALIZED_NAME_CRED_ID)
+    private String credId;
+    public static final String SERIALIZED_NAME_TIMESTAMP = "timestamp";
+    @SerializedName(SERIALIZED_NAME_TIMESTAMP)
+    private Integer timestamp;
 }

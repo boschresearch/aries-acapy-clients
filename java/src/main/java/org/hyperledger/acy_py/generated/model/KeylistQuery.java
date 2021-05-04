@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -26,21 +25,24 @@ import java.io.IOException;
 import org.hyperledger.acy_py.generated.model.KeylistQueryPaginate;
 
 /**
-* KeylistQuery
-*/
+ * KeylistQuery
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class KeylistQuery {
-        public static final String SERIALIZED_NAME_AT_ID = "@id";
-        @SerializedName(SERIALIZED_NAME_AT_ID)
-        private String atId;
-        public static final String SERIALIZED_NAME_AT_TYPE = "@type";
-        @SerializedName(SERIALIZED_NAME_AT_TYPE)
-        private String atType;
-        public static final String SERIALIZED_NAME_FILTER = "filter";
-        @SerializedName(SERIALIZED_NAME_FILTER)
-        private Object filter;
-        public static final String SERIALIZED_NAME_PAGINATE = "paginate";
-        @SerializedName(SERIALIZED_NAME_PAGINATE)
-        private KeylistQueryPaginate paginate;
+    public static final String SERIALIZED_NAME_AT_ID = "@id";
+    @SerializedName(SERIALIZED_NAME_AT_ID)
+    private String atId;
+    public static final String SERIALIZED_NAME_AT_TYPE = "@type";
+    @SerializedName(SERIALIZED_NAME_AT_TYPE)
+    private String atType;
+    public static final String SERIALIZED_NAME_FILTER = "filter";
+    @SerializedName(SERIALIZED_NAME_FILTER)
+    private Object filter;
+    public static final String SERIALIZED_NAME_PAGINATE = "paginate";
+    @SerializedName(SERIALIZED_NAME_PAGINATE)
+    private KeylistQueryPaginate paginate;
 }

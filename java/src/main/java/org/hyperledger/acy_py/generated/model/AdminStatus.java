@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,21 +24,24 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* AdminStatus
-*/
+ * AdminStatus
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class AdminStatus {
-        public static final String SERIALIZED_NAME_CONDUCTOR = "conductor";
-        @SerializedName(SERIALIZED_NAME_CONDUCTOR)
-        private Object conductor;
-        public static final String SERIALIZED_NAME_LABEL = "label";
-        @SerializedName(SERIALIZED_NAME_LABEL)
-        private String label;
-        public static final String SERIALIZED_NAME_TIMING = "timing";
-        @SerializedName(SERIALIZED_NAME_TIMING)
-        private Object timing;
-        public static final String SERIALIZED_NAME_VERSION = "version";
-        @SerializedName(SERIALIZED_NAME_VERSION)
-        private String version;
+    public static final String SERIALIZED_NAME_CONDUCTOR = "conductor";
+    @SerializedName(SERIALIZED_NAME_CONDUCTOR)
+    private Object conductor;
+    public static final String SERIALIZED_NAME_LABEL = "label";
+    @SerializedName(SERIALIZED_NAME_LABEL)
+    private String label;
+    public static final String SERIALIZED_NAME_TIMING = "timing";
+    @SerializedName(SERIALIZED_NAME_TIMING)
+    private Object timing;
+    public static final String SERIALIZED_NAME_VERSION = "version";
+    @SerializedName(SERIALIZED_NAME_VERSION)
+    private String version;
 }

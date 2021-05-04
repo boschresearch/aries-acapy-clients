@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,15 +24,18 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* SchemaSendResult
-*/
+ * SchemaSendResult
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class SchemaSendResult {
-        public static final String SERIALIZED_NAME_SCHEMA = "schema";
-        @SerializedName(SERIALIZED_NAME_SCHEMA)
-        private Object schema;
-        public static final String SERIALIZED_NAME_SCHEMA_ID = "schema_id";
-        @SerializedName(SERIALIZED_NAME_SCHEMA_ID)
-        private String schemaId;
+    public static final String SERIALIZED_NAME_SCHEMA = "schema";
+    @SerializedName(SERIALIZED_NAME_SCHEMA)
+    private Object schema;
+    public static final String SERIALIZED_NAME_SCHEMA_ID = "schema_id";
+    @SerializedName(SERIALIZED_NAME_SCHEMA_ID)
+    private String schemaId;
 }

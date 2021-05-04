@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -29,75 +28,79 @@ import org.hyperledger.acy_py.generated.model.IndyProofReqNonRevoked;
 import org.hyperledger.acy_py.generated.model.IndyProofReqPredSpecRestrictions;
 
 /**
-* IndyProofReqPredSpec
-*/
+ * IndyProofReqPredSpec
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class IndyProofReqPredSpec {
-        public static final String SERIALIZED_NAME_NAME = "name";
-        @SerializedName(SERIALIZED_NAME_NAME)
-        private String name;
-        public static final String SERIALIZED_NAME_NON_REVOKED = "non_revoked";
-        @SerializedName(SERIALIZED_NAME_NON_REVOKED)
-        private IndyProofReqNonRevoked nonRevoked;
-              /**
-   * Predicate type (&#39;&lt;&#39;, &#39;&lt;&#x3D;&#39;, &#39;&gt;&#x3D;&#39;, or &#39;&gt;&#39;)
-   */
-  @JsonAdapter(PTypeEnum.Adapter.class)
-  public enum PTypeEnum {
-    LESS_THAN("<"),
-    
-    LESS_THAN_OR_EQUAL_TO("<="),
-    
-    GREATER_THAN_OR_EQUAL_TO(">="),
-    
-    GREATER_THAN(">");
+    public static final String SERIALIZED_NAME_NAME = "name";
+    @SerializedName(SERIALIZED_NAME_NAME)
+    private String name;
+    public static final String SERIALIZED_NAME_NON_REVOKED = "non_revoked";
+    @SerializedName(SERIALIZED_NAME_NON_REVOKED)
+    private IndyProofReqNonRevoked nonRevoked;
 
-    private String value;
+    /**
+     * Predicate type (&#39;&lt;&#39;, &#39;&lt;&#x3D;&#39;, &#39;&gt;&#x3D;&#39;, or &#39;&gt;&#39;)
+     */
+    @JsonAdapter(PTypeEnum.Adapter.class)
+    public enum PTypeEnum {
+        LESS_THAN("<"),
 
-    PTypeEnum(String value) {
-      this.value = value;
-    }
+        LESS_THAN_OR_EQUAL_TO("<="),
 
-    public String getValue() {
-      return value;
-    }
+        GREATER_THAN_OR_EQUAL_TO(">="),
 
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
+        GREATER_THAN(">");
 
-    public static PTypeEnum fromValue(String value) {
-      for (PTypeEnum b : PTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+        private String value;
+
+        PTypeEnum(String value) {
+            this.value = value;
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static PTypeEnum fromValue(String value) {
+            for (PTypeEnum b : PTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+
+        public static class Adapter extends TypeAdapter<PTypeEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final PTypeEnum enumeration) throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public PTypeEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return PTypeEnum.fromValue(value);
+            }
+        }
     }
 
-    public static class Adapter extends TypeAdapter<PTypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final PTypeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public PTypeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return PTypeEnum.fromValue(value);
-      }
-    }
-  }
-
-        public static final String SERIALIZED_NAME_P_TYPE = "p_type";
-        @SerializedName(SERIALIZED_NAME_P_TYPE)
-        private PTypeEnum pType;
-        public static final String SERIALIZED_NAME_P_VALUE = "p_value";
-        @SerializedName(SERIALIZED_NAME_P_VALUE)
-        private Integer pValue;
-        public static final String SERIALIZED_NAME_RESTRICTIONS = "restrictions";
-        @SerializedName(SERIALIZED_NAME_RESTRICTIONS)
-        private List<IndyProofReqPredSpecRestrictions> restrictions = null;
+    public static final String SERIALIZED_NAME_P_TYPE = "p_type";
+    @SerializedName(SERIALIZED_NAME_P_TYPE)
+    private PTypeEnum pType;
+    public static final String SERIALIZED_NAME_P_VALUE = "p_value";
+    @SerializedName(SERIALIZED_NAME_P_VALUE)
+    private Integer pValue;
+    public static final String SERIALIZED_NAME_RESTRICTIONS = "restrictions";
+    @SerializedName(SERIALIZED_NAME_RESTRICTIONS)
+    private List<IndyProofReqPredSpecRestrictions> restrictions = null;
 }

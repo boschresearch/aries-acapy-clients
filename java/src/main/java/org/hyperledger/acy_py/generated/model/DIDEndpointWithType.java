@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,67 +24,71 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* DIDEndpointWithType
-*/
+ * DIDEndpointWithType
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class DIDEndpointWithType {
-        public static final String SERIALIZED_NAME_DID = "did";
-        @SerializedName(SERIALIZED_NAME_DID)
-        private String did;
-        public static final String SERIALIZED_NAME_ENDPOINT = "endpoint";
-        @SerializedName(SERIALIZED_NAME_ENDPOINT)
-        private String endpoint;
-              /**
-   * Endpoint type to set (default &#39;Endpoint&#39;); affects only public or posted DIDs
-   */
-  @JsonAdapter(EndpointTypeEnum.Adapter.class)
-  public enum EndpointTypeEnum {
-    ENDPOINT("Endpoint"),
-    
-    PROFILE("Profile"),
-    
-    LINKEDDOMAINS("LinkedDomains");
+    public static final String SERIALIZED_NAME_DID = "did";
+    @SerializedName(SERIALIZED_NAME_DID)
+    private String did;
+    public static final String SERIALIZED_NAME_ENDPOINT = "endpoint";
+    @SerializedName(SERIALIZED_NAME_ENDPOINT)
+    private String endpoint;
 
-    private String value;
+    /**
+     * Endpoint type to set (default &#39;Endpoint&#39;); affects only public or posted DIDs
+     */
+    @JsonAdapter(EndpointTypeEnum.Adapter.class)
+    public enum EndpointTypeEnum {
+        ENDPOINT("Endpoint"),
 
-    EndpointTypeEnum(String value) {
-      this.value = value;
-    }
+        PROFILE("Profile"),
 
-    public String getValue() {
-      return value;
-    }
+        LINKEDDOMAINS("LinkedDomains");
 
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
+        private String value;
 
-    public static EndpointTypeEnum fromValue(String value) {
-      for (EndpointTypeEnum b : EndpointTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+        EndpointTypeEnum(String value) {
+            this.value = value;
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static EndpointTypeEnum fromValue(String value) {
+            for (EndpointTypeEnum b : EndpointTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+
+        public static class Adapter extends TypeAdapter<EndpointTypeEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final EndpointTypeEnum enumeration) throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public EndpointTypeEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return EndpointTypeEnum.fromValue(value);
+            }
+        }
     }
 
-    public static class Adapter extends TypeAdapter<EndpointTypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final EndpointTypeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public EndpointTypeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return EndpointTypeEnum.fromValue(value);
-      }
-    }
-  }
-
-        public static final String SERIALIZED_NAME_ENDPOINT_TYPE = "endpoint_type";
-        @SerializedName(SERIALIZED_NAME_ENDPOINT_TYPE)
-        private EndpointTypeEnum endpointType;
+    public static final String SERIALIZED_NAME_ENDPOINT_TYPE = "endpoint_type";
+    @SerializedName(SERIALIZED_NAME_ENDPOINT_TYPE)
+    private EndpointTypeEnum endpointType;
 }

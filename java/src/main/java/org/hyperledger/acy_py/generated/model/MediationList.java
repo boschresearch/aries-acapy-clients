@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -28,12 +27,15 @@ import java.util.List;
 import org.hyperledger.acy_py.generated.model.MediationRecord;
 
 /**
-* MediationList
-*/
+ * MediationList
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class MediationList {
-        public static final String SERIALIZED_NAME_RESULTS = "results";
-        @SerializedName(SERIALIZED_NAME_RESULTS)
-        private List<MediationRecord> results = null;
+    public static final String SERIALIZED_NAME_RESULTS = "results";
+    @SerializedName(SERIALIZED_NAME_RESULTS)
+    private List<MediationRecord> results = null;
 }

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,15 +24,18 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* Generated
-*/
+ * Generated
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class Generated {
-        public static final String SERIALIZED_NAME_CREDENTIAL = "credential";
-        @SerializedName(SERIALIZED_NAME_CREDENTIAL)
-        private Object credential;
-        public static final String SERIALIZED_NAME_OPTIONS = "options";
-        @SerializedName(SERIALIZED_NAME_OPTIONS)
-        private Generated options;
+    public static final String SERIALIZED_NAME_CREDENTIAL = "credential";
+    @SerializedName(SERIALIZED_NAME_CREDENTIAL)
+    private Object credential;
+    public static final String SERIALIZED_NAME_OPTIONS = "options";
+    @SerializedName(SERIALIZED_NAME_OPTIONS)
+    private Generated options;
 }

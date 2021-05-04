@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -28,15 +27,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* PerformRequest
-*/
+ * PerformRequest
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class PerformRequest {
-        public static final String SERIALIZED_NAME_NAME = "name";
-        @SerializedName(SERIALIZED_NAME_NAME)
-        private String name;
-        public static final String SERIALIZED_NAME_PARAMS = "params";
-        @SerializedName(SERIALIZED_NAME_PARAMS)
-        private Map<String, String> params = null;
+    public static final String SERIALIZED_NAME_NAME = "name";
+    @SerializedName(SERIALIZED_NAME_NAME)
+    private String name;
+    public static final String SERIALIZED_NAME_PARAMS = "params";
+    @SerializedName(SERIALIZED_NAME_PARAMS)
+    private Map<String, String> params = null;
 }

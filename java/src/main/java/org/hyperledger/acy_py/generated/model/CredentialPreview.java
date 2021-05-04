@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -28,15 +27,18 @@ import java.util.List;
 import org.hyperledger.acy_py.generated.model.CredAttrSpec;
 
 /**
-* CredentialPreview
-*/
+ * CredentialPreview
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class CredentialPreview {
-        public static final String SERIALIZED_NAME_AT_TYPE = "@type";
-        @SerializedName(SERIALIZED_NAME_AT_TYPE)
-        private String atType;
-        public static final String SERIALIZED_NAME_ATTRIBUTES = "attributes";
-        @SerializedName(SERIALIZED_NAME_ATTRIBUTES)
-        private List<CredAttrSpec> attributes = new ArrayList<>();
+    public static final String SERIALIZED_NAME_AT_TYPE = "@type";
+    @SerializedName(SERIALIZED_NAME_AT_TYPE)
+    private String atType;
+    public static final String SERIALIZED_NAME_ATTRIBUTES = "attributes";
+    @SerializedName(SERIALIZED_NAME_ATTRIBUTES)
+    private List<CredAttrSpec> attributes = new ArrayList<>();
 }

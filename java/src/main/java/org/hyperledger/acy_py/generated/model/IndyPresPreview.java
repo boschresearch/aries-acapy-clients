@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -29,18 +28,21 @@ import org.hyperledger.acy_py.generated.model.IndyPresAttrSpec;
 import org.hyperledger.acy_py.generated.model.IndyPresPredSpec;
 
 /**
-* IndyPresPreview
-*/
+ * IndyPresPreview
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class IndyPresPreview {
-        public static final String SERIALIZED_NAME_AT_TYPE = "@type";
-        @SerializedName(SERIALIZED_NAME_AT_TYPE)
-        private String atType;
-        public static final String SERIALIZED_NAME_ATTRIBUTES = "attributes";
-        @SerializedName(SERIALIZED_NAME_ATTRIBUTES)
-        private List<IndyPresAttrSpec> attributes = new ArrayList<>();
-        public static final String SERIALIZED_NAME_PREDICATES = "predicates";
-        @SerializedName(SERIALIZED_NAME_PREDICATES)
-        private List<IndyPresPredSpec> predicates = new ArrayList<>();
+    public static final String SERIALIZED_NAME_AT_TYPE = "@type";
+    @SerializedName(SERIALIZED_NAME_AT_TYPE)
+    private String atType;
+    public static final String SERIALIZED_NAME_ATTRIBUTES = "attributes";
+    @SerializedName(SERIALIZED_NAME_ATTRIBUTES)
+    private List<IndyPresAttrSpec> attributes = new ArrayList<>();
+    public static final String SERIALIZED_NAME_PREDICATES = "predicates";
+    @SerializedName(SERIALIZED_NAME_PREDICATES)
+    private List<IndyPresPredSpec> predicates = new ArrayList<>();
 }

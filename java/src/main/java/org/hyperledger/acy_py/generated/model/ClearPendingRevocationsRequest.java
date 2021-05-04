@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -28,12 +27,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* ClearPendingRevocationsRequest
-*/
+ * ClearPendingRevocationsRequest
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class ClearPendingRevocationsRequest {
-        public static final String SERIALIZED_NAME_PURGE = "purge";
-        @SerializedName(SERIALIZED_NAME_PURGE)
-        private Map<String, List<String>> purge = null;
+    public static final String SERIALIZED_NAME_PURGE = "purge";
+    @SerializedName(SERIALIZED_NAME_PURGE)
+    private Map<String, List<String>> purge = null;
 }

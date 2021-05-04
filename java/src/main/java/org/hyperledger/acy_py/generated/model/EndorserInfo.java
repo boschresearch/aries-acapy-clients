@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,15 +24,18 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* EndorserInfo
-*/
+ * EndorserInfo
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class EndorserInfo {
-        public static final String SERIALIZED_NAME_ENDORSER_DID = "endorser_did";
-        @SerializedName(SERIALIZED_NAME_ENDORSER_DID)
-        private String endorserDid;
-        public static final String SERIALIZED_NAME_ENDORSER_NAME = "endorser_name";
-        @SerializedName(SERIALIZED_NAME_ENDORSER_NAME)
-        private String endorserName;
+    public static final String SERIALIZED_NAME_ENDORSER_DID = "endorser_did";
+    @SerializedName(SERIALIZED_NAME_ENDORSER_DID)
+    private String endorserDid;
+    public static final String SERIALIZED_NAME_ENDORSER_NAME = "endorser_name";
+    @SerializedName(SERIALIZED_NAME_ENDORSER_NAME)
+    private String endorserName;
 }

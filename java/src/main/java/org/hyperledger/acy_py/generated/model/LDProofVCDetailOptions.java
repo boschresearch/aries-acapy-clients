@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -26,27 +25,30 @@ import java.io.IOException;
 import org.hyperledger.acy_py.generated.model.CredentialStatusOptions;
 
 /**
-* LDProofVCDetailOptions
-*/
+ * LDProofVCDetailOptions
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class LDProofVCDetailOptions {
-        public static final String SERIALIZED_NAME_CHALLENGE = "challenge";
-        @SerializedName(SERIALIZED_NAME_CHALLENGE)
-        private String challenge;
-        public static final String SERIALIZED_NAME_CREATED = "created";
-        @SerializedName(SERIALIZED_NAME_CREATED)
-        private String created;
-        public static final String SERIALIZED_NAME_CREDENTIAL_STATUS = "credentialStatus";
-        @SerializedName(SERIALIZED_NAME_CREDENTIAL_STATUS)
-        private CredentialStatusOptions credentialStatus;
-        public static final String SERIALIZED_NAME_DOMAIN = "domain";
-        @SerializedName(SERIALIZED_NAME_DOMAIN)
-        private String domain;
-        public static final String SERIALIZED_NAME_PROOF_PURPOSE = "proofPurpose";
-        @SerializedName(SERIALIZED_NAME_PROOF_PURPOSE)
-        private String proofPurpose;
-        public static final String SERIALIZED_NAME_PROOF_TYPE = "proofType";
-        @SerializedName(SERIALIZED_NAME_PROOF_TYPE)
-        private String proofType;
+    public static final String SERIALIZED_NAME_CHALLENGE = "challenge";
+    @SerializedName(SERIALIZED_NAME_CHALLENGE)
+    private String challenge;
+    public static final String SERIALIZED_NAME_CREATED = "created";
+    @SerializedName(SERIALIZED_NAME_CREATED)
+    private String created;
+    public static final String SERIALIZED_NAME_CREDENTIAL_STATUS = "credentialStatus";
+    @SerializedName(SERIALIZED_NAME_CREDENTIAL_STATUS)
+    private CredentialStatusOptions credentialStatus;
+    public static final String SERIALIZED_NAME_DOMAIN = "domain";
+    @SerializedName(SERIALIZED_NAME_DOMAIN)
+    private String domain;
+    public static final String SERIALIZED_NAME_PROOF_PURPOSE = "proofPurpose";
+    @SerializedName(SERIALIZED_NAME_PROOF_PURPOSE)
+    private String proofPurpose;
+    public static final String SERIALIZED_NAME_PROOF_TYPE = "proofType";
+    @SerializedName(SERIALIZED_NAME_PROOF_TYPE)
+    private String proofType;
 }

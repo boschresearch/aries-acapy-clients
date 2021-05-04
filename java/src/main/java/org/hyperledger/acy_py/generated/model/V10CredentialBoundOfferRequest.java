@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -26,12 +25,15 @@ import java.io.IOException;
 import org.hyperledger.acy_py.generated.model.CredentialProposal;
 
 /**
-* V10CredentialBoundOfferRequest
-*/
+ * V10CredentialBoundOfferRequest
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class V10CredentialBoundOfferRequest {
-        public static final String SERIALIZED_NAME_COUNTER_PROPOSAL = "counter_proposal";
-        @SerializedName(SERIALIZED_NAME_COUNTER_PROPOSAL)
-        private CredentialProposal counterProposal;
+    public static final String SERIALIZED_NAME_COUNTER_PROPOSAL = "counter_proposal";
+    @SerializedName(SERIALIZED_NAME_COUNTER_PROPOSAL)
+    private CredentialProposal counterProposal;
 }

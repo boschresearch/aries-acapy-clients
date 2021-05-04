@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -27,70 +26,76 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* UpdateWalletRequest
-*/
+ * UpdateWalletRequest
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class UpdateWalletRequest {
-        public static final String SERIALIZED_NAME_IMAGE_URL = "image_url";
-        @SerializedName(SERIALIZED_NAME_IMAGE_URL)
-        private String imageUrl;
-        public static final String SERIALIZED_NAME_LABEL = "label";
-        @SerializedName(SERIALIZED_NAME_LABEL)
-        private String label;
-              /**
-   * Webhook target dispatch type for this wallet.             default - Dispatch only to webhooks associated with this wallet.             base - Dispatch only to webhooks associated with the base wallet.             both - Dispatch to both webhook targets.
-   */
-  @JsonAdapter(WalletDispatchTypeEnum.Adapter.class)
-  public enum WalletDispatchTypeEnum {
-    DEFAULT("default"),
-    
-    BOTH("both"),
-    
-    BASE("base");
+    public static final String SERIALIZED_NAME_IMAGE_URL = "image_url";
+    @SerializedName(SERIALIZED_NAME_IMAGE_URL)
+    private String imageUrl;
+    public static final String SERIALIZED_NAME_LABEL = "label";
+    @SerializedName(SERIALIZED_NAME_LABEL)
+    private String label;
 
-    private String value;
+    /**
+     * Webhook target dispatch type for this wallet. default - Dispatch only to webhooks associated with this wallet.
+     * base - Dispatch only to webhooks associated with the base wallet. both - Dispatch to both webhook targets.
+     */
+    @JsonAdapter(WalletDispatchTypeEnum.Adapter.class)
+    public enum WalletDispatchTypeEnum {
+        DEFAULT("default"),
 
-    WalletDispatchTypeEnum(String value) {
-      this.value = value;
-    }
+        BOTH("both"),
 
-    public String getValue() {
-      return value;
-    }
+        BASE("base");
 
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
+        private String value;
 
-    public static WalletDispatchTypeEnum fromValue(String value) {
-      for (WalletDispatchTypeEnum b : WalletDispatchTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+        WalletDispatchTypeEnum(String value) {
+            this.value = value;
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static WalletDispatchTypeEnum fromValue(String value) {
+            for (WalletDispatchTypeEnum b : WalletDispatchTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+
+        public static class Adapter extends TypeAdapter<WalletDispatchTypeEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final WalletDispatchTypeEnum enumeration)
+                    throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public WalletDispatchTypeEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return WalletDispatchTypeEnum.fromValue(value);
+            }
+        }
     }
 
-    public static class Adapter extends TypeAdapter<WalletDispatchTypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final WalletDispatchTypeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public WalletDispatchTypeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return WalletDispatchTypeEnum.fromValue(value);
-      }
-    }
-  }
-
-        public static final String SERIALIZED_NAME_WALLET_DISPATCH_TYPE = "wallet_dispatch_type";
-        @SerializedName(SERIALIZED_NAME_WALLET_DISPATCH_TYPE)
-        private WalletDispatchTypeEnum walletDispatchType;
-        public static final String SERIALIZED_NAME_WALLET_WEBHOOK_URLS = "wallet_webhook_urls";
-        @SerializedName(SERIALIZED_NAME_WALLET_WEBHOOK_URLS)
-        private List<String> walletWebhookUrls = null;
+    public static final String SERIALIZED_NAME_WALLET_DISPATCH_TYPE = "wallet_dispatch_type";
+    @SerializedName(SERIALIZED_NAME_WALLET_DISPATCH_TYPE)
+    private WalletDispatchTypeEnum walletDispatchType;
+    public static final String SERIALIZED_NAME_WALLET_WEBHOOK_URLS = "wallet_webhook_urls";
+    @SerializedName(SERIALIZED_NAME_WALLET_WEBHOOK_URLS)
+    private List<String> walletWebhookUrls = null;
 }

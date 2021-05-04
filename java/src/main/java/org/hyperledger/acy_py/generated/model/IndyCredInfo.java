@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -28,27 +27,30 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* IndyCredInfo
-*/
+ * IndyCredInfo
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class IndyCredInfo {
-        public static final String SERIALIZED_NAME_ATTRS = "attrs";
-        @SerializedName(SERIALIZED_NAME_ATTRS)
-        private Map<String, String> attrs = null;
-        public static final String SERIALIZED_NAME_CRED_DEF_ID = "cred_def_id";
-        @SerializedName(SERIALIZED_NAME_CRED_DEF_ID)
-        private String credDefId;
-        public static final String SERIALIZED_NAME_CRED_REV = "cred_rev";
-        @SerializedName(SERIALIZED_NAME_CRED_REV)
-        private String credRev;
-        public static final String SERIALIZED_NAME_REFERENT = "referent";
-        @SerializedName(SERIALIZED_NAME_REFERENT)
-        private String referent;
-        public static final String SERIALIZED_NAME_REV_REG_ID = "rev_reg_id";
-        @SerializedName(SERIALIZED_NAME_REV_REG_ID)
-        private String revRegId;
-        public static final String SERIALIZED_NAME_SCHEMA_ID = "schema_id";
-        @SerializedName(SERIALIZED_NAME_SCHEMA_ID)
-        private String schemaId;
+    public static final String SERIALIZED_NAME_ATTRS = "attrs";
+    @SerializedName(SERIALIZED_NAME_ATTRS)
+    private Map<String, String> attrs = null;
+    public static final String SERIALIZED_NAME_CRED_DEF_ID = "cred_def_id";
+    @SerializedName(SERIALIZED_NAME_CRED_DEF_ID)
+    private String credDefId;
+    public static final String SERIALIZED_NAME_CRED_REV = "cred_rev";
+    @SerializedName(SERIALIZED_NAME_CRED_REV)
+    private String credRev;
+    public static final String SERIALIZED_NAME_REFERENT = "referent";
+    @SerializedName(SERIALIZED_NAME_REFERENT)
+    private String referent;
+    public static final String SERIALIZED_NAME_REV_REG_ID = "rev_reg_id";
+    @SerializedName(SERIALIZED_NAME_REV_REG_ID)
+    private String revRegId;
+    public static final String SERIALIZED_NAME_SCHEMA_ID = "schema_id";
+    @SerializedName(SERIALIZED_NAME_SCHEMA_ID)
+    private String schemaId;
 }

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -27,15 +26,18 @@ import org.hyperledger.acy_py.generated.model.CredentialDefinitionSendResult;
 import org.hyperledger.acy_py.generated.model.TransactionRecord;
 
 /**
-* TxnOrCredentialDefinitionSendResult
-*/
+ * TxnOrCredentialDefinitionSendResult
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class TxnOrCredentialDefinitionSendResult {
-        public static final String SERIALIZED_NAME_SENT = "sent";
-        @SerializedName(SERIALIZED_NAME_SENT)
-        private CredentialDefinitionSendResult sent;
-        public static final String SERIALIZED_NAME_TXN = "txn";
-        @SerializedName(SERIALIZED_NAME_TXN)
-        private TransactionRecord txn;
+    public static final String SERIALIZED_NAME_SENT = "sent";
+    @SerializedName(SERIALIZED_NAME_SENT)
+    private CredentialDefinitionSendResult sent;
+    public static final String SERIALIZED_NAME_TXN = "txn";
+    @SerializedName(SERIALIZED_NAME_TXN)
+    private TransactionRecord txn;
 }

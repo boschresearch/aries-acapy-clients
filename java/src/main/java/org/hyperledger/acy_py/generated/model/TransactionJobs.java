@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,113 +24,118 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* TransactionJobs
-*/
+ * TransactionJobs
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class TransactionJobs {
-              /**
-   * My transaction related job
-   */
-  @JsonAdapter(TransactionMyJobEnum.Adapter.class)
-  public enum TransactionMyJobEnum {
-    TRANSACTION_AUTHOR("TRANSACTION_AUTHOR"),
-    
-    TRANSACTION_ENDORSER("TRANSACTION_ENDORSER"),
-    
-    RESET("reset");
+    /**
+     * My transaction related job
+     */
+    @JsonAdapter(TransactionMyJobEnum.Adapter.class)
+    public enum TransactionMyJobEnum {
+        TRANSACTION_AUTHOR("TRANSACTION_AUTHOR"),
 
-    private String value;
+        TRANSACTION_ENDORSER("TRANSACTION_ENDORSER"),
 
-    TransactionMyJobEnum(String value) {
-      this.value = value;
-    }
+        RESET("reset");
 
-    public String getValue() {
-      return value;
-    }
+        private String value;
 
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static TransactionMyJobEnum fromValue(String value) {
-      for (TransactionMyJobEnum b : TransactionMyJobEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+        TransactionMyJobEnum(String value) {
+            this.value = value;
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
 
-    public static class Adapter extends TypeAdapter<TransactionMyJobEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final TransactionMyJobEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public TransactionMyJobEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return TransactionMyJobEnum.fromValue(value);
-      }
-    }
-  }
-
-        public static final String SERIALIZED_NAME_TRANSACTION_MY_JOB = "transaction_my_job";
-        @SerializedName(SERIALIZED_NAME_TRANSACTION_MY_JOB)
-        private TransactionMyJobEnum transactionMyJob;
-              /**
-   * Their transaction related job
-   */
-  @JsonAdapter(TransactionTheirJobEnum.Adapter.class)
-  public enum TransactionTheirJobEnum {
-    TRANSACTION_AUTHOR("TRANSACTION_AUTHOR"),
-    
-    TRANSACTION_ENDORSER("TRANSACTION_ENDORSER"),
-    
-    RESET("reset");
-
-    private String value;
-
-    TransactionTheirJobEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static TransactionTheirJobEnum fromValue(String value) {
-      for (TransactionTheirJobEnum b : TransactionTheirJobEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+        public String getValue() {
+            return value;
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static TransactionMyJobEnum fromValue(String value) {
+            for (TransactionMyJobEnum b : TransactionMyJobEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+
+        public static class Adapter extends TypeAdapter<TransactionMyJobEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final TransactionMyJobEnum enumeration) throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public TransactionMyJobEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return TransactionMyJobEnum.fromValue(value);
+            }
+        }
     }
 
-    public static class Adapter extends TypeAdapter<TransactionTheirJobEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final TransactionTheirJobEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
+    public static final String SERIALIZED_NAME_TRANSACTION_MY_JOB = "transaction_my_job";
+    @SerializedName(SERIALIZED_NAME_TRANSACTION_MY_JOB)
+    private TransactionMyJobEnum transactionMyJob;
 
-      @Override
-      public TransactionTheirJobEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return TransactionTheirJobEnum.fromValue(value);
-      }
+    /**
+     * Their transaction related job
+     */
+    @JsonAdapter(TransactionTheirJobEnum.Adapter.class)
+    public enum TransactionTheirJobEnum {
+        TRANSACTION_AUTHOR("TRANSACTION_AUTHOR"),
+
+        TRANSACTION_ENDORSER("TRANSACTION_ENDORSER"),
+
+        RESET("reset");
+
+        private String value;
+
+        TransactionTheirJobEnum(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static TransactionTheirJobEnum fromValue(String value) {
+            for (TransactionTheirJobEnum b : TransactionTheirJobEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+
+        public static class Adapter extends TypeAdapter<TransactionTheirJobEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final TransactionTheirJobEnum enumeration)
+                    throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public TransactionTheirJobEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return TransactionTheirJobEnum.fromValue(value);
+            }
+        }
     }
-  }
 
-        public static final String SERIALIZED_NAME_TRANSACTION_THEIR_JOB = "transaction_their_job";
-        @SerializedName(SERIALIZED_NAME_TRANSACTION_THEIR_JOB)
-        private TransactionTheirJobEnum transactionTheirJob;
+    public static final String SERIALIZED_NAME_TRANSACTION_THEIR_JOB = "transaction_their_job";
+    @SerializedName(SERIALIZED_NAME_TRANSACTION_THEIR_JOB)
+    private TransactionTheirJobEnum transactionTheirJob;
 }

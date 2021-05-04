@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,59 +24,62 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* DIDCreateOptions
-*/
+ * DIDCreateOptions
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class DIDCreateOptions {
-              /**
-   * Gets or Sets keyType
-   */
-  @JsonAdapter(KeyTypeEnum.Adapter.class)
-  public enum KeyTypeEnum {
-    ED25519("ed25519"),
-    
-    BLS12381G2("bls12381g2");
+    /**
+     * Gets or Sets keyType
+     */
+    @JsonAdapter(KeyTypeEnum.Adapter.class)
+    public enum KeyTypeEnum {
+        ED25519("ed25519"),
 
-    private String value;
+        BLS12381G2("bls12381g2");
 
-    KeyTypeEnum(String value) {
-      this.value = value;
-    }
+        private String value;
 
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static KeyTypeEnum fromValue(String value) {
-      for (KeyTypeEnum b : KeyTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+        KeyTypeEnum(String value) {
+            this.value = value;
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static KeyTypeEnum fromValue(String value) {
+            for (KeyTypeEnum b : KeyTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+
+        public static class Adapter extends TypeAdapter<KeyTypeEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final KeyTypeEnum enumeration) throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public KeyTypeEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return KeyTypeEnum.fromValue(value);
+            }
+        }
     }
 
-    public static class Adapter extends TypeAdapter<KeyTypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final KeyTypeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public KeyTypeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return KeyTypeEnum.fromValue(value);
-      }
-    }
-  }
-
-        public static final String SERIALIZED_NAME_KEY_TYPE = "key_type";
-        @SerializedName(SERIALIZED_NAME_KEY_TYPE)
-        private KeyTypeEnum keyType;
+    public static final String SERIALIZED_NAME_KEY_TYPE = "key_type";
+    @SerializedName(SERIALIZED_NAME_KEY_TYPE)
+    private KeyTypeEnum keyType;
 }

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -27,12 +26,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* SchemasCreatedResult
-*/
+ * SchemasCreatedResult
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class SchemasCreatedResult {
-        public static final String SERIALIZED_NAME_SCHEMA_IDS = "schema_ids";
-        @SerializedName(SERIALIZED_NAME_SCHEMA_IDS)
-        private List<String> schemaIds = null;
+    public static final String SERIALIZED_NAME_SCHEMA_IDS = "schema_ids";
+    @SerializedName(SERIALIZED_NAME_SCHEMA_IDS)
+    private List<String> schemaIds = null;
 }

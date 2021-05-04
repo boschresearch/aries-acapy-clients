@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -29,21 +28,24 @@ import org.hyperledger.acy_py.generated.model.AttachDecoratorData1JWS;
 import org.hyperledger.acy_py.generated.model.AttachDecoratorDataJWSHeader;
 
 /**
-* AttachDecoratorDataJWS
-*/
+ * AttachDecoratorDataJWS
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class AttachDecoratorDataJWS {
-        public static final String SERIALIZED_NAME_HEADER = "header";
-        @SerializedName(SERIALIZED_NAME_HEADER)
-        private AttachDecoratorDataJWSHeader header;
-        public static final String SERIALIZED_NAME_PROTECTED = "protected";
-        @SerializedName(SERIALIZED_NAME_PROTECTED)
-        private String _protected;
-        public static final String SERIALIZED_NAME_SIGNATURE = "signature";
-        @SerializedName(SERIALIZED_NAME_SIGNATURE)
-        private String signature;
-        public static final String SERIALIZED_NAME_SIGNATURES = "signatures";
-        @SerializedName(SERIALIZED_NAME_SIGNATURES)
-        private List<AttachDecoratorData1JWS> signatures = null;
+    public static final String SERIALIZED_NAME_HEADER = "header";
+    @SerializedName(SERIALIZED_NAME_HEADER)
+    private AttachDecoratorDataJWSHeader header;
+    public static final String SERIALIZED_NAME_PROTECTED = "protected";
+    @SerializedName(SERIALIZED_NAME_PROTECTED)
+    private String _protected;
+    public static final String SERIALIZED_NAME_SIGNATURE = "signature";
+    @SerializedName(SERIALIZED_NAME_SIGNATURE)
+    private String signature;
+    public static final String SERIALIZED_NAME_SIGNATURES = "signatures";
+    @SerializedName(SERIALIZED_NAME_SIGNATURES)
+    private List<AttachDecoratorData1JWS> signatures = null;
 }

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -27,18 +26,21 @@ import org.hyperledger.acy_py.generated.model.DIFPresSpec;
 import org.hyperledger.acy_py.generated.model.IndyPresSpec;
 
 /**
-* V20PresSpecByFormatRequest
-*/
+ * V20PresSpecByFormatRequest
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class V20PresSpecByFormatRequest {
-        public static final String SERIALIZED_NAME_DIF = "dif";
-        @SerializedName(SERIALIZED_NAME_DIF)
-        private DIFPresSpec dif;
-        public static final String SERIALIZED_NAME_INDY = "indy";
-        @SerializedName(SERIALIZED_NAME_INDY)
-        private IndyPresSpec indy;
-        public static final String SERIALIZED_NAME_TRACE = "trace";
-        @SerializedName(SERIALIZED_NAME_TRACE)
-        private Boolean trace;
+    public static final String SERIALIZED_NAME_DIF = "dif";
+    @SerializedName(SERIALIZED_NAME_DIF)
+    private DIFPresSpec dif;
+    public static final String SERIALIZED_NAME_INDY = "indy";
+    @SerializedName(SERIALIZED_NAME_INDY)
+    private IndyPresSpec indy;
+    public static final String SERIALIZED_NAME_TRACE = "trace";
+    @SerializedName(SERIALIZED_NAME_TRACE)
+    private Boolean trace;
 }

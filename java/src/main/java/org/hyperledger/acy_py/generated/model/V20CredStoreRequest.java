@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -25,12 +24,15 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* V20CredStoreRequest
-*/
+ * V20CredStoreRequest
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class V20CredStoreRequest {
-        public static final String SERIALIZED_NAME_CREDENTIAL_ID = "credential_id";
-        @SerializedName(SERIALIZED_NAME_CREDENTIAL_ID)
-        private String credentialId;
+    public static final String SERIALIZED_NAME_CREDENTIAL_ID = "credential_id";
+    @SerializedName(SERIALIZED_NAME_CREDENTIAL_ID)
+    private String credentialId;
 }

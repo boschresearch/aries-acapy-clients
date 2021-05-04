@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -26,12 +25,15 @@ import java.io.IOException;
 import org.hyperledger.acy_py.generated.model.MenuJson;
 
 /**
-* SendMenu
-*/
+ * SendMenu
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class SendMenu {
-        public static final String SERIALIZED_NAME_MENU = "menu";
-        @SerializedName(SERIALIZED_NAME_MENU)
-        private MenuJson menu;
+    public static final String SERIALIZED_NAME_MENU = "menu";
+    @SerializedName(SERIALIZED_NAME_MENU)
+    private MenuJson menu;
 }

@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -27,24 +26,27 @@ import java.util.UUID;
 import org.hyperledger.acy_py.generated.model.V20CredFilterLDProof;
 
 /**
-* V20CredRequestFree
-*/
+ * V20CredRequestFree
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class V20CredRequestFree {
-        public static final String SERIALIZED_NAME_AUTO_REMOVE = "auto_remove";
-        @SerializedName(SERIALIZED_NAME_AUTO_REMOVE)
-        private Boolean autoRemove;
-        public static final String SERIALIZED_NAME_COMMENT = "comment";
-        @SerializedName(SERIALIZED_NAME_COMMENT)
-        private String comment;
-        public static final String SERIALIZED_NAME_CONNECTION_ID = "connection_id";
-        @SerializedName(SERIALIZED_NAME_CONNECTION_ID)
-        private UUID connectionId;
-        public static final String SERIALIZED_NAME_FILTER = "filter";
-        @SerializedName(SERIALIZED_NAME_FILTER)
-        private V20CredFilterLDProof filter;
-        public static final String SERIALIZED_NAME_TRACE = "trace";
-        @SerializedName(SERIALIZED_NAME_TRACE)
-        private Boolean trace;
+    public static final String SERIALIZED_NAME_AUTO_REMOVE = "auto_remove";
+    @SerializedName(SERIALIZED_NAME_AUTO_REMOVE)
+    private Boolean autoRemove;
+    public static final String SERIALIZED_NAME_COMMENT = "comment";
+    @SerializedName(SERIALIZED_NAME_COMMENT)
+    private String comment;
+    public static final String SERIALIZED_NAME_CONNECTION_ID = "connection_id";
+    @SerializedName(SERIALIZED_NAME_CONNECTION_ID)
+    private UUID connectionId;
+    public static final String SERIALIZED_NAME_FILTER = "filter";
+    @SerializedName(SERIALIZED_NAME_FILTER)
+    private V20CredFilterLDProof filter;
+    public static final String SERIALIZED_NAME_TRACE = "trace";
+    @SerializedName(SERIALIZED_NAME_TRACE)
+    private Boolean trace;
 }

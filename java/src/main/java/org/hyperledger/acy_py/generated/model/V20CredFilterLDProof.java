@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package org.hyperledger.acy_py.generated.model;
 
 import java.util.Objects;
@@ -26,12 +25,15 @@ import java.io.IOException;
 import org.hyperledger.acy_py.generated.model.LDProofVCDetail;
 
 /**
-* V20CredFilterLDProof
-*/
+ * V20CredFilterLDProof
+ */
 
-@lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
+@lombok.Data
+@lombok.AllArgsConstructor
+@lombok.NoArgsConstructor
+@lombok.Builder
 public class V20CredFilterLDProof {
-        public static final String SERIALIZED_NAME_LD_PROOF = "ld_proof";
-        @SerializedName(SERIALIZED_NAME_LD_PROOF)
-        private LDProofVCDetail ldProof;
+    public static final String SERIALIZED_NAME_LD_PROOF = "ld_proof";
+    @SerializedName(SERIALIZED_NAME_LD_PROOF)
+    private LDProofVCDetail ldProof;
 }
