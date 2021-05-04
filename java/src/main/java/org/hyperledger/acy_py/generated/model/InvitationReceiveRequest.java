@@ -46,16 +46,16 @@ public class InvitationReceiveRequest {
         public static final String SERIALIZED_NAME_LABEL = "label";
         @SerializedName(SERIALIZED_NAME_LABEL)
         private String label;
-        public static final String SERIALIZED_NAME_REQUEST_TILDE_ATTACH = "request~attach";
-        @SerializedName(SERIALIZED_NAME_REQUEST_TILDE_ATTACH)
-        private List<AttachDecorator> requestTildeAttach = null;
-        public static final String SERIALIZED_NAME_SERVICE = "service";
-        @SerializedName(SERIALIZED_NAME_SERVICE)
-        private Object service;
+        public static final String SERIALIZED_NAME_REQUESTS_TILDE_ATTACH = "requests~attach";
+        @SerializedName(SERIALIZED_NAME_REQUESTS_TILDE_ATTACH)
+        private List<AttachDecorator> requestsTildeAttach = null;
         public static final String SERIALIZED_NAME_SERVICE_BLOCKS = "service_blocks";
         @SerializedName(SERIALIZED_NAME_SERVICE_BLOCKS)
         private List<Service> serviceBlocks = null;
         public static final String SERIALIZED_NAME_SERVICE_DIDS = "service_dids";
         @SerializedName(SERIALIZED_NAME_SERVICE_DIDS)
         private List<String> serviceDids = null;
+        public static final String SERIALIZED_NAME_SERVICES = "services";
+        @SerializedName(SERIALIZED_NAME_SERVICES)
+        private Object services;
 }

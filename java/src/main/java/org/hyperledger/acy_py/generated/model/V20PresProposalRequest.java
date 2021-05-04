@@ -24,14 +24,14 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.UUID;
-import org.hyperledger.acy_py.generated.model.IndyPresPreview;
+import org.hyperledger.acy_py.generated.model.V20PresProposalByFormat;
 
 /**
-* V10PresentationProposalRequest
+* V20PresProposalRequest
 */
 
 @lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
-public class V10PresentationProposalRequest {
+public class V20PresProposalRequest {
         public static final String SERIALIZED_NAME_AUTO_PRESENT = "auto_present";
         @SerializedName(SERIALIZED_NAME_AUTO_PRESENT)
         private Boolean autoPresent;
@@ -43,7 +43,7 @@ public class V10PresentationProposalRequest {
         private UUID connectionId;
         public static final String SERIALIZED_NAME_PRESENTATION_PROPOSAL = "presentation_proposal";
         @SerializedName(SERIALIZED_NAME_PRESENTATION_PROPOSAL)
-        private IndyPresPreview presentationProposal;
+        private V20PresProposalByFormat presentationProposal;
         public static final String SERIALIZED_NAME_TRACE = "trace";
         @SerializedName(SERIALIZED_NAME_TRACE)
         private Boolean trace;

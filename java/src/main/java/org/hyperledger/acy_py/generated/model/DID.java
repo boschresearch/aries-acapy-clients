@@ -34,6 +34,106 @@ public class DID {
         @SerializedName(SERIALIZED_NAME_DID)
         private String did;
               /**
+   * Key type associated with the DID
+   */
+  @JsonAdapter(KeyTypeEnum.Adapter.class)
+  public enum KeyTypeEnum {
+    ED25519("ed25519"),
+    
+    BLS12381G2("bls12381g2");
+
+    private String value;
+
+    KeyTypeEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static KeyTypeEnum fromValue(String value) {
+      for (KeyTypeEnum b : KeyTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<KeyTypeEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final KeyTypeEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public KeyTypeEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return KeyTypeEnum.fromValue(value);
+      }
+    }
+  }
+
+        public static final String SERIALIZED_NAME_KEY_TYPE = "key_type";
+        @SerializedName(SERIALIZED_NAME_KEY_TYPE)
+        private KeyTypeEnum keyType;
+              /**
+   * Did method associated with the DID
+   */
+  @JsonAdapter(MethodEnum.Adapter.class)
+  public enum MethodEnum {
+    SOV("sov"),
+    
+    KEY("key");
+
+    private String value;
+
+    MethodEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static MethodEnum fromValue(String value) {
+      for (MethodEnum b : MethodEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<MethodEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final MethodEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public MethodEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return MethodEnum.fromValue(value);
+      }
+    }
+  }
+
+        public static final String SERIALIZED_NAME_METHOD = "method";
+        @SerializedName(SERIALIZED_NAME_METHOD)
+        private MethodEnum method;
+              /**
    * Whether DID is current public DID, posted to ledger but not current public DID, or local to the wallet
    */
   @JsonAdapter(PostureEnum.Adapter.class)

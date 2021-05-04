@@ -25,20 +25,14 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* V20CredExRecord
+* V20PresExRecord
 */
 
 @lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
-public class V20CredExRecord {
-        public static final String SERIALIZED_NAME_AUTO_ISSUE = "auto_issue";
-        @SerializedName(SERIALIZED_NAME_AUTO_ISSUE)
-        private Boolean autoIssue;
-        public static final String SERIALIZED_NAME_AUTO_OFFER = "auto_offer";
-        @SerializedName(SERIALIZED_NAME_AUTO_OFFER)
-        private Boolean autoOffer;
-        public static final String SERIALIZED_NAME_AUTO_REMOVE = "auto_remove";
-        @SerializedName(SERIALIZED_NAME_AUTO_REMOVE)
-        private Boolean autoRemove;
+public class V20PresExRecord {
+        public static final String SERIALIZED_NAME_AUTO_PRESENT = "auto_present";
+        @SerializedName(SERIALIZED_NAME_AUTO_PRESENT)
+        private Boolean autoPresent;
         public static final String SERIALIZED_NAME_BY_FORMAT = "by_format";
         @SerializedName(SERIALIZED_NAME_BY_FORMAT)
         private Object byFormat;
@@ -48,32 +42,11 @@ public class V20CredExRecord {
         public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
         @SerializedName(SERIALIZED_NAME_CREATED_AT)
         private String createdAt;
-        public static final String SERIALIZED_NAME_CRED_EX_ID = "cred_ex_id";
-        @SerializedName(SERIALIZED_NAME_CRED_EX_ID)
-        private String credExId;
-        public static final String SERIALIZED_NAME_CRED_ID_STORED = "cred_id_stored";
-        @SerializedName(SERIALIZED_NAME_CRED_ID_STORED)
-        private String credIdStored;
-        public static final String SERIALIZED_NAME_CRED_ISSUE = "cred_issue";
-        @SerializedName(SERIALIZED_NAME_CRED_ISSUE)
-        private Object credIssue;
-        public static final String SERIALIZED_NAME_CRED_OFFER = "cred_offer";
-        @SerializedName(SERIALIZED_NAME_CRED_OFFER)
-        private Object credOffer;
-        public static final String SERIALIZED_NAME_CRED_PREVIEW = "cred_preview";
-        @SerializedName(SERIALIZED_NAME_CRED_PREVIEW)
-        private Object credPreview;
-        public static final String SERIALIZED_NAME_CRED_PROPOSAL = "cred_proposal";
-        @SerializedName(SERIALIZED_NAME_CRED_PROPOSAL)
-        private Object credProposal;
-        public static final String SERIALIZED_NAME_CRED_REQUEST = "cred_request";
-        @SerializedName(SERIALIZED_NAME_CRED_REQUEST)
-        private Object credRequest;
         public static final String SERIALIZED_NAME_ERROR_MSG = "error_msg";
         @SerializedName(SERIALIZED_NAME_ERROR_MSG)
         private String errorMsg;
               /**
-   * Issue-credential exchange initiator: self or external
+   * Present-proof exchange initiator: self or external
    */
   @JsonAdapter(InitiatorEnum.Adapter.class)
   public enum InitiatorEnum {
@@ -122,17 +95,26 @@ public class V20CredExRecord {
         public static final String SERIALIZED_NAME_INITIATOR = "initiator";
         @SerializedName(SERIALIZED_NAME_INITIATOR)
         private InitiatorEnum initiator;
-        public static final String SERIALIZED_NAME_PARENT_THREAD_ID = "parent_thread_id";
-        @SerializedName(SERIALIZED_NAME_PARENT_THREAD_ID)
-        private String parentThreadId;
+        public static final String SERIALIZED_NAME_PRES = "pres";
+        @SerializedName(SERIALIZED_NAME_PRES)
+        private Object pres;
+        public static final String SERIALIZED_NAME_PRES_EX_ID = "pres_ex_id";
+        @SerializedName(SERIALIZED_NAME_PRES_EX_ID)
+        private String presExId;
+        public static final String SERIALIZED_NAME_PRES_PROPOSAL = "pres_proposal";
+        @SerializedName(SERIALIZED_NAME_PRES_PROPOSAL)
+        private Object presProposal;
+        public static final String SERIALIZED_NAME_PRES_REQUEST = "pres_request";
+        @SerializedName(SERIALIZED_NAME_PRES_REQUEST)
+        private Object presRequest;
               /**
-   * Issue-credential exchange role: holder or issuer
+   * Present-proof exchange role: prover or verifier
    */
   @JsonAdapter(RoleEnum.Adapter.class)
   public enum RoleEnum {
-    ISSUER("issuer"),
+    PROVER("prover"),
     
-    HOLDER("holder");
+    VERIFIER("verifier");
 
     private String value;
 
@@ -176,7 +158,7 @@ public class V20CredExRecord {
         @SerializedName(SERIALIZED_NAME_ROLE)
         private RoleEnum role;
               /**
-   * Issue-credential exchange state
+   * Present-proof exchange state
    */
   @JsonAdapter(StateEnum.Adapter.class)
   public enum StateEnum {
@@ -184,19 +166,17 @@ public class V20CredExRecord {
     
     PROPOSAL_RECEIVED("proposal-received"),
     
-    OFFER_SENT("offer-sent"),
-    
-    OFFER_RECEIVED("offer-received"),
-    
     REQUEST_SENT("request-sent"),
     
     REQUEST_RECEIVED("request-received"),
     
-    CREDENTIAL_ISSUED("credential-issued"),
+    PRESENTATION_SENT("presentation-sent"),
     
-    CREDENTIAL_RECEIVED("credential-received"),
+    PRESENTATION_RECEIVED("presentation-received"),
     
-    DONE("done");
+    DONE("done"),
+    
+    ABANDONED("abandoned");
 
     private String value;
 
@@ -248,4 +228,54 @@ public class V20CredExRecord {
         public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
         @SerializedName(SERIALIZED_NAME_UPDATED_AT)
         private String updatedAt;
+              /**
+   * Whether presentation is verified: &#39;true&#39; or &#39;false&#39;
+   */
+  @JsonAdapter(VerifiedEnum.Adapter.class)
+  public enum VerifiedEnum {
+    TRUE("true"),
+    
+    FALSE("false");
+
+    private String value;
+
+    VerifiedEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static VerifiedEnum fromValue(String value) {
+      for (VerifiedEnum b : VerifiedEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<VerifiedEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final VerifiedEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public VerifiedEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return VerifiedEnum.fromValue(value);
+      }
+    }
+  }
+
+        public static final String SERIALIZED_NAME_VERIFIED = "verified";
+        @SerializedName(SERIALIZED_NAME_VERIFIED)
+        private VerifiedEnum verified;
 }

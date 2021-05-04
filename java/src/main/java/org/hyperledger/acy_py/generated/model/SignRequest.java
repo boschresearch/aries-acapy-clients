@@ -23,6 +23,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import org.hyperledger.acy_py.generated.model.Generated;
 
 /**
 * SignRequest
@@ -32,7 +33,7 @@ import java.io.IOException;
 public class SignRequest {
         public static final String SERIALIZED_NAME_DOC = "doc";
         @SerializedName(SERIALIZED_NAME_DOC)
-        private Object doc;
+        private Generated doc;
         public static final String SERIALIZED_NAME_VERKEY = "verkey";
         @SerializedName(SERIALIZED_NAME_VERKEY)
         private String verkey;

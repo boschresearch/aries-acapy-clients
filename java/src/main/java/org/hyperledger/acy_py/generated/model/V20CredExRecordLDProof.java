@@ -25,32 +25,23 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
-* V20CredExRecordIndy
+* V20CredExRecordLDProof
 */
 
 @lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
-public class V20CredExRecordIndy {
+public class V20CredExRecordLDProof {
         public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
         @SerializedName(SERIALIZED_NAME_CREATED_AT)
         private String createdAt;
         public static final String SERIALIZED_NAME_CRED_EX_ID = "cred_ex_id";
         @SerializedName(SERIALIZED_NAME_CRED_EX_ID)
         private String credExId;
-        public static final String SERIALIZED_NAME_CRED_EX_INDY_ID = "cred_ex_indy_id";
-        @SerializedName(SERIALIZED_NAME_CRED_EX_INDY_ID)
-        private String credExIndyId;
+        public static final String SERIALIZED_NAME_CRED_EX_LD_PROOF_ID = "cred_ex_ld_proof_id";
+        @SerializedName(SERIALIZED_NAME_CRED_EX_LD_PROOF_ID)
+        private String credExLdProofId;
         public static final String SERIALIZED_NAME_CRED_ID_STORED = "cred_id_stored";
         @SerializedName(SERIALIZED_NAME_CRED_ID_STORED)
         private String credIdStored;
-        public static final String SERIALIZED_NAME_CRED_REQUEST_METADATA = "cred_request_metadata";
-        @SerializedName(SERIALIZED_NAME_CRED_REQUEST_METADATA)
-        private Object credRequestMetadata;
-        public static final String SERIALIZED_NAME_CRED_REV_ID = "cred_rev_id";
-        @SerializedName(SERIALIZED_NAME_CRED_REV_ID)
-        private String credRevId;
-        public static final String SERIALIZED_NAME_REV_REG_ID = "rev_reg_id";
-        @SerializedName(SERIALIZED_NAME_REV_REG_ID)
-        private String revRegId;
         public static final String SERIALIZED_NAME_STATE = "state";
         @SerializedName(SERIALIZED_NAME_STATE)
         private String state;

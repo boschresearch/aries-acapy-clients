@@ -13,17 +13,8 @@
 
 package org.hyperledger.acy_py.generated.model;
 
-import java.util.Objects;
-import java.util.Arrays;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.List;
 
 /**
@@ -38,6 +29,9 @@ public class CreateInvitationRequest {
         public static final String SERIALIZED_NAME_METADATA = "metadata";
         @SerializedName(SERIALIZED_NAME_METADATA)
         private Object metadata;
+        public static final String SERIALIZED_NAME_MY_LABEL = "my_label";
+        @SerializedName(SERIALIZED_NAME_MY_LABEL)
+        private String myLabel;
         public static final String SERIALIZED_NAME_RECIPIENT_KEYS = "recipient_keys";
         @SerializedName(SERIALIZED_NAME_RECIPIENT_KEYS)
         private List<String> recipientKeys = null;

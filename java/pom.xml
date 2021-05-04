@@ -181,7 +181,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/swagger/0_6_0_swagger.json</inputSpec>
+                            <inputSpec>${project.basedir}/swagger/0_7_0_pre_swagger.json</inputSpec>
                             <generatorName>java</generatorName>
                             <output>${project.basedir}</output>
                             <generateApis>false</generateApis>

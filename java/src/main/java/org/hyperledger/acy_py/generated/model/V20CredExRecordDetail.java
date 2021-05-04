@@ -24,8 +24,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import org.hyperledger.acy_py.generated.model.V20CredExRecord;
-import org.hyperledger.acy_py.generated.model.V20CredExRecordDIF;
 import org.hyperledger.acy_py.generated.model.V20CredExRecordIndy;
+import org.hyperledger.acy_py.generated.model.V20CredExRecordLDProof;
 
 /**
 * V20CredExRecordDetail
@@ -36,10 +36,10 @@ public class V20CredExRecordDetail {
         public static final String SERIALIZED_NAME_CRED_EX_RECORD = "cred_ex_record";
         @SerializedName(SERIALIZED_NAME_CRED_EX_RECORD)
         private V20CredExRecord credExRecord;
-        public static final String SERIALIZED_NAME_DIF = "dif";
-        @SerializedName(SERIALIZED_NAME_DIF)
-        private V20CredExRecordDIF dif;
         public static final String SERIALIZED_NAME_INDY = "indy";
         @SerializedName(SERIALIZED_NAME_INDY)
         private V20CredExRecordIndy indy;
+        public static final String SERIALIZED_NAME_LD_PROOF = "ld_proof";
+        @SerializedName(SERIALIZED_NAME_LD_PROOF)
+        private V20CredExRecordLDProof ldProof;
 }

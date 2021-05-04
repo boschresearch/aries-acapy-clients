@@ -30,6 +30,9 @@ import java.io.IOException;
 
 @lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
 public class VerifyResponse {
+        public static final String SERIALIZED_NAME_ERROR = "error";
+        @SerializedName(SERIALIZED_NAME_ERROR)
+        private String error;
         public static final String SERIALIZED_NAME_VALID = "valid";
         @SerializedName(SERIALIZED_NAME_VALID)
         private Boolean valid;

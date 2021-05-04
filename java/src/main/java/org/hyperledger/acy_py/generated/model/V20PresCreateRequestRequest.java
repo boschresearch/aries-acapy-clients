@@ -23,27 +23,20 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.UUID;
-import org.hyperledger.acy_py.generated.model.IndyPresPreview;
+import org.hyperledger.acy_py.generated.model.V20PresRequestByFormat;
 
 /**
-* V10PresentationProposalRequest
+* V20PresCreateRequestRequest
 */
 
 @lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
-public class V10PresentationProposalRequest {
-        public static final String SERIALIZED_NAME_AUTO_PRESENT = "auto_present";
-        @SerializedName(SERIALIZED_NAME_AUTO_PRESENT)
-        private Boolean autoPresent;
+public class V20PresCreateRequestRequest {
         public static final String SERIALIZED_NAME_COMMENT = "comment";
         @SerializedName(SERIALIZED_NAME_COMMENT)
         private String comment;
-        public static final String SERIALIZED_NAME_CONNECTION_ID = "connection_id";
-        @SerializedName(SERIALIZED_NAME_CONNECTION_ID)
-        private UUID connectionId;
-        public static final String SERIALIZED_NAME_PRESENTATION_PROPOSAL = "presentation_proposal";
-        @SerializedName(SERIALIZED_NAME_PRESENTATION_PROPOSAL)
-        private IndyPresPreview presentationProposal;
+        public static final String SERIALIZED_NAME_PRESENTATION_REQUEST = "presentation_request";
+        @SerializedName(SERIALIZED_NAME_PRESENTATION_REQUEST)
+        private V20PresRequestByFormat presentationRequest;
         public static final String SERIALIZED_NAME_TRACE = "trace";
         @SerializedName(SERIALIZED_NAME_TRACE)
         private Boolean trace;

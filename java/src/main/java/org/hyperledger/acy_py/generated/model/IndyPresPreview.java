@@ -23,19 +23,24 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import org.hyperledger.acy_py.generated.model.LDProofVCDetail;
-import org.hyperledger.acy_py.generated.model.V20CredFilterIndy;
+import java.util.ArrayList;
+import java.util.List;
+import org.hyperledger.acy_py.generated.model.IndyPresAttrSpec;
+import org.hyperledger.acy_py.generated.model.IndyPresPredSpec;
 
 /**
-* V20CredFilter
+* IndyPresPreview
 */
 
 @lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
-public class V20CredFilter {
-        public static final String SERIALIZED_NAME_INDY = "indy";
-        @SerializedName(SERIALIZED_NAME_INDY)
-        private V20CredFilterIndy indy;
-        public static final String SERIALIZED_NAME_LD_PROOF = "ld_proof";
-        @SerializedName(SERIALIZED_NAME_LD_PROOF)
-        private LDProofVCDetail ldProof;
+public class IndyPresPreview {
+        public static final String SERIALIZED_NAME_AT_TYPE = "@type";
+        @SerializedName(SERIALIZED_NAME_AT_TYPE)
+        private String atType;
+        public static final String SERIALIZED_NAME_ATTRIBUTES = "attributes";
+        @SerializedName(SERIALIZED_NAME_ATTRIBUTES)
+        private List<IndyPresAttrSpec> attributes = new ArrayList<>();
+        public static final String SERIALIZED_NAME_PREDICATES = "predicates";
+        @SerializedName(SERIALIZED_NAME_PREDICATES)
+        private List<IndyPresPredSpec> predicates = new ArrayList<>();
 }

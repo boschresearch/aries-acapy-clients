@@ -23,19 +23,26 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import org.hyperledger.acy_py.generated.model.LDProofVCDetail;
-import org.hyperledger.acy_py.generated.model.V20CredFilterIndy;
 
 /**
-* V20CredFilter
+* IndyPresAttrSpec
 */
 
 @lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
-public class V20CredFilter {
-        public static final String SERIALIZED_NAME_INDY = "indy";
-        @SerializedName(SERIALIZED_NAME_INDY)
-        private V20CredFilterIndy indy;
-        public static final String SERIALIZED_NAME_LD_PROOF = "ld_proof";
-        @SerializedName(SERIALIZED_NAME_LD_PROOF)
-        private LDProofVCDetail ldProof;
+public class IndyPresAttrSpec {
+        public static final String SERIALIZED_NAME_CRED_DEF_ID = "cred_def_id";
+        @SerializedName(SERIALIZED_NAME_CRED_DEF_ID)
+        private String credDefId;
+        public static final String SERIALIZED_NAME_MIME_TYPE = "mime-type";
+        @SerializedName(SERIALIZED_NAME_MIME_TYPE)
+        private String mimeType;
+        public static final String SERIALIZED_NAME_NAME = "name";
+        @SerializedName(SERIALIZED_NAME_NAME)
+        private String name;
+        public static final String SERIALIZED_NAME_REFERENT = "referent";
+        @SerializedName(SERIALIZED_NAME_REFERENT)
+        private String referent;
+        public static final String SERIALIZED_NAME_VALUE = "value";
+        @SerializedName(SERIALIZED_NAME_VALUE)
+        private String value;
 }

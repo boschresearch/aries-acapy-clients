@@ -23,19 +23,15 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import org.hyperledger.acy_py.generated.model.LDProofVCDetail;
-import org.hyperledger.acy_py.generated.model.V20CredFilterIndy;
+import org.hyperledger.acy_py.generated.model.CredentialProposal;
 
 /**
-* V20CredFilter
+* V10CredentialBoundOfferRequest
 */
 
 @lombok.Data @lombok.AllArgsConstructor @lombok.NoArgsConstructor @lombok.Builder
-public class V20CredFilter {
-        public static final String SERIALIZED_NAME_INDY = "indy";
-        @SerializedName(SERIALIZED_NAME_INDY)
-        private V20CredFilterIndy indy;
-        public static final String SERIALIZED_NAME_LD_PROOF = "ld_proof";
-        @SerializedName(SERIALIZED_NAME_LD_PROOF)
-        private LDProofVCDetail ldProof;
+public class V10CredentialBoundOfferRequest {
+        public static final String SERIALIZED_NAME_COUNTER_PROPOSAL = "counter_proposal";
+        @SerializedName(SERIALIZED_NAME_COUNTER_PROPOSAL)
+        private CredentialProposal counterProposal;
 }
