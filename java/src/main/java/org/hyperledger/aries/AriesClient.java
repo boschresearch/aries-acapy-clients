@@ -14,6 +14,10 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import org.apache.commons.lang3.StringUtils;
+import org.hyperledger.acy_py.generated.model.DID;
+import org.hyperledger.acy_py.generated.model.DIDCreate;
+import org.hyperledger.acy_py.generated.model.DIDEndpoint;
+import org.hyperledger.acy_py.generated.model.DIDEndpointWithType;
 import org.hyperledger.aries.api.action_menu.PerformRequest;
 import org.hyperledger.aries.api.action_menu.SendMenu;
 import org.hyperledger.aries.api.connection.*;
@@ -43,9 +47,6 @@ import org.hyperledger.aries.api.schema.SchemaSendResponse;
 import org.hyperledger.aries.api.schema.SchemaSendResponse.Schema;
 import org.hyperledger.aries.api.server.AdminStatusLiveliness;
 import org.hyperledger.aries.api.server.AdminStatusReadiness;
-import org.hyperledger.aries.api.wallet.GetDidEndpointResponse;
-import org.hyperledger.aries.api.wallet.SetDidEndpointRequest;
-import org.hyperledger.aries.api.wallet.WalletDidResponse;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
@@ -363,7 +364,8 @@ public class AriesClient extends BaseClient {
      */
     public Optional<Map<String, String>> connectionsGetMetadata(@NonNull String connectionId) throws IOException {
         Request req = buildGet(url + "/connections/" + connectionId + "/metadata");
-        return call(req, MAP_TYPE);
+        final Optional<String> resp = raw(req);
+        return getWrapped(resp, "results", MAP_TYPE);
     }
 
     /**
@@ -379,7 +381,8 @@ public class AriesClient extends BaseClient {
                 HttpUrl.parse(url + "/connections/" + connectionId + "/metadata")).newBuilder();
         b.addQueryParameter("key", key);
         Request req = buildGet(b.toString());
-        return call(req, String.class);
+        final Optional<String> resp = raw(req);
+        return getWrapped(resp, "results", String.class);
     }
 
     /**
@@ -392,7 +395,8 @@ public class AriesClient extends BaseClient {
     public Optional<Map<String, String>> connectionsSetMetadata(@NonNull String connectionId,
         @NonNull ConnectionSetMetaDataRequest request) throws IOException {
         Request req = buildPost(url + "/connections/" + connectionId + "/metadata", request);
-        return call(req, MAP_TYPE);
+        final Optional<String> resp = raw(req);
+        return getWrapped(resp, "results", MAP_TYPE);
     }
 
     // ----------------------------------------------------
@@ -815,7 +819,11 @@ public class AriesClient extends BaseClient {
         if (t instanceof VerifiableCredential || t instanceof VerifiablePresentation) {
             final JsonElement jsonTree = gson.toJsonTree(t, t.getClass());
             Request req = buildPost(url + "/jsonld/verify", new VerifyRequest(verkey, jsonTree.getAsJsonObject()));
-            return call(req, VerifyResponse.class);
+            Optional<VerifyResponse> response = call(req, VerifyResponse.class);
+            if (response.isPresent() && StringUtils.isNotEmpty(response.get().getError())) {
+                throw new AriesException(0, response.get().getError());
+            }
+            return response;
         }
         throw new IllegalStateException("Expecting either VerifiableCredential or VerifiablePresentation");
     }
@@ -929,10 +937,10 @@ public class AriesClient extends BaseClient {
      * @return no body on success
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public Optional<Void> multitenancyWalletRemove(@NonNull String walletId,
+    public void multitenancyWalletRemove(@NonNull String walletId,
         @NonNull RemoveWalletRequest request) throws IOException {
         Request req = buildPost(url + "/multitenancy/wallet/" + walletId + "/remove", request);
-        return call(req, Void.class);
+        call(req);
     }
 
     /**
@@ -1365,51 +1373,52 @@ public class AriesClient extends BaseClient {
 
     /**
      * List wallet DIDs
-     * @return list of {@link WalletDidResponse}
+     * @return list of {@link DID}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public Optional<List<WalletDidResponse>> walletDid() throws IOException {
+    public Optional<List<DID>> walletDid() throws IOException {
         Request req = buildGet(url + "/wallet/did");
         return getWrapped(raw(req), "results", WALLET_DID_TYPE);
     }
 
     /**
      * Create local DID
-     * @return {@link WalletDidResponse}
+     * @param didCreate {@link DIDCreate}
+     * @return {@link DID}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public Optional<WalletDidResponse> walletDidCreate() throws IOException {
-        Request req = buildPost(url + "/wallet/did/create", EMPTY_JSON);
-        return getWrapped(raw(req), "result", WalletDidResponse.class);
+    public Optional<DID> walletDidCreate(@NonNull DIDCreate didCreate) throws IOException {
+        Request req = buildPost(url + "/wallet/did/create", didCreate);
+        return getWrapped(raw(req), "result", DID.class);
     }
 
     /**
      * Fetch the current public DID
-     * @return {@link WalletDidResponse}
+     * @return {@link DID}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public Optional<WalletDidResponse> walletDidPublic() throws IOException {
+    public Optional<DID> walletDidPublic() throws IOException {
         Request req = buildGet(url + "/wallet/did/public");
-        return getWrapped(raw(req), "result", WalletDidResponse.class);
+        return getWrapped(raw(req), "result", DID.class);
     }
 
     /**
      * Query DID end point in wallet
      * @param did the did
-     * @return {@link GetDidEndpointResponse}
+     * @return {@link DIDEndpoint}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public Optional<GetDidEndpointResponse> walletGetDidEndpoint(@NonNull String did) throws IOException {
+    public Optional<DIDEndpoint> walletGetDidEndpoint(@NonNull String did) throws IOException {
         Request req = buildGet(url + "/wallet/get-did-endpoint" + "?did=" + did);
-        return call(req, GetDidEndpointResponse.class);
+        return call(req, DIDEndpoint.class);
     }
 
     /**
      * Update end point in wallet and, if public, on ledger
-     * @param endpointRequest {@link SetDidEndpointRequest}
+     * @param endpointRequest {@link DIDEndpointWithType}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public void walletSetDidEndpoint(@NonNull SetDidEndpointRequest endpointRequest) throws IOException {
+    public void walletSetDidEndpoint(@NonNull DIDEndpointWithType endpointRequest) throws IOException {
         Request req = buildPost(url + "/wallet/set-did-endpoint", endpointRequest);
         call(req);
     }

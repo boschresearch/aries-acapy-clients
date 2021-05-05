@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor
 public final class VerifyResponse {
     private boolean valid;
+    private String error;
 }

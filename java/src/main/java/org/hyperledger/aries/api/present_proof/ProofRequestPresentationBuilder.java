@@ -6,9 +6,9 @@
 package org.hyperledger.aries.api.present_proof;
 
 import com.google.gson.Gson;
+import org.hyperledger.acy_py.generated.model.DID;
+import org.hyperledger.acy_py.generated.model.DIDEndpoint;
 import org.hyperledger.aries.AriesClient;
-import org.hyperledger.aries.api.wallet.GetDidEndpointResponse;
-import org.hyperledger.aries.api.wallet.WalletDidResponse;
 import org.hyperledger.aries.config.GsonConfig;
 
 import java.io.IOException;
@@ -37,12 +37,12 @@ public class ProofRequestPresentationBuilder {
         String agentVerkey = "";
         String agentURI = "";
 
-        final Optional<WalletDidResponse> walletDidPublic = acaPy.walletDidPublic();
+        final Optional<DID> walletDidPublic = acaPy.walletDidPublic();
         if (walletDidPublic.isPresent()) {
             String agentPublicDid;
             agentVerkey = walletDidPublic.get().getVerkey();
             agentPublicDid = walletDidPublic.get().getDid();
-            final Optional<GetDidEndpointResponse> agentEndpoint = acaPy.walletGetDidEndpoint(agentPublicDid);
+            final Optional<DIDEndpoint> agentEndpoint = acaPy.walletGetDidEndpoint(agentPublicDid);
             if (agentEndpoint.isPresent()) {
                 agentURI = agentEndpoint.get().getEndpoint();
             }

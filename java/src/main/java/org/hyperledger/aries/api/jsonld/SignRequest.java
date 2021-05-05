@@ -13,7 +13,6 @@ import lombok.Data;
 import lombok.NonNull;
 import org.hyperledger.aries.api.jsonld.SignRequest.SignDocument.Options;
 import org.hyperledger.aries.config.GsonConfig;
-import org.hyperledger.aries.config.TimeUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -50,10 +49,8 @@ public final class SignRequest {
         @Data @Builder
         public static final class Options {
             @Nullable
-            private String type;
+            private String creator;
             @Nullable
-            private String created;
-            @NonNull @Nonnull
             @SerializedName("verificationMethod")
             private String verificationMethod;
             @Nullable
@@ -65,8 +62,6 @@ public final class SignRequest {
             public static OptionsBuilder builderWithDefaults() {
                 return Options
                         .builder()
-                        .type("Ed25519Signature2018")
-                        .created(TimeUtil.currentTimeFormatted())
                         .proofPurpose("authentication"); // VP = authentication, VC = assertionMethod
             }
         }
