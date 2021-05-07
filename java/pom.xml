@@ -173,36 +173,37 @@
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>5.1.0</version>
+                <version>5.1.1</version>
                 <!-- aca-py still uses v2 definition file -->
+                <configuration>
+                    <inputSpec>${project.basedir}/swagger/0_7_0_pre_swagger.json</inputSpec>
+                    <generatorName>java</generatorName>
+                    <output>${project.basedir}</output>
+                    <generateApis>false</generateApis>
+                    <generateModelTests>false</generateModelTests>
+                    <generateModelDocumentation>false</generateModelDocumentation>
+                    <generateSupportingFiles>false</generateSupportingFiles>
+                    <skipValidateSpec>true</skipValidateSpec>
+                    <modelPackage>org.hyperledger.acy_py.generated.model</modelPackage>
+                    <withXml>false</withXml>
+                    <library>native</library>
+                    <templateResourcePath>${project.basedir}/swagger/custom_templates</templateResourcePath>
+                    <configOptions>
+                        <sourceFolder>src/main/java</sourceFolder>
+                        <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                        <java8>true</java8>
+                        <dateLibrary>java8</dateLibrary>
+                        <openApiNullable>false</openApiNullable>
+                        <serializationLibrary>gson</serializationLibrary>
+                        <library>okhttp-gson</library>
+                    </configOptions>
+                </configuration>
                 <executions>
                     <execution>
+                        <phase>process-sources</phase><!-- wrong phase, but runs twice otherwise -->
                         <goals>
                             <goal>generate</goal>
                         </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/swagger/0_7_0_pre_swagger.json</inputSpec>
-                            <generatorName>java</generatorName>
-                            <output>${project.basedir}</output>
-                            <generateApis>false</generateApis>
-                            <generateModelTests>false</generateModelTests>
-                            <generateModelDocumentation>false</generateModelDocumentation>
-                            <generateSupportingFiles>false</generateSupportingFiles>
-                            <skipValidateSpec>true</skipValidateSpec>
-                            <modelPackage>org.hyperledger.acy_py.generated.model</modelPackage>
-                            <withXml>false</withXml>
-                            <library>native</library>
-                            <templateResourcePath>${project.basedir}/swagger/custom_templates</templateResourcePath>
-                            <configOptions>
-                                <sourceFolder>src/main/java</sourceFolder>
-                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
-                                <java8>true</java8>
-                                <dateLibrary>java8</dateLibrary>
-                                <openApiNullable>false</openApiNullable>
-                                <serializationLibrary>gson</serializationLibrary>
-                                <library>okhttp-gson</library>
-                            </configOptions>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -229,15 +230,6 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>${maven-release-plugin.version}</version>
-                <configuration>
-                    <scmCommentPrefix>[ci skip]</scmCommentPrefix>
-                    <tagNameFormat>@{project.version}</tagNameFormat>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
@@ -258,6 +250,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.2.0</version>
                 <configuration>
+                    <excludePackageNames>*.generated</excludePackageNames>
                     <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
                 </configuration>
                 <executions>
@@ -452,6 +445,15 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven-release-plugin.version}</version>
+                <configuration>
+                    <scmCommentPrefix>[ci skip]</scmCommentPrefix>
+                    <tagNameFormat>@{project.version}</tagNameFormat>
+                </configuration>
             </plugin>
         </plugins>
         <pluginManagement>

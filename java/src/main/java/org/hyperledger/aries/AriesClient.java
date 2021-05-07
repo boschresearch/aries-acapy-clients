@@ -41,6 +41,7 @@ import org.hyperledger.aries.api.out_of_band.CreateInvitationFilter;
 import org.hyperledger.aries.api.out_of_band.InvitationCreateRequest;
 import org.hyperledger.aries.api.out_of_band.InvitationRecord;
 import org.hyperledger.aries.api.present_proof.*;
+import org.hyperledger.aries.api.resolver.DIDDocument;
 import org.hyperledger.aries.api.revocation.*;
 import org.hyperledger.aries.api.schema.SchemaSendRequest;
 import org.hyperledger.aries.api.schema.SchemaSendResponse;
@@ -57,6 +58,9 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * ACA-PY client
+ */
 @Slf4j
 public class AriesClient extends BaseClient {
 
@@ -735,6 +739,7 @@ public class AriesClient extends BaseClient {
     /**
      * Store a received credential
      * @param credentialExchangeId the credential exchange id
+     * @param request {@link V1CredentialStoreRequest}
      * @return {@link V1CredentialExchange}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
@@ -839,12 +844,12 @@ public class AriesClient extends BaseClient {
      * @return {@link EndpointResponse}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public Optional<EndpointResponse> ledgerDidEndpoint(@NonNull String did, @Nullable EndpointType type)
-            throws IOException{
+    public Optional<EndpointResponse> ledgerDidEndpoint(@NonNull String did,
+        @Nullable DIDEndpointWithType.EndpointTypeEnum type) throws IOException{
         HttpUrl.Builder b = Objects.requireNonNull(HttpUrl.parse(url + "/ledger/did-endpoint")).newBuilder();
         b.addQueryParameter("did", did);
         if (type != null) {
-            b.addQueryParameter("endpoint_type", type.getAcaPyName());
+            b.addQueryParameter("endpoint_type", type.getValue());
         }
         Request req = buildGet(b.build().toString());
         return call(req, EndpointResponse.class);
@@ -934,7 +939,6 @@ public class AriesClient extends BaseClient {
      * remove a sub wallet
      * @param walletId sub wallet identifier
      * @param request {@link RemoveWalletRequest}
-     * @return no body on success
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
     public void multitenancyWalletRemove(@NonNull String walletId,
@@ -982,7 +986,7 @@ public class AriesClient extends BaseClient {
      * @param request {@link InvitationCreateRequest}
      * @param filter optional {@link CreateInvitationFilter}
      * @return {@link InvitationRecord}
-     * @throws IOException
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
     public Optional<InvitationRecord> outOfBandCreateInvitation(
             @NonNull InvitationCreateRequest request, CreateInvitationFilter filter) throws IOException {
@@ -1177,6 +1181,25 @@ public class AriesClient extends BaseClient {
         JsonObject proofRequest = gson.fromJson(proofRequestJson, JsonObject.class);
         Request req = buildPost(url + "/present-proof/send-request", proofRequest);
         return call(req, PresentationExchangeRecord.class);
+    }
+
+    // ----------------------------------------------------
+    // Present-Proof v2.0 - Proof presentation v2.0
+    // ----------------------------------------------------
+
+    // ----------------------------------------------------
+    // Resolver - Retrieve doc for requested did
+    // ----------------------------------------------------
+
+    /**
+     * Retrieve doc for requested did
+     * @param did the did
+     * @return {@link DIDDocument}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<DIDDocument> resolverResolveDid(@NonNull String did) throws IOException {
+        Request req = buildGet(url + "/resolver/resolve/" + did);
+        return call(req, DIDDocument.class);
     }
 
     // ----------------------------------------------------

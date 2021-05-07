@@ -57,11 +57,14 @@ public final class SignRequest {
             @SerializedName("proofPurpose")
             private String proofPurpose;
 
+            private String type;
+
             public static class OptionsBuilder {} // java doc plugin cannot handle lombok
 
             public static OptionsBuilder builderWithDefaults() {
                 return Options
                         .builder()
+                        .type("Ed25519Signature2018")
                         .proofPurpose("authentication"); // VP = authentication, VC = assertionMethod
             }
         }
