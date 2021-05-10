@@ -57,6 +57,7 @@
         <maven-release-plugin.version>3.0.0-M1</maven-release-plugin.version>
         <maven.surefire.version>2.22.2</maven.surefire.version>
         <!-- Dependency Versions -->
+        <jackson.version>2.12.3</jackson.version>
         <junit.jupiter.api.version>5.7.1</junit.jupiter.api.version>
         <kotlin.version>1.4.32</kotlin.version>
         <lombok.version>1.18.20</lombok.version>
@@ -115,7 +116,12 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>2.12.3</version>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>io.swagger</groupId>
@@ -173,7 +179,7 @@
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>5.1.0</version>
+                <version>5.1.1</version>
                 <!-- aca-py still uses v2 definition file -->
                 <executions>
                     <execution>
@@ -181,6 +187,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
+                            <skip>true</skip>
                             <inputSpec>${project.basedir}/swagger/0_6_0_swagger.json</inputSpec>
                             <generatorName>java</generatorName>
                             <output>${project.basedir}</output>

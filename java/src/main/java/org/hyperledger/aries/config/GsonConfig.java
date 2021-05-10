@@ -11,6 +11,10 @@ import com.google.gson.GsonBuilder;
 
 public class GsonConfig {
 
+    /**
+     * Builder based on aca-py's default field naming strategy
+     * @return {@link Gson}
+     */
     public static Gson defaultConfig() {
         return defaultBuilder()
                 .create()
@@ -20,6 +24,17 @@ public class GsonConfig {
     public static Gson prettyPrinter() {
         return defaultBuilder()
                 .setPrettyPrinting()
+                .create()
+                ;
+    }
+
+    /**
+     * Matches jackson's default serialization/deserialization behaviour
+     * @return {@link Gson}
+     */
+    public static Gson jacksonBehaviour() {
+        return new GsonBuilder()
+                .serializeNulls()
                 .create()
                 ;
     }
