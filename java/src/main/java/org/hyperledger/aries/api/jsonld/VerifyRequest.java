@@ -6,7 +6,6 @@
 package org.hyperledger.aries.api.jsonld;
 
 import com.google.gson.JsonObject;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -4,7 +4,7 @@
 
     <groupId>org.hyperledger</groupId>
     <artifactId>aries-client-python</artifactId>
-    <version>0.16.0-SNAPSHOT</version>
+    <version>0.17.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -57,6 +57,7 @@
         <maven-release-plugin.version>3.0.0-M1</maven-release-plugin.version>
         <maven.surefire.version>2.22.2</maven.surefire.version>
         <!-- Dependency Versions -->
+        <jackson.version>2.12.3</jackson.version>
         <junit.jupiter.api.version>5.7.1</junit.jupiter.api.version>
         <kotlin.version>1.4.32</kotlin.version>
         <lombok.version>1.18.20</lombok.version>
@@ -115,7 +116,12 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>2.12.3</version>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>io.swagger</groupId>
