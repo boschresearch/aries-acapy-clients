@@ -53,16 +53,33 @@
         <jdk.version>11</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Plugin Versions -->
+        <license-maven-plugin.version>4.1</license-maven-plugin.version>
         <maven-release-plugin.version>3.0.0-M1</maven-release-plugin.version>
         <maven.surefire.version>2.22.2</maven.surefire.version>
         <!-- Dependency Versions -->
+        <jackson.version>2.12.3</jackson.version>
         <junit.jupiter.api.version>5.7.1</junit.jupiter.api.version>
         <kotlin.version>1.4.32</kotlin.version>
         <lombok.version>1.18.20</lombok.version>
         <okhttp.version>4.9.1</okhttp.version>
-        <pmd.version>6.33.0</pmd.version>
+        <pmd.version>6.34.0</pmd.version>
         <testcontainers.version>1.15.3</testcontainers.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency><!-- okhttp vulnerability overwrite -->
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-stdlib</artifactId>
+                <version>${kotlin.version}</version>
+            </dependency>
+            <dependency><!-- okhttp vulnerability overwrite -->
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-stdlib-common</artifactId>
+                <version>${kotlin.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -80,16 +97,6 @@
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
             <version>${okhttp.version}</version>
-        </dependency>
-        <dependency><!-- okhttp vulnerability overwrite -->
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
-        <dependency><!-- okhttp vulnerability overwrite -->
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-common</artifactId>
-            <version>${kotlin.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -109,7 +116,17 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>2.12.3</version>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.6.2</version>
         </dependency>
         <!-- Scope Test -->
         <dependency>
@@ -160,6 +177,43 @@
         <plugins>
             <!-- Build -->
             <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>5.1.1</version>
+                <!-- aca-py still uses v2 definition file -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <skip>true</skip>
+                            <inputSpec>${project.basedir}/swagger/0_6_0_swagger.json</inputSpec>
+                            <generatorName>java</generatorName>
+                            <output>${project.basedir}</output>
+                            <generateApis>false</generateApis>
+                            <generateModelTests>false</generateModelTests>
+                            <generateModelDocumentation>false</generateModelDocumentation>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <skipValidateSpec>true</skipValidateSpec>
+                            <modelPackage>org.hyperledger.acy_py.generated.model</modelPackage>
+                            <withXml>false</withXml>
+                            <library>native</library>
+                            <templateResourcePath>${project.basedir}/swagger/custom_templates</templateResourcePath>
+                            <configOptions>
+                                <sourceFolder>src/main/java</sourceFolder>
+                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+                                <java8>true</java8>
+                                <dateLibrary>java8</dateLibrary>
+                                <openApiNullable>false</openApiNullable>
+                                <serializationLibrary>gson</serializationLibrary>
+                                <library>okhttp-gson</library>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>${maven-release-plugin.version}</version>
@@ -176,6 +230,13 @@
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
             <plugin>
@@ -270,6 +331,9 @@
                     <targetJdk>${jdk.version}</targetJdk>
                     <printFailingErrors>true</printFailingErrors>
                     <analysisCache>true</analysisCache>
+                    <excludes>
+                        <exclude>**/generated/model/*.java</exclude>
+                    </excludes>
                 </configuration>
                 <executions>
                     <execution>
@@ -283,10 +347,10 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>6.1.5</version>
+                <version>6.1.6</version>
                 <configuration>
                     <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability>
-                    <skip>true</skip>
+                    <skip>false</skip>
                 </configuration>
                 <executions>
                     <execution>
@@ -343,20 +407,30 @@
             <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
-                <version>4.0</version>
+                <version>${license-maven-plugin.version}</version>
                 <configuration>
                     <licenseSets>
                         <licenseSet>
                             <header>license-header.txt</header>
+                            <excludes>
+                                <exclude>src/*/java/**/generated/**/*.java</exclude>
+                            </excludes>
                             <includes>
                                 <include>src/*/java/**/*.java</include>
                             </includes>
                         </licenseSet>
                     </licenseSets>
                     <properties>
-                        <licenseYear>2021</licenseYear>
+                        <project.inceptionYear>2020</project.inceptionYear>
                     </properties>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.mycila</groupId>
+                        <artifactId>license-maven-plugin-git</artifactId>
+                        <version>${license-maven-plugin.version}</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <goals>

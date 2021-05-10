@@ -1,16 +1,18 @@
 /*
- * Copyright (c) 2021 Robert Bosch GmbH. All Rights Reserved.
+ * Copyright (c) 2020-2021 Robert Bosch GmbH. All Rights Reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.did_exchange;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hyperledger.aries.api.serializer.JsonObjectSerializer;
 
 import java.util.List;
 
@@ -36,6 +38,7 @@ public class DIDXRequestDidDocAttach {
     @Data @Builder @NoArgsConstructor @AllArgsConstructor
     public static class AttachDecoratorData {
         private String base64;
+        @JsonSerialize(using = JsonObjectSerializer.class)
         private JsonObject json;
         private AttachDecoratorDataJws jws;
         private List<String> links;

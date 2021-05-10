@@ -1,14 +1,16 @@
 /*
- * Copyright (c) 2021 Robert Bosch GmbH. All Rights Reserved.
+ * Copyright (c) 2020-2021 Robert Bosch GmbH. All Rights Reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.present_proof;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import org.hyperledger.aries.MockedTestBase;
+import org.hyperledger.aries.config.GsonConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -74,5 +76,25 @@ public class MockedPresentProofTest extends MockedTestBase {
         HttpUrl.Builder builder = Objects.requireNonNull(HttpUrl.parse("http://localhost/foo")).newBuilder();
         filter.buildParams(builder);
         Assertions.assertTrue(builder.build().toString().endsWith("referent=foo%2Cbar"));
+    }
+
+    @Test
+    void testJacksonSerialization() throws Exception {
+        String json = loader.load("files/present-proof-records.json");
+        server.enqueue(new MockResponse().setBody(json));
+
+        final Optional<List<PresentationExchangeRecord>> res = ac.presentProofRecords();
+
+        Assertions.assertTrue(res.isPresent());
+        assertEquals(2, res.get().size());
+
+        ObjectMapper mapper = new ObjectMapper();
+        assertEquals(
+                mapper.writeValueAsString(res.get().get(0)),
+                GsonConfig.jacksonBehaviour().toJson(res.get().get(0)));
+
+        assertEquals(
+                mapper.writeValueAsString(res.get().get(1)),
+                GsonConfig.jacksonBehaviour().toJson(res.get().get(1)));
     }
 }

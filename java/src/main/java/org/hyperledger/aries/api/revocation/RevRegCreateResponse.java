@@ -1,10 +1,12 @@
 /*
- * Copyright (c) 2021 Robert Bosch GmbH. All Rights Reserved.
+ * Copyright (c) 2020-2021 Robert Bosch GmbH. All Rights Reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.revocation;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.hyperledger.aries.api.serializer.JsonObjectSerializer;
 import org.hyperledger.aries.config.CredDefId;
 
 import com.google.gson.JsonArray;
@@ -37,6 +39,7 @@ public class RevRegCreateResponse {
     @Data @NoArgsConstructor
     public static final class RevocRegEntry {
         private String ver;
+        @JsonSerialize(using = JsonObjectSerializer.class)
         private JsonObject value;
     }
 
@@ -58,6 +61,7 @@ public class RevRegCreateResponse {
             @SerializedName(value = "maxCredNum", alternate = "max_cred_num")
             private Long maxCredNum;
             @SerializedName(value = "publicKeys", alternate = "public_keys")
+            @JsonSerialize(using = JsonObjectSerializer.class)
             private JsonObject publicKeys;
             @SerializedName(value = "tailsHash", alternate = "tails_hash")
             private String tailsHash;

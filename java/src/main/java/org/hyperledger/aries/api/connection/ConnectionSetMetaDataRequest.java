@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Robert Bosch GmbH. All Rights Reserved.
+ * Copyright (c) 2020-2021 Robert Bosch GmbH. All Rights Reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  */

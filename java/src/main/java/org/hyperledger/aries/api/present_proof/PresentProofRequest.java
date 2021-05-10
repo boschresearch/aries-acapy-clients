@@ -1,14 +1,16 @@
 /*
- * Copyright (c) 2021 Robert Bosch GmbH. All Rights Reserved.
+ * Copyright (c) 2020-2021 Robert Bosch GmbH. All Rights Reserved.
  *
  * SPDX-License-Identifier: Apache-2.0
  */
 package org.hyperledger.aries.api.present_proof;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import lombok.*;
 import org.hyperledger.aries.api.present_proof.PresentProofRequest.ProofRequest.ProofAttributes.ProofNonRevoked;
+import org.hyperledger.aries.api.serializer.JsonObjectArraySerializer;
 import org.hyperledger.aries.config.CredDefId;
 import org.hyperledger.aries.config.GsonConfig;
 
@@ -58,6 +60,7 @@ public class PresentProofRequest {
             /** @since 0.5.4 */
             private List<String> names;
             private ProofNonRevoked nonRevoked;
+            @JsonSerialize(using = JsonObjectArraySerializer.class)
             private List<JsonObject> restrictions = new ArrayList<>();
 
             @Data @NoArgsConstructor @AllArgsConstructor @Builder
