@@ -35,10 +35,14 @@ public class ProofRequestPresentation {
     @SerializedName("request_presentations~attach")
     private List<PresentationAttachment> request;
 
+    @SerializedName("~thread")
+    private Thread thread;
+
     public ProofRequestPresentation(String ariesUri, String verkey, String threadId, String proofRequest) {
         this.id = threadId;
         this.service = new ServiceDecorator(ariesUri, verkey, threadId);
         this.request = List.of(new PresentationAttachment(proofRequest));
+        this.thread = new Thread(threadId);
     }
 
 
@@ -69,13 +73,9 @@ public class ProofRequestPresentation {
         @SerializedName("serviceEndpoint")
         private String serviceEndpoint;
 
-        @SerializedName("~thread")
-        private Thread thread;
-
-        public ServiceDecorator(String ariesUri, String verkey, String threadId) {
+        public ServiceDecorator(String ariesUri, String verkey) {
             this.serviceEndpoint = ariesUri;
             this.recipientKeys = List.of(verkey);
-            this.thread = new Thread(threadId);
         }
     }
 
