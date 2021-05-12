@@ -6,6 +6,7 @@
 package org.hyperledger.aries.api.present_proof;
 
 import com.google.gson.annotations.SerializedName;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class ProofRequestPresentation {
 
     public ProofRequestPresentation(String ariesUri, String verkey, String threadId, String proofRequest) {
         this.id = threadId;
-        this.service = new ServiceDecorator(ariesUri, verkey);
+        this.service = new ServiceDecorator(ariesUri, verkey, threadId);
         this.request = List.of(new PresentationAttachment(proofRequest));
     }
 
@@ -68,9 +69,24 @@ public class ProofRequestPresentation {
         @SerializedName("serviceEndpoint")
         private String serviceEndpoint;
 
-        public ServiceDecorator(String ariesUri, String verkey) {
+        @SerializedName("~thread")
+        private Thread thread;
+
+        public ServiceDecorator(String ariesUri, String verkey, String threadId) {
             this.serviceEndpoint = ariesUri;
             this.recipientKeys = List.of(verkey);
+            this.thread = new Thread(threadId);
+        }
+    }
+
+    @Data
+    public static class Thread {
+        private String thid;
+        private Integer senderOrder = 0;
+        private Object receivedOrders;
+
+        public Thread(String thid) {
+            this.thid = thid;
         }
     }
 }

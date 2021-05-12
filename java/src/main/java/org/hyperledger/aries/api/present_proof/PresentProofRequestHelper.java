@@ -50,7 +50,7 @@ public class PresentProofRequestHelper {
      * @return {@link PresentProofRequest}
      */
     public static PresentProofRequest buildForEachAttribute(
-            @NonNull String connectionId,
+            String connectionId,
             @NonNull List<String> attributes,
             @NonNull List<PresentProofRequest.ProofRequest.ProofAttributes.ProofRestrictions> restrictions) {
 
@@ -80,7 +80,7 @@ public class PresentProofRequestHelper {
      * @return {@link PresentProofRequest}
      */
     public static PresentProofRequest buildForEachAttribute(
-            @NonNull String connectionId,
+            String connectionId,
             @NonNull List<String> attributes,
             @Nullable PresentProofRequest.ProofRequest.ProofAttributes.ProofRestrictions restrictions) {
         return buildForEachAttribute(connectionId, attributes, restrictions != null ?  List.of(restrictions) : List.of());
@@ -95,7 +95,7 @@ public class PresentProofRequestHelper {
      * @return {@link PresentProofRequest}
      */
     public static <T> PresentProofRequest buildForEachAttribute(
-            @NonNull String connectionId,
+            String connectionId,
             @NonNull Class<T> attributes,
             @Nullable List<PresentProofRequest.ProofRequest.ProofAttributes.ProofRestrictions> restrictions) {
         return buildForEachAttribute(connectionId, PojoProcessor.fieldNames(attributes),
@@ -111,7 +111,7 @@ public class PresentProofRequestHelper {
      * @return {@link PresentProofRequest}
      */
     public static <T> PresentProofRequest buildForEachAttribute(
-            @NonNull String connectionId,
+            String connectionId,
             @NonNull Class<T> attributes,
             @Nullable PresentProofRequest.ProofRequest.ProofAttributes.ProofRestrictions restrictions) {
         return buildForEachAttribute(connectionId, PojoProcessor.fieldNames(attributes), restrictions);
@@ -144,7 +144,7 @@ public class PresentProofRequestHelper {
      * @return {@link PresentProofRequest}
      */
     public static PresentProofRequest buildForAllAttributes(
-            @NonNull String connectionId,
+            String connectionId,
             @NonNull List<String> attributes,
             @NonNull List<PresentProofRequest.ProofRequest.ProofAttributes.ProofRestrictions> restrictions) {
         PresentProofRequest.ProofRequest.ProofAttributes attr = PresentProofRequest.ProofRequest.ProofAttributes
@@ -174,7 +174,7 @@ public class PresentProofRequestHelper {
      * @return {@link PresentProofRequest}
      */
     public static <T> PresentProofRequest buildForAllAttributes(
-            @NonNull String connectionId,
+            String connectionId,
             @NonNull Class<T> attributes,
             @NonNull List<PresentProofRequest.ProofRequest.ProofAttributes.ProofRestrictions> restrictions) {
         return buildForAllAttributes(connectionId, PojoProcessor.fieldNames(attributes), restrictions);
