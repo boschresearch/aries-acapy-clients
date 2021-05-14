@@ -6,7 +6,6 @@
 package org.hyperledger.aries.api.present_proof;
 
 import com.google.gson.annotations.SerializedName;
-import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
@@ -25,7 +24,7 @@ public class ProofRequestPresentation {
     private String id;
 
     @SerializedName("@type")
-    private String type = "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/present-proof/1.0/request-presentation";
+    private String type = "https://didcomm.org/present-proof/1.0/request-presentation";
 
     private String comment = "";
 
@@ -40,11 +39,10 @@ public class ProofRequestPresentation {
 
     public ProofRequestPresentation(String ariesUri, String verkey, String threadId, String proofRequest) {
         this.id = threadId;
-        this.service = new ServiceDecorator(ariesUri, verkey, threadId);
+        this.service = new ServiceDecorator(ariesUri, verkey);
         this.request = List.of(new PresentationAttachment(proofRequest));
         this.thread = new Thread(threadId);
     }
-
 
     @Data
     public static class PresentationAttachment {

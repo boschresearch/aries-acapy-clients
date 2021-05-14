@@ -36,10 +36,11 @@ class ProofRequestPresentationBuilderTest extends IntegrationTestBase {
                         .schemaId("WgWxqztrNooG92RXvxSTWv:2:schema_name:1.0")
                         .build());
 
-        Optional<String> base64 = builder.buildRequest(presentProofRequest);
+        Optional<ProofRequestPresentationBuilder.BuiltPresentationRequest> base64 = builder
+                .buildRequest(presentProofRequest);
         Assertions.assertTrue(base64.isPresent());
 
-        byte[] base64Decoded = Base64.getDecoder().decode(base64.get());
+        byte[] base64Decoded = Base64.getDecoder().decode(base64.get().getEnvelopeBase64());
         String json = new String(base64Decoded, UTF_8);
         ProofRequestPresentation presentation = gson.fromJson(json, ProofRequestPresentation.class);
 

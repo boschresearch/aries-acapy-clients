@@ -160,7 +160,7 @@ public class PresentProofRequestHelper {
                 .builder()
                 .proofRequest(PresentProofRequest.ProofRequest
                         .builder()
-                        .requestedAttributes(Map.of("referent", attr))
+                        .requestedAttributes(Map.of("attribute_group_0", attr))
                         .build())
                 .connectionId(connectionId)
                 .build();

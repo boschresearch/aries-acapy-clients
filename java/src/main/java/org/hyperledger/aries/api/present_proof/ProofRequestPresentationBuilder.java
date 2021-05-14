@@ -6,6 +6,8 @@
 package org.hyperledger.aries.api.present_proof;
 
 import com.google.gson.Gson;
+import lombok.Builder;
+import lombok.Data;
 import org.hyperledger.aries.AriesClient;
 import org.hyperledger.aries.api.wallet.GetDidEndpointResponse;
 import org.hyperledger.aries.api.wallet.WalletDidResponse;
@@ -30,9 +32,9 @@ public class ProofRequestPresentationBuilder {
         this.acaPy = acaPy;
     }
 
-    public Optional<String> buildRequest(PresentProofRequest presentProofRequest) throws IOException {
+    public Optional<BuiltPresentationRequest> buildRequest(PresentProofRequest presentProofRequest) throws IOException {
 
-        Optional<String> result = Optional.empty();
+        Optional<BuiltPresentationRequest> result = Optional.empty();
 
         // TODO make optional params, and only if not present resolve
         String agentVerkey = "";
@@ -55,8 +57,18 @@ public class ProofRequestPresentationBuilder {
             ProofRequestPresentation envelope = new ProofRequestPresentation(
                     agentURI, agentVerkey, exchangeRecord.get().getThreadId(), new String(proofRequestBase64, UTF_8));
             byte[] envelopeBase64 = Base64.getEncoder().encode(gson.toJson(envelope).getBytes(UTF_8));
-            result = Optional.of(new String(envelopeBase64, UTF_8));
+            result = Optional.of(BuiltPresentationRequest
+                        .builder()
+                        .presentationExchangeRecord(exchangeRecord.get())
+                        .envelopeBase64(new String(envelopeBase64, UTF_8))
+                        .build());
         }
         return result;
+    }
+
+    @Data @Builder
+    public static final class BuiltPresentationRequest {
+        private String envelopeBase64;
+        private PresentationExchangeRecord presentationExchangeRecord;
     }
 }
