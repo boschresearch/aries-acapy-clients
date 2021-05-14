@@ -39,6 +39,18 @@ public class GsonConfig {
                 ;
     }
 
+    /**
+     * Builder based on aca-py's default field naming strategy
+     * but without HTML escaping
+     * @return {@link Gson}
+     */
+    public static Gson defaultNoEscaping() {
+        return defaultBuilder()
+                .disableHtmlEscaping()
+                .create()
+                ;
+    }
+
     private static GsonBuilder defaultBuilder() {
         return new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
