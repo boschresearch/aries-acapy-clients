@@ -75,6 +75,8 @@ public class PresentationExchangeRecord {
      * Sets the received presentation attributes on the instance. Only works for matching names.
      * The {@link AttributeName} annotation can be used to exclude fields from processing or to
      * handle different names.
+     * The {@link org.hyperledger.aries.pojo.AttributeGroupName} annotation can be used to specify the attribute group
+     * name of the presentation in case there is more than one.
      * @param <T> The class type
      * @param type the POJO template to instantiate
      * @return Instance of the POJO with set properties

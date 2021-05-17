@@ -9,6 +9,7 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.hyperledger.aries.api.present_proof.PresentationExchangeRecord;
 import org.hyperledger.aries.api.present_proof.PresentationExchangeRecord.Identifier;
 import org.hyperledger.aries.config.GsonConfig;
@@ -68,7 +69,8 @@ public class EventParser {
         T result = PojoProcessor.getInstance(type);
 
         final Set<Entry<String, JsonElement>> revealedAttrs = getRevealedAttributes(json);
-        final Set<Entry<String, JsonElement>> revealedAttrGroups = getRevealedAttrGroups(json);
+        final Set<Entry<String, JsonElement>> revealedAttrGroups = getRevealedAttrGroups(
+                json, PojoProcessor.getAttributeGroupName(type));
 
         List<Field> fields = PojoProcessor.fields(type);
         AccessController.doPrivileged((PrivilegedAction<Void>) () -> {
@@ -97,7 +99,7 @@ public class EventParser {
         Map<String, Object> result = new HashMap<>();
 
         final Set<Entry<String, JsonElement>> revealedAttrs = getRevealedAttributes(json);
-        final Set<Entry<String, JsonElement>> revealedAttrGroups = getRevealedAttrGroups(json);
+        final Set<Entry<String, JsonElement>> revealedAttrGroups = getRevealedAttrGroups(json, null);
 
         names.forEach(name -> {
             String value = getValueFor(name, revealedAttrs.isEmpty() ? revealedAttrGroups : revealedAttrs);
@@ -130,7 +132,7 @@ public class EventParser {
                 ;
     }
 
-    private static Set<Entry<String, JsonElement>> getRevealedAttrGroups(String json) {
+    private static Set<Entry<String, JsonElement>> getRevealedAttrGroups(@NonNull String json, String groupName) {
         Set<Entry<String, JsonElement>> result = new LinkedHashSet<>();
         final JsonElement attr = JsonParser
                 .parseString(json)
@@ -141,17 +143,23 @@ public class EventParser {
             return result;
         }
         JsonObject attrGroup = attr.getAsJsonObject();
-        final Set<String> childs = attrGroup.keySet();
-        childs.forEach(c -> {
-                    final Set<Entry<String, JsonElement>> attrs = attrGroup.get(c).getAsJsonObject().get("values").getAsJsonObject().entrySet();
-                    attrs.forEach(a -> {
-                        if(!result.contains(a)) {
-                            result.add(a);
-                        }
-                    });
-                }
-        );
+        final Set<String> children = attrGroup.keySet();
+        if (StringUtils.isNotEmpty(groupName)) {
+            extract(result, attrGroup, groupName);
+        } else { // brute force
+            children.forEach(c -> extract(result, attrGroup, c));
+        }
         return result;
+    }
+
+    private static void extract(Set<Entry<String, JsonElement>> result, JsonObject attrGroup, String groupName) {
+        final Set<Entry<String, JsonElement>> attrs = attrGroup
+                .get(groupName).getAsJsonObject().get("values").getAsJsonObject().entrySet();
+        attrs.forEach(a -> {
+            if(!result.contains(a)) {
+                result.add(a);
+            }
+        });
     }
 
 }

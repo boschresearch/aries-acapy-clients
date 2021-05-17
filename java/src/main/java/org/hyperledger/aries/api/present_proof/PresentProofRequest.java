@@ -65,6 +65,7 @@ public class PresentProofRequest {
 
             @Data @NoArgsConstructor @AllArgsConstructor @Builder
             public static class ProofNonRevoked {
+                private Long from;
                 private Long to;
             }
 
