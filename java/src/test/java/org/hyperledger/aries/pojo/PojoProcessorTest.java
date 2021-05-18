@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class PojoProcessorTest {
 
@@ -33,6 +34,14 @@ class PojoProcessorTest {
         assertEquals("myCity", attr.get(2));
     }
 
+    @Test
+    void testGetAttributeGroupName() {
+        String group = PojoProcessor.getAttributeGroupName(ConcreteExample.class);
+        assertNotNull(group);
+        assertEquals("group_01", group);
+    }
+
+    @AttributeGroupName("group_01")
     @Data @NoArgsConstructor @AllArgsConstructor
     static class ConcreteExample {
         public static final String DUMMY = "public dummy field";

@@ -24,7 +24,7 @@ public class ProofRequestPresentation {
     private String id;
 
     @SerializedName("@type")
-    private String type = "did:sov:BzCbsNYhMrjHiqZDTUASHg;spec/present-proof/1.0/request-presentation";
+    private String type = "https://didcomm.org/present-proof/1.0/request-presentation";
 
     private String comment = "";
 
@@ -34,12 +34,15 @@ public class ProofRequestPresentation {
     @SerializedName("request_presentations~attach")
     private List<PresentationAttachment> request;
 
+    @SerializedName("~thread")
+    private Thread thread;
+
     public ProofRequestPresentation(String ariesUri, String verkey, String threadId, String proofRequest) {
         this.id = threadId;
         this.service = new ServiceDecorator(ariesUri, verkey);
         this.request = List.of(new PresentationAttachment(proofRequest));
+        this.thread = new Thread(threadId);
     }
-
 
     @Data
     public static class PresentationAttachment {
@@ -71,6 +74,17 @@ public class ProofRequestPresentation {
         public ServiceDecorator(String ariesUri, String verkey) {
             this.serviceEndpoint = ariesUri;
             this.recipientKeys = List.of(verkey);
+        }
+    }
+
+    @Data
+    public static class Thread {
+        private String thid;
+        private Integer senderOrder = 0;
+        private Object receivedOrders;
+
+        public Thread(String thid) {
+            this.thid = thid;
         }
     }
 }

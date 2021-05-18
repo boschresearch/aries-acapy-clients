@@ -3,7 +3,7 @@
 Convenience library based on okhttp and gson to interact with aries cloud agent python (aca-py) instances.  
 It is currently work in progress and not all endpoints of the agent are present in the client.
 
-##Version Compatibility
+## Version Compatibility
 
 | Client Version | ACA-PY Version |
 |----------------|----------------|

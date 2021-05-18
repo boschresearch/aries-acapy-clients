@@ -65,8 +65,8 @@ public class PresentProofRequest {
 
             @Data @NoArgsConstructor @AllArgsConstructor @Builder
             public static class ProofNonRevoked {
-                private Integer toEpoch;
-                private Integer fromEpoch;
+                private Long from;
+                private Long to;
             }
 
             @Data @NoArgsConstructor @AllArgsConstructor @Builder

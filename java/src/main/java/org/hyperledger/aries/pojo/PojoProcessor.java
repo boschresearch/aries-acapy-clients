@@ -49,6 +49,14 @@ public class PojoProcessor {
         return fieldName;
     }
 
+    public static String getAttributeGroupName(@NonNull Class<?> type) {
+        String group = null;
+        if (type.isAnnotationPresent(AttributeGroupName.class)) {
+            group = type.getDeclaredAnnotation(AttributeGroupName.class).value();
+        }
+        return group;
+    }
+
     public static @Nonnull <T> T getInstance(@NonNull Class<T> type) {
         return AccessController.doPrivileged((PrivilegedAction<T>) () -> {
             T result;
