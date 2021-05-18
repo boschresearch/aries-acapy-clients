@@ -95,7 +95,9 @@ It is currently work in progress and not all endpoints of the agent are present 
 | POST   | /present-proof/send-request                             | :white_check_mark: |
 |        | **revocation**                                          |                    |
 | GET    | /revocation/active-registry/{cred_def_id}               | :white_check_mark: |
+| POST   | /revocation/clear-pending-revocations                   | :white_check_mark: |
 | POST   | /revocation/create-registry                             | :white_check_mark: |
+| POST   | /revocation/publish-revocations                         | :white_check_mark: |
 | GET    | /revocation/registries/created                          | :white_check_mark: |
 | GET    | /revocation/registry/{rev_reg_id}                       | :white_check_mark: |
 | PATCH  | /revocation/registry/{rev_reg_id}                       | :white_check_mark: |

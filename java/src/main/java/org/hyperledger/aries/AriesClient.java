@@ -18,6 +18,8 @@ import org.hyperledger.acy_py.generated.model.DID;
 import org.hyperledger.acy_py.generated.model.DIDCreate;
 import org.hyperledger.acy_py.generated.model.DIDEndpoint;
 import org.hyperledger.acy_py.generated.model.DIDEndpointWithType;
+import org.hyperledger.acy_py.generated.model.ClearPendingRevocationsRequest;
+import org.hyperledger.acy_py.generated.model.PublishRevocations;
 import org.hyperledger.aries.api.action_menu.PerformRequest;
 import org.hyperledger.aries.api.action_menu.SendMenu;
 import org.hyperledger.aries.api.connection.*;
@@ -1219,6 +1221,20 @@ public class AriesClient extends BaseClient {
     }
 
     /**
+     * Clear pending revocations
+     * @param request {@link ClearPendingRevocationsRequest} Credential revocation ids by revocation registry id:
+     * omit for all, specify null or empty list for all pending per revocation registry
+     * @return {@link PublishRevocations}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<PublishRevocations> revocationClearPendingRevocations(
+            @NonNull ClearPendingRevocationsRequest request)
+            throws IOException {
+        Request req = buildPost(url + "/revocation/clear-pending-revocations", request);
+        return call(req, PublishRevocations.class);
+    }
+
+    /**
      * Creates a new revocation registry
      * Creating a new registry is a three step flow:
      * First: create the registry
@@ -1232,6 +1248,18 @@ public class AriesClient extends BaseClient {
             throws IOException {
         Request req = buildPost(url + "/revocation/create-registry", revRegRequest);
         return getWrapped(raw(req), "result", RevRegCreateResponse.class);
+    }
+
+    /**
+     * Publish pending revocations to ledger
+     * @param request {@link PublishRevocations}
+     * @return {@link PublishRevocations}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<PublishRevocations> revocationPublishRevocations(@NonNull PublishRevocations request)
+            throws IOException {
+        Request req = buildPost(url + "/revocation/publish-revocations", request);
+        return call(req, PublishRevocations.class);
     }
 
     /**
