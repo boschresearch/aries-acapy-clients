@@ -5,6 +5,7 @@
  */
 package org.hyperledger.aries.api.present_proof;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
@@ -12,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.hyperledger.aries.api.serializer.JsonObjectDeserializer;
 import org.hyperledger.aries.api.serializer.JsonObjectSerializer;
 import org.hyperledger.aries.pojo.AttributeName;
 import org.hyperledger.aries.webhook.EventParser;
@@ -29,12 +31,15 @@ public class PresentationExchangeRecord {
     private String errorMsg;
     private PresentationExchangeInitiator initiator;
     @JsonSerialize(using = JsonObjectSerializer.class)
+    @JsonDeserialize(using = JsonObjectDeserializer.class)
     private JsonObject presentation;
     private String presentationExchangeId;
     @JsonSerialize(using = JsonObjectSerializer.class)
+    @JsonDeserialize(using = JsonObjectDeserializer.class)
     private JsonObject presentationProposalDict;
     private PresentProofRequest.ProofRequest presentationRequest;
     @JsonSerialize(using = JsonObjectSerializer.class)
+    @JsonDeserialize(using = JsonObjectDeserializer.class)
     private JsonObject presentationRequestDict;
     private PresentationExchangeRole role;
     private PresentationExchangeState state;
