@@ -5,6 +5,7 @@
  */
 package org.hyperledger.aries.api.did_exchange;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
@@ -12,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hyperledger.aries.api.serializer.JsonObjectDeserializer;
 import org.hyperledger.aries.api.serializer.JsonObjectSerializer;
 
 import java.util.List;
@@ -39,6 +41,7 @@ public class DIDXRequestDidDocAttach {
     public static class AttachDecoratorData {
         private String base64;
         @JsonSerialize(using = JsonObjectSerializer.class)
+        @JsonDeserialize(using = JsonObjectDeserializer.class)
         private JsonObject json;
         private AttachDecoratorDataJws jws;
         private List<String> links;

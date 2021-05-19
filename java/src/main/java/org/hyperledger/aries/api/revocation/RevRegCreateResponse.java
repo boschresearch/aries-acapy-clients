@@ -5,7 +5,9 @@
  */
 package org.hyperledger.aries.api.revocation;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.hyperledger.aries.api.serializer.JsonObjectDeserializer;
 import org.hyperledger.aries.api.serializer.JsonObjectSerializer;
 import org.hyperledger.aries.config.CredDefId;
 
@@ -40,6 +42,7 @@ public class RevRegCreateResponse {
     public static final class RevocRegEntry {
         private String ver;
         @JsonSerialize(using = JsonObjectSerializer.class)
+        @JsonDeserialize(using = JsonObjectDeserializer.class)
         private JsonObject value;
     }
 
@@ -62,6 +65,7 @@ public class RevRegCreateResponse {
             private Long maxCredNum;
             @SerializedName(value = "publicKeys", alternate = "public_keys")
             @JsonSerialize(using = JsonObjectSerializer.class)
+            @JsonDeserialize(using = JsonObjectDeserializer.class)
             private JsonObject publicKeys;
             @SerializedName(value = "tailsHash", alternate = "tails_hash")
             private String tailsHash;
