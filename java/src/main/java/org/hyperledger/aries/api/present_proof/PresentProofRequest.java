@@ -5,11 +5,13 @@
  */
 package org.hyperledger.aries.api.present_proof;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import lombok.*;
 import org.hyperledger.aries.api.present_proof.PresentProofRequest.ProofRequest.ProofAttributes.ProofNonRevoked;
+import org.hyperledger.aries.api.serializer.JsonObjectArrayDeserializer;
 import org.hyperledger.aries.api.serializer.JsonObjectArraySerializer;
 import org.hyperledger.aries.config.CredDefId;
 import org.hyperledger.aries.config.GsonConfig;
@@ -61,6 +63,7 @@ public class PresentProofRequest {
             private List<String> names;
             private ProofNonRevoked nonRevoked;
             @JsonSerialize(using = JsonObjectArraySerializer.class)
+            @JsonDeserialize(using = JsonObjectArrayDeserializer.class)
             private List<JsonObject> restrictions = new ArrayList<>();
 
             @Data @NoArgsConstructor @AllArgsConstructor @Builder

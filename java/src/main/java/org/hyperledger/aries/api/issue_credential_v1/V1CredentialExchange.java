@@ -5,8 +5,10 @@
  */
 package org.hyperledger.aries.api.issue_credential_v1;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hyperledger.aries.api.credentials.Credential;
+import org.hyperledger.aries.api.serializer.JsonObjectDeserializer;
 import org.hyperledger.aries.api.serializer.JsonObjectSerializer;
 import org.hyperledger.aries.config.CredDefId;
 
@@ -33,19 +35,25 @@ public class V1CredentialExchange {
     private String credentialExchangeId;
     private String credentialId; // only set when the state is credential_acked
     @JsonSerialize(using = JsonObjectSerializer.class)
+    @JsonDeserialize(using = JsonObjectDeserializer.class)
     private JsonObject credentialOffer;
     @JsonSerialize(using = JsonObjectSerializer.class)
+    @JsonDeserialize(using = JsonObjectDeserializer.class)
     private JsonObject credentialOfferDict;
     @JsonSerialize(using = JsonObjectSerializer.class)
+    @JsonDeserialize(using = JsonObjectDeserializer.class)
     private JsonObject credentialProposalDict;
     @JsonSerialize(using = JsonObjectSerializer.class)
+    @JsonDeserialize(using = JsonObjectDeserializer.class)
     private JsonObject credentialRequest;
     @JsonSerialize(using = JsonObjectSerializer.class)
+    @JsonDeserialize(using = JsonObjectDeserializer.class)
     private JsonObject credentialRequestMetadata;
     private String errorMsg;
     private String initiator;
     private String parentThreadId;
     @JsonSerialize(using = JsonObjectSerializer.class)
+    @JsonDeserialize(using = JsonObjectDeserializer.class)
     private JsonObject rawCredential;
     private String revocRegId;
     private String revocationId;
