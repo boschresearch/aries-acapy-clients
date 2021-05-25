@@ -10,5 +10,9 @@ import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor
 public class AdminStatusReadiness {
-    private boolean ready;
+    private Boolean ready;
+
+    public boolean isReady() {
+        return ready != null && ready;
+    }
 }
