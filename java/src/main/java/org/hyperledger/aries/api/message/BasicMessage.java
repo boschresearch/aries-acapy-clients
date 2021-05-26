@@ -11,5 +11,8 @@ import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor
 public class BasicMessage {
+    private String connectionId;
+    private String messageId;
     private String content;
+    private String state;
 }
