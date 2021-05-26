@@ -20,6 +20,7 @@ import org.hyperledger.acy_py.generated.model.DIDEndpoint;
 import org.hyperledger.acy_py.generated.model.DIDEndpointWithType;
 import org.hyperledger.acy_py.generated.model.ClearPendingRevocationsRequest;
 import org.hyperledger.acy_py.generated.model.PublishRevocations;
+import org.hyperledger.acy_py.generated.model.SendMessage;
 import org.hyperledger.aries.api.action_menu.PerformRequest;
 import org.hyperledger.aries.api.action_menu.SendMenu;
 import org.hyperledger.aries.api.connection.*;
@@ -35,7 +36,6 @@ import org.hyperledger.aries.api.exception.AriesException;
 import org.hyperledger.aries.api.issue_credential_v1.*;
 import org.hyperledger.aries.api.jsonld.*;
 import org.hyperledger.aries.api.ledger.*;
-import org.hyperledger.aries.api.message.BasicMessage;
 import org.hyperledger.aries.api.message.PingRequest;
 import org.hyperledger.aries.api.message.PingResponse;
 import org.hyperledger.aries.api.multitenancy.*;
@@ -148,10 +148,10 @@ public class AriesClient extends BaseClient {
     /**
      * Send a basic message to a connection
      * @param connectionId the connection id
-     * @param msg the message
+     * @param msg {@link SendMessage} the message
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
      */
-    public void connectionsSendMessage(@NonNull String connectionId, @NonNull BasicMessage msg) throws IOException {
+    public void connectionsSendMessage(@NonNull String connectionId, @NonNull SendMessage msg) throws IOException {
         Request req = buildPost(url + "/connections/" + connectionId + "/send-message", msg);
         call(req);
     }

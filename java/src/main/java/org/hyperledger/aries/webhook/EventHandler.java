@@ -5,6 +5,7 @@
  */
 package org.hyperledger.aries.webhook;
 
+import org.hyperledger.aries.api.message.ProblemReport;
 import org.hyperledger.aries.api.connection.ConnectionRecord;
 import org.hyperledger.aries.api.issue_credential_v1.V1CredentialExchange;
 import org.hyperledger.aries.api.message.BasicMessage;
@@ -36,6 +37,8 @@ public abstract class EventHandler {
                 parser.parseValueSave(json, PingEvent.class).ifPresent(this::handlePing);
             } else if ("issuer_cred_rev".equals(eventType)) {
                 parser.parseValueSave(json, RevocationEvent.class).ifPresent(this::handleRevocation);
+            } else if ("problem_report".equals(eventType)) {
+                parser.parseValueSave(json, ProblemReport.class).ifPresent(this::handleProblemReport);
             }
         } catch (Exception e) {
             log.error("Error in webhook event handler:", e);
@@ -64,6 +67,10 @@ public abstract class EventHandler {
 
     public void handleRevocation(RevocationEvent revocation) {
         log.debug("Revocation: {}", revocation);
+    }
+
+    public void handleProblemReport(ProblemReport report) {
+        log.debug("Problem Report: {}", report);
     }
 
     public void handleRaw(String eventType, String json) {
