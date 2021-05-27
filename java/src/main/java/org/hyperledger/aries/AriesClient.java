@@ -48,6 +48,7 @@ import org.hyperledger.aries.api.revocation.*;
 import org.hyperledger.aries.api.schema.SchemaSendRequest;
 import org.hyperledger.aries.api.schema.SchemaSendResponse;
 import org.hyperledger.aries.api.schema.SchemaSendResponse.Schema;
+import org.hyperledger.aries.api.server.AdminConfig;
 import org.hyperledger.aries.api.server.AdminStatusLiveliness;
 import org.hyperledger.aries.api.server.AdminStatusReadiness;
 
@@ -1195,6 +1196,7 @@ public class AriesClient extends BaseClient {
 
     /**
      * Retrieve doc for requested did
+     * @since 0.7.0
      * @param did the did
      * @return {@link DIDDocument}
      * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
@@ -1350,6 +1352,17 @@ public class AriesClient extends BaseClient {
     // ----------------------------------------------------
     // Server
     // ----------------------------------------------------
+
+    /**
+     * Fetch the server configuration
+     * @since 0.7.0
+     * @return {@link AdminConfig}
+     * @throws IOException if the request could not be executed due to cancellation, a connectivity problem or timeout.
+     */
+    public Optional<AdminConfig> statusConfig() throws IOException {
+        Request req = buildGet(url + "/status/config");
+        return call(req, AdminConfig.class);
+    }
 
     /**
      * Server liveliness check

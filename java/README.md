@@ -93,6 +93,8 @@ It is currently work in progress and not all endpoints of the agent are present 
 | POST   | /present-proof/records/{pres_ex_id}/verify-presentation | :white_check_mark: |
 | POST   | /present-proof/send-proposal                            | :white_check_mark: |
 | POST   | /present-proof/send-request                             | :white_check_mark: |
+|        | **resolver**                                            |                    |
+| GET    | /resolver/resolve/{did}                                 | :white_check_mark: |
 |        | **revocation**                                          |                    |
 | GET    | /revocation/active-registry/{cred_def_id}               | :white_check_mark: |
 | POST   | /revocation/clear-pending-revocations                   | :white_check_mark: |
@@ -106,6 +108,7 @@ It is currently work in progress and not all endpoints of the agent are present 
 | POST   | /schemas                                                | :white_check_mark: |
 | GET    | /schemas/{schema_id}                                    | :white_check_mark: |
 |        | **server**                                              |                    |
+| GET    | /status/config                                          | :white_check_mark: |
 | GET    | /status/live                                            | :white_check_mark: |
 | GET    | /status/ready                                           | :white_check_mark: |
 |        | **trustping**                                           |                    |
