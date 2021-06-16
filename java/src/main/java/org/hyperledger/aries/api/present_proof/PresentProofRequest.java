@@ -54,7 +54,7 @@ public class PresentProofRequest {
         private Map<String, ProofAttributes> requestedAttributes = new LinkedHashMap<>();
 
         @Builder.Default
-        private Map<String, ProofAttributes> requestedPredicates = new LinkedHashMap<>();
+        private Map<String, ProofRequestedPredicates> requestedPredicates = new LinkedHashMap<>();
 
         @Data @NoArgsConstructor @AllArgsConstructor @Builder
         public static class ProofAttributes {
@@ -99,6 +99,17 @@ public class PresentProofRequest {
                     return restriction;
                 }
             }
+        }
+
+        @Data @NoArgsConstructor @AllArgsConstructor @Builder
+        public static class ProofRequestedPredicates {
+            private String name;
+            private ProofNonRevoked nonRevoked;
+            private String pType;
+            private String pValue;
+            @JsonSerialize(using = JsonObjectArraySerializer.class)
+            @JsonDeserialize(using = JsonObjectArrayDeserializer.class)
+            private List<JsonObject> restrictions = new ArrayList<>();
         }
     }
 }
